@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Prefabs
+  m_EditorClassIdentifier: 
+  m_GroupName: Prefabs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 8444b969b55d7c94098f126ad061df56
+  m_SerializeEntries:
+  - m_GUID: 06291776bcc26b8459af6e73d3e3d24b
+    m_Address: Assets/Prefab/Style/SelectStyle.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3c8e77e628c6698459a6aaece23ac154
+    m_Address: Assets/Prefab/Style/HoverStyle.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a3c28e5abd770f40a6c5a09dd51b8fd
+    m_Address: Assets/Prefab/GameEntity/Tiles/Water.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6aff52d3391bd3a4f942ef8de634c1ce
+    m_Address: Assets/Prefab/GameEntity/Tiles/Hollow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f33b61cd5f1fc3468391a4304182b78
+    m_Address: Assets/Prefab/GameEntity/Character/WestWindKnight.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a28df060b264cc64595bcd4f7ae1e15d
+    m_Address: Assets/Prefab/GameEntity/Character/UselessMan.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e23355e6da445264c89c6ae589e0bc79
+    m_Address: Assets/Prefab/GameEntity/Tiles/Ground.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 7370781eafe023a4eb4d4c0a94ead7a7, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 312f4df72a199504eb195d794cafae8b, type: 2}
+    - {fileID: 11400000, guid: f8099d474da23574590b21fd7eb74e93, type: 2}

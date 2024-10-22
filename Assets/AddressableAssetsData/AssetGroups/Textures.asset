@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Textures
+  m_EditorClassIdentifier: 
+  m_GroupName: Textures
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 7656ec0ff5469724e8f3a66e66a1138a
+  m_SerializeEntries:
+  - m_GUID: 21b214ab869b664439c8ae53500ac848
+    m_Address: Assets/GameRes/Textures/UI_Res/panel-border-000.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a3b013f4b6b22d4483352719033e295
+    m_Address: Assets/GameRes/Textures/UI_Res/icon-shield.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e6560b4c236eb848aaeab636bc90976
+    m_Address: Assets/GameRes/Textures/Tiles/tiles_colored.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e0a72bc34936bc4e8e3dd12225d2ddf
+    m_Address: Assets/GameRes/Textures/UI_Res/panel-015.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9992dcb6d3943a5418fa0f0cf6a0baea
+    m_Address: Assets/GameRes/Textures/UI_Res/panel-border-024.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b1a64e337dbcdc140811048100470fe4
+    m_Address: Assets/GameRes/Textures/UI_Res/icon-health.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5a622798a616bf4fa8f8e42da25d9ef
+    m_Address: Assets/GameRes/Textures/UI_Res/panel-border-015.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db7805a95d79db144b8b864dfb9cb01d
+    m_Address: Assets/GameRes/Textures/UI_Res/panel-border-029.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de9b26453bcc2e44cb86e74081bc886c
+    m_Address: Assets/GameRes/Textures/UI_Res/panel-006.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8d575dd3ccbc19458b8a4b074f6ea1c
+    m_Address: Assets/GameRes/Textures/UI_Res/panel-border-025.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fcdcf208a223a9443a0bc295b968d8bc
+    m_Address: Assets/GameRes/Textures/UI_Res/panel-001.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 7370781eafe023a4eb4d4c0a94ead7a7, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 55c2efbaf30e2ad4f986445cb5e45d5d, type: 2}
+    - {fileID: 11400000, guid: 677f9cb3a29966849bcca24b9dbdc99b, type: 2}
