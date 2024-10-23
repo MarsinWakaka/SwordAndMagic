@@ -42,7 +42,11 @@ public class CameraController : MonoBehaviour
 
     private void HandleCameraMove()
     {
-        DragToMove();
+        // DragToMove();
+        // 使用按键控制相机移动
+        var moveX = Input.GetAxis("Horizontal");
+        var moveY = Input.GetAxis("Vertical");
+        _cameraTrans.position += new Vector3(moveX, moveY, 0) * (moveSensitivity * Time.deltaTime);
     }
     
     private void HandleCameraZoom()

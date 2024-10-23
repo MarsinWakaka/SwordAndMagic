@@ -1,4 +1,4 @@
-namespace EventSystem
+namespace MyEventSystem
 {
     // public static class CommonEvent
     // {

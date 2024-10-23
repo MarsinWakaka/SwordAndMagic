@@ -2,12 +2,8 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using BattleSystem.EffectSystem;
 using Entity;
-// using BattleSystem.Scope;
 using Entity.Character;
 using UnityEngine;
-using UnityEngine.Serialization;
-
-// using BattleSystem.Faction;
 
 namespace BattleSystem.SkillSystem
 {
@@ -33,7 +29,6 @@ namespace BattleSystem.SkillSystem
     }
     
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    // [CreateAssetMenu(menuName = "Skill/BaseSkill", fileName = "New skill")]
     public abstract class BaseSkill : ScriptableObject
     {
         private Character caster;
@@ -41,8 +36,6 @@ namespace BattleSystem.SkillSystem
         [Header("技能基本信息")]
         public int id;
         public string skillName;
-        // 改为GetDescription，具体描述由子类实现
-        // public string description;
         public Sprite skillIcon;
         [Header("技能效果")]
         public Effect[] effects;
@@ -78,7 +71,7 @@ namespace BattleSystem.SkillSystem
         /// <summary>
         /// 通过曼哈顿距离判断目标点是否在施法范围内
         /// </summary>
-        public abstract bool isTargetInRange(Vector2 targetPosition); // => _releaseScope.IsInScope(param);
+        public abstract bool isTargetInRange(Vector2 casterPosition, Vector2 targetPosition); // => _releaseScope.IsInScope(param);
         
         /// <summary>
         /// 显示技能范围

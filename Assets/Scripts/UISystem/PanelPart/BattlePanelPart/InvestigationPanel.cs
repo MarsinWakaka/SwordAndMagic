@@ -1,20 +1,16 @@
-using System;
 using BattleSystem.Entity.Character;
+using Entity;
 using Entity.Character;
+using MyEventSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UISystem.PanelPart.BattlePanelPart
 {
-    public class CharacterStatusUI : MonoBehaviour
+    public class InvestigationPanel : MonoBehaviour
     {
-        #region UI组件
-        [Header("UI组件")]
-        // 角色不动资产
-        // UI在初始化后不会变化
-        [Header("角色头像")]
-        [SerializeField] private Image charAvatar;
-        [SerializeField] private Text charName;
+        private CanvasGroup canvasGroup;
+        
         [Header("生命值")]
         [SerializeField] RectTransform curHpBar;
         [SerializeField] RectTransform maxHpBar;
@@ -27,25 +23,31 @@ namespace UISystem.PanelPart.BattlePanelPart
         [SerializeField] RectTransform curMdefBar;
         [SerializeField] RectTransform maxMdefFBar;
         [SerializeField] Text mdefText;
-        [Header("行动力")]
-        [SerializeField] RectTransform actionPointBar;
-        [SerializeField] RectTransform maxActionPointBar;
-        [Header("技能点")]
-        [SerializeField] RectTransform skillPointBar;
-        [SerializeField] RectTransform maxSkillPointBar;
-        [Header("移动力面板")]
-        [SerializeField] RectTransform remainWalkRangeBar;
-        [SerializeField] RectTransform maxWalkRangeBar;
-        [SerializeField] Text rwrText;
-        #endregion
         
-        // 当前展示的角色
         private Character lastCharacter;
         private CharacterProperty property;
-        
-        // 基本信息展示，由父级UI监听事件并调用
-        public void SetStatusUI(Character character)
+
+        private void Awake()
         {
+            canvasGroup = GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 0;
+            EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.SetHoverEntity, UpdateInvestigationUI);
+        }
+        
+        private void UpdateInvestigationUI(BaseEntity entity)
+        {
+            if (entity is Character character) {
+                if (character == lastCharacter) return;
+                SetInvestigationUI(character);
+                return;
+            }
+            CloseInvestigationUI();
+        }
+
+        // 考虑到后续会有BUFF列表，所以这里传入的是Character
+        private void SetInvestigationUI(Character character)
+        {
+            canvasGroup.alpha = 1;
             if (character == lastCharacter) return;
             if (lastCharacter != null)
                 RemoveListener(lastCharacter.property);
@@ -56,26 +58,15 @@ namespace UISystem.PanelPart.BattlePanelPart
             
             lastCharacter = character;
         }
-
-        // 临时测试
-#if UNITY_EDITOR
-        public void Update()
+        
+        public void CloseInvestigationUI()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                lastCharacter.TakeDamage(10, DamageType.Physical);
-            }else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                lastCharacter.TakeDamage(10, DamageType.Magic);
-            }
+            canvasGroup.alpha = 0;
+            if (lastCharacter == null) return;
+            RemoveListener(lastCharacter.property);
+            lastCharacter = null;
         }
-#endif
-
-        /// <summary>
-        /// 如果显示的内容在不切换选中角色的情况下也会变的话，则需要对该属性添加监听
-        /// (例如HP，玩家选择的角色没变，如果受到伤害，则需要更新UI)
-        /// (例如人物头像，只要确保选中角色不变，这个内容就不会更新)
-        /// </summary>
+        
         private void AddListener(CharacterProperty prop)
         {
             // TODO 正确做法应该是HP 监听与 HP_MAX 监听分开
@@ -85,10 +76,6 @@ namespace UISystem.PanelPart.BattlePanelPart
             prop.DEF_MAX.OnValueChanged += RedrawMaxDefBar;
             prop.MDEF.OnValueChanged += RedrawMdefBar;
             prop.MDEF_MAX.OnValueChanged += RedrawMaxMdefBar;
-            prop.AP.OnValueChanged += RedrawAPBar;
-            prop.SP.OnValueChanged += RedrawSpBar;
-            prop.RWR.OnValueChanged += RedrawRwrBar;
-            prop.WR_MAX.OnValueChanged += RedrawMaxWrBar;
         }
 
         private void RemoveListener(CharacterProperty prop)
@@ -99,17 +86,11 @@ namespace UISystem.PanelPart.BattlePanelPart
             prop.DEF_MAX.OnValueChanged -= RedrawMaxDefBar;
             prop.MDEF.OnValueChanged -= RedrawMdefBar;
             prop.MDEF_MAX.OnValueChanged -= RedrawMaxMdefBar;
-            prop.AP.OnValueChanged -= RedrawAPBar;
-            prop.SP.OnValueChanged -= RedrawSpBar;
-            prop.RWR.OnValueChanged -= RedrawRwrBar;
-            prop.WR_MAX.OnValueChanged -= RedrawMaxWrBar;
         }
         
         private void RedrawAll(Character character)
         {
-            // 设置不动UI
-            charAvatar.sprite = character.sprite;
-            charName.text = character.characterName;
+            // 此绘制方式只适用于固定大小的UI
             // 设置动态UI
             RedrawHpBar(property.HP.Value);
             RedrawMaxHpBar(property.HP_MAX.Value);
@@ -117,10 +98,6 @@ namespace UISystem.PanelPart.BattlePanelPart
             RedrawMaxDefBar(property.DEF_MAX.Value);
             RedrawMdefBar(property.MDEF.Value);
             RedrawMaxMdefBar(property.MDEF_MAX.Value);
-            RedrawAPBar(property.AP.Value);
-            RedrawSpBar(property.SP.Value);
-            RedrawRwrBar(property.RWR.Value);
-            RedrawMaxWrBar(property.WR_MAX.Value);
         }
         
         private void RedrawHpBar(int newHp)
@@ -163,32 +140,6 @@ namespace UISystem.PanelPart.BattlePanelPart
             float mdefPercent = newMaxMdef == 0 ? 0f : (float)property.MDEF.Value / newMaxMdef;
             curMdefBar.sizeDelta = new Vector2(mdefPercent * maxMdefFBar.sizeDelta.x, curMdefBar.sizeDelta.y);
             mdefText.text = $"{property.MDEF.Value}/{newMaxMdef}";
-        }
-        
-        private void RedrawAPBar(int newAP)
-        {
-            var apPercent = (float)newAP / CharacterProperty.AP_MAX;
-            actionPointBar.sizeDelta = new Vector2(apPercent * maxActionPointBar.sizeDelta.x, actionPointBar.sizeDelta.y);
-        }
-        
-        private void RedrawSpBar(int newSp)
-        {
-            var spPercent = (float)newSp / property.SkillPoints_MAX;
-            skillPointBar.sizeDelta = new Vector2(spPercent * maxSkillPointBar.sizeDelta.x, skillPointBar.sizeDelta.y);
-        }
-  
-        private void RedrawRwrBar(int newRwr)
-        {
-            var rwrPercent = (float)newRwr / property.WR_MAX.Value;
-            remainWalkRangeBar.sizeDelta = new Vector2(rwrPercent * maxWalkRangeBar.sizeDelta.x, remainWalkRangeBar.sizeDelta.y);
-            rwrText.text = $"{newRwr}/{property.WR_MAX.Value}";
-        }
-        
-        private void RedrawMaxWrBar(int maxWr)
-        {
-            var rwrPercent = (float)property.RWR.Value / maxWr;
-            remainWalkRangeBar.sizeDelta = new Vector2(rwrPercent * maxWalkRangeBar.sizeDelta.x, remainWalkRangeBar.sizeDelta.y);
-            rwrText.text = $"{property.RWR.Value}/{maxWr}";
         }
     }
 }

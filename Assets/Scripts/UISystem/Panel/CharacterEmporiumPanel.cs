@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using BattleSystem.Emporium;
 using BattleSystem.EmporiumSystem;
-using BattleSystem.Entity;
-using BattleSystem.Entity.Character;
 using DG.Tweening;
 using Entity.Character;
-using EventSystem;
+using MyEventSystem;
 using UnityEngine;
 using UnityEngine.UI;
 

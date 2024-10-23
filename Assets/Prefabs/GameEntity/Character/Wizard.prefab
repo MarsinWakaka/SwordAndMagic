@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -1634240874623968074}
   - component: {fileID: 4444279139307824416}
   m_Layer: 0
-  m_Name: WestWindKnight
+  m_Name: Wizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 166749759
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -953999076, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
+  m_Sprite: {fileID: 1628949783, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -144,16 +144,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa22dc6384043809b34e077afd3c3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityClassID: 20002
-  sprite: {fileID: -953999076, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
+  entityClassID: 20004
+  sprite: {fileID: 1628949783, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
   entityType: 1
-  characterName: "\u91CD\u7532\u9A91\u58EB"
-  sellPrice: 20
-  settingProperty: {fileID: 11400000, guid: 4efce5fd6b108814a983904de0d5ca62, type: 2}
+  characterName: "\u7D20\u80FD\u6CD5\u5E08"
+  sellPrice: 25
+  settingProperty: {fileID: 11400000, guid: c4bcf462c4901fc4c9d80e7c20a2fbd3, type: 2}
   skills:
-  - skill: {fileID: 11400000, guid: 62e358134e756b7418484b1ca84451c2, type: 2}
+  - skill: {fileID: 11400000, guid: 3f9e5f72097c1054a9436c89116ad2c2, type: 2}
     remainCoolDown: 0
-  - skill: {fileID: 11400000, guid: d181a56290c1dfe45beebfa17e219ac3, type: 2}
+  - skill: {fileID: 11400000, guid: b45e4ab5eef362345a4a3795a58c6c72, type: 2}
     remainCoolDown: 0
   property: {fileID: 11400000, guid: 4efce5fd6b108814a983904de0d5ca62, type: 2}
 --- !u!1 &8543823874586009597

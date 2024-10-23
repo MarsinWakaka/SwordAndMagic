@@ -1,5 +1,5 @@
 using ConsoleSystem;
-using EventSystem;
+using MyEventSystem;
 using UnityEngine;
 using Utility.FSM;
 
@@ -16,7 +16,7 @@ namespace Entity.Character.Player.State
         public void OnEnter(object param = null)
         {
             // TODO 思考是否需要清空角色之前选择的目标 或者 将角色的目标选择放到角色技能选择状态里
-            MyConsole.Print($"[ActiveState] {_controller.CurCharacter.characterName}  OnEnter", MessageColor.Green);
+            MyConsole.Print($"[闲置状态] {_controller.CurCharacter.characterName} ", MessageColor.Green);
             
             // TODO 监听
             EventCenter<GameEvent>.Instance.AddListener<Vector2>(GameEvent.OnTileLeftClicked, GroundClickEventHandle);
@@ -24,7 +24,7 @@ namespace Entity.Character.Player.State
             // TODO 玩家在选择未激活对象时，也要退出这个角色的等待命令状态
         }
         
-        public void OnUpdate()
+        public void HandleMouseRightClicked()
         {
             
         }

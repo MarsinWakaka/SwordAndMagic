@@ -15,7 +15,7 @@ namespace Entity.Character.Player.State
         {
         }
 
-        public void OnUpdate() { }
+        public void HandleMouseRightClicked() { }
 
         public void OnExit() { }
     }

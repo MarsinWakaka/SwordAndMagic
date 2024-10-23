@@ -36,7 +36,7 @@ namespace UISystem
 
         public virtual void OnExit()
         {
-            _canvasGroup.DOFade(0, 0.5f);
+            _canvasGroup.alpha = 0;
             _canvasGroup.blocksRaycasts = false;
         }
     }

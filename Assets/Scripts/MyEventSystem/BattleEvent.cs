@@ -1,4 +1,4 @@
-namespace EventSystem
+namespace MyEventSystem
 {
     /// <summary>
     /// [个人总结]使用枚举的好处(相比于字符串的优势)：
@@ -7,6 +7,9 @@ namespace EventSystem
     /// </summary>
     public enum GameEvent
     {
+        // 鼠标
+        // OnLeftMouseClick,   // 鼠标左键点击
+        OnRightMouseClick,  // 鼠标右键点击
         // 来自游戏实体的事件
         OnEntityLeftClicked,  // 实体被左键点击
         OnEntityRightClicked, // 实体被右键点击
@@ -26,6 +29,8 @@ namespace EventSystem
         UpdateUIOfPlayerParty,      // 管理器设置玩家队伍 -> 通知UI更新
         UpdateUIOfSelectedCharacter,// 管理器设置玩家角色回合开始 -> 通知UI更新
         OpenBattleEndPanel,         // 战斗结束 -> 打开战斗结束面板
+        
+        SetHoverEntity,      // 更新调查面板
         
         // 实体创建事件
         OnTileCreated,

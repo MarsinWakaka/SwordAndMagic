@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Entity.Character;
-using EventSystem;
+using MyEventSystem;
 using UnityEngine;
 
 namespace UISystem.PanelPart.BattlePanelPart

@@ -6,15 +6,17 @@ using UnityEngine;
 
 namespace BattleSystem.SkillSystem
 {
-    [CreateAssetMenu(menuName = "技能/素能法术/火球术", fileName = "火球术")]
-    public class FireBallSkill : BaseSkill
+    [CreateAssetMenu(menuName = "技能/指向性伤害技能", fileName = "指向性伤害技能")]
+    public class DirectedDamageSkill : BaseSkill
     {
-        [Header("火球术特有属性")]
+        [Header("伤害技能特有属性")]
+        public DamageType damageType;
         public int damage;
 
-        public override bool isTargetInRange(Vector2 targetPosition)
+        public override bool isTargetInRange(Vector2 casterPosition, Vector2 targetPosition)
         {
-            throw new System.NotImplementedException();
+            // 使用曼哈顿距离
+            return range >= Mathf.Abs(casterPosition.x - targetPosition.x) + Mathf.Abs(casterPosition.y - targetPosition.y);
         }
 
         public override Vector2[] GetImpactScope(Vector2 targetPosition)
@@ -36,7 +38,7 @@ namespace BattleSystem.SkillSystem
                 {
                     MyConsole.Print($"{caster.characterName} 对 {character.characterName} 使用了 {skillName}", MessageColor.Red);
                     MyConsole.Print($"\t{character.characterName}被命中，受到了 {damage} 点火焰伤害", MessageColor.Red);
-                    character.TakeDamage(damage, DamageType.Magic);
+                    character.TakeDamage(damage, damageType);
                 }
                 else if (target is Tile tile)
                 {

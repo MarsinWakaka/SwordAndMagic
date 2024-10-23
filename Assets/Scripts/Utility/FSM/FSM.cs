@@ -29,7 +29,7 @@ namespace Utility.FSM
         
         public void UpdateFSM()
         {
-            _currentState.OnUpdate();
+            _currentState.HandleMouseRightClicked();
         }
 
         // ReSharper disable Unity.PerformanceAnalysis

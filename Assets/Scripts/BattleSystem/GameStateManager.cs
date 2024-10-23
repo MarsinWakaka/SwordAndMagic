@@ -1,8 +1,8 @@
 using BattleSystem.DeploySystem;
 using BattleSystem.ScenarioSystem;
 using ConsoleSystem;
-using EventSystem;
 using GameResourceSystem;
+using MyEventSystem;
 using UnityEngine;
 
 namespace BattleSystem
@@ -94,7 +94,7 @@ namespace BattleSystem
             MyConsole.Print("【战斗结束】", MessageFontColor);
             EventCenter<GameStateEvent>.Instance.RemoveListener(GameStateEvent.GameStateBattleStart, OnBattleStart);
             
-            CharacterManager.Instance.OnBattleEnd(); // 战斗结束 --执行完毕-> ???
+            CharacterManager.Instance.BattleEndAction(); // 战斗结束 --执行完毕-> ???
         }
         #endregion
     }

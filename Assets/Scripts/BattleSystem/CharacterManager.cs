@@ -4,7 +4,7 @@ using BattleSystem.FactionSystem;
 using ConsoleSystem;
 using Entity.Character;
 using Entity.Character.Player;
-using EventSystem;
+using MyEventSystem;
 using UISystem;
 using Utility.Singleton;
 
@@ -17,6 +17,7 @@ namespace BattleSystem
     {
         private readonly List<Character> units = new();
         private readonly Dictionary<FactionType, List<Character>> factionUnits = new();
+        private int enemyDeadCount, playerDeadCount;    // 引入此变量减少CPU计算量，缺点需要维护两个变量
 
         private readonly PlayerController playerController = new();
         
@@ -38,7 +39,6 @@ namespace BattleSystem
         // 下一批角色行动
         private void NextBatchUnit()
         {
-            if (GameOverCheckPoint()) return;
             readyToEndCount = 0;
             activeCharacters.Clear();
             
@@ -130,19 +130,27 @@ namespace BattleSystem
         /// <summary>
         /// 返回游戏是否结束，如果结束自动调用OnBattleEnd
         /// </summary>
-        private bool GameOverCheckPoint()
+        private bool TryHandleGameOver()
         {
-            bool isGameOver = factionUnits[FactionType.Player].Count == 0 || 
-                              factionUnits[FactionType.Enemy].Count == 0;
-            if (isGameOver) OnBattleEnd();
-            return isGameOver;
+            bool isPlayerWin = enemyDeadCount == factionUnits[FactionType.Enemy].Count;
+            bool isEnemyWin = playerDeadCount == factionUnits[FactionType.Player].Count;
+            if (isPlayerWin || isEnemyWin)
+            {
+                if (isPlayerWin)
+                    MyConsole.Print("[游戏结束] 玩家胜利", MessageColor.Black);
+                else
+                    MyConsole.Print("[游戏结束] 敌人胜利", MessageColor.Black);
+                EventCenter<GameStateEvent>.Instance.Invoke(GameStateEvent.GameStateBattleEnd);
+                return true;
+            }
+
+            return false;
         }
 
         private int ToNextIndex(int index) => (index + 1) % units.Count;
 
         #endregion
         
-
         #region 角色选中处理
 
         private Character lastSelectedCharacter;
@@ -171,8 +179,8 @@ namespace BattleSystem
 
         #region 角色生成 与 死亡
         
-        // TODO 对于角色顺序索引的影响是什么？可能会导致索引越界怎么解决？
-        // TODO 解决方案，死亡后将其标记为Dead，不再参与行动，但是不从列表中移除，这样不会影响索引，同时UI等遇到Dead时不计入显示个数
+        // TODO 对于角色顺序索引的影响是什么？可能会导致索引越界怎么解决？ -> 通过为角色添加死亡标记解决
+        // 解决方案，死亡后将其标记为Dead，不再参与行动，但是不从列表中移除，这样不会影响索引，同时遍历等操作时等遇到Dead时跳过即可
         
         /// <summary>
         /// 角色单元生成时自动调用，不需要其它模块调用
@@ -191,9 +199,15 @@ namespace BattleSystem
         private void UnRegisterUnit(Character character)
         {
             character.OnDeathEvent -= UnRegisterUnit;
-            // units.Remove(character);
-            // factionUnits[character.Faction.Value].Remove(character);
             // TODO 检查游戏是否结束
+            if (character.Faction.Value == FactionType.Player)
+                playerDeadCount++;
+            else if (character.Faction.Value == FactionType.Enemy)
+                enemyDeadCount++;
+            if (TryHandleGameOver()) {
+                return;
+            }
+            
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfActionUnitOrder, GetCharacterOrder());
             if (character.Faction.Value == FactionType.Player)
                 EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty,  factionUnits[FactionType.Player].ToArray());
@@ -203,24 +217,22 @@ namespace BattleSystem
         #endregion
         
         
-        // TODO 这部分代码应该移到BattleManager中
+        // TODO 这部分代码应该移到BattleManager中(暂未添加BattleManager)
         #region TODO
         
         public void OnBattleStart()
         {
             units.Sort();
             UIManager.Instance.PushPanel(PanelType.BattlePanel);
-            // battlePanel = UIManager.Instance.GetCurrentPanel() as BattlePanel;
-            // TODO 通知UI显示战斗开始
             NextBatchUnit();
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty, factionUnits[FactionType.Player].ToArray());
         }
 
-        public void OnBattleEnd()
+        public void BattleEndAction()
         {
             // TODO 通知UI显示战斗结束
             MyConsole.Print("[战斗结束]", MessageColor.Black);
-            EventCenter<GameEvent>.Instance.Invoke(GameEvent.OpenBattleEndPanel);
+            UIManager.Instance.PushPanel(PanelType.BattleEndPanel);
         }
 
         private const int OrderSlotCount = 10;

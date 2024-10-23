@@ -16,8 +16,8 @@ namespace Entity.Character.Player.State
         // TODO 目的地参数从这拿
         public void OnEnter(object param = null)
         {
-            // TODO Do Something when character is moving
-            // 曼哈顿距离
+            // TODO 需要从地图管理器获取移动范围数据，使用BFS计算可到达距离和移动消耗（可以直接去旧版战斗系统移植）
+            // TODO 替换直接计算曼哈顿距离
             var character = _controller.CurCharacter;
             var trans = character.transform;
             int distance = Math.Abs((int)trans.position.x - (int)_controller.Destination.x) +
@@ -30,7 +30,7 @@ namespace Entity.Character.Player.State
             _controller.Transition(CharacterStateType.WaitForCommand);
         }
 
-        public void OnUpdate()
+        public void HandleMouseRightClicked()
         {
             
         }

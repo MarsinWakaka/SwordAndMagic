@@ -29,7 +29,7 @@ namespace InputSystem
             targetPlayerInputProvider = GetComponent<PlayerInputProvider>();
             // 通过GameEntityChooser获取选择的实体
             // targetPlayerInputProvider.onEntityClicked += SetEntitySelected;
-            targetPlayerInputProvider.onEntityCancelSelected += CancelEntitySelected;
+            // targetPlayerInputProvider.OnRightMouseClick += CancelEntitySelected;
         }
         #region Hover Entity
         

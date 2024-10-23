@@ -4,7 +4,7 @@ using BattleSystem.Entity.Character;
 using BattleSystem.FactionSystem;
 using BattleSystem.SkillSystem;
 using ConsoleSystem;
-using EventSystem;
+using MyEventSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utility;
@@ -104,7 +104,9 @@ namespace Entity.Character
             
             // 敌人行动时，根据AI选择技能或移动
             if (Faction.Value == FactionType.Enemy){
-                 SwitchEndTurnReadyState(); // 模拟点击了一次结束回合按钮
+                // TODO 向AI处理队列添加自身，让其决定技能释放或移动
+                MyConsole.Print($"[敌人行动] {characterName}", MessageColor.Yellow);
+                SwitchEndTurnReadyState(); // 模拟点击了一次结束回合按钮
             }
         }
         

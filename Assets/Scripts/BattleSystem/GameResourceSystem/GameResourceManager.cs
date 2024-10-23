@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using BattleSystem;
-using EventSystem;
+using MyEventSystem;
 using UnityEngine;
 using Utility;
 using Utility.Singleton;

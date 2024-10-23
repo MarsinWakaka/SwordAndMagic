@@ -12,7 +12,7 @@ namespace BattleSystem.SkillSystem
 
         private void LoadSkills()
         {
-            SkillRegistry.RegisterSkill(new FireBallSkill());
+            SkillRegistry.RegisterSkill(new DirectedDamageSkill());
         }
     }
 }

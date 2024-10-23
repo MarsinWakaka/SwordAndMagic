@@ -1,6 +1,6 @@
 using ConsoleSystem;
 using Entity.Character;
-using EventSystem;
+using MyEventSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;

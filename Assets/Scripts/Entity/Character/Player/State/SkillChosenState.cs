@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using BattleSystem.SkillSystem;
 using ConsoleSystem;
-using EventSystem;
+using MyEventSystem;
+using UnityEngine;
 using Utility.FSM;
 
 namespace Entity.Character.Player.State
@@ -8,7 +11,9 @@ namespace Entity.Character.Player.State
     public class SkillChosenState : IState
     {
         private readonly Stack<BaseEntity> _targets = new();
-        private SkillSlot selectedSkillSlot;    // 缓存
+        private SkillSlot skillSlotChosen;  // 缓存
+        private BaseSkill skillChosen;      // 缓存
+        private Character curCharacter;     // 缓存
         
         private readonly PlayerController _controller;
         public SkillChosenState(PlayerController controller)
@@ -18,44 +23,68 @@ namespace Entity.Character.Player.State
 
         public void OnEnter(object param = null)
         {
-            selectedSkillSlot = _controller.SelectedSkillSlot;
-            if (selectedSkillSlot == null)
+            curCharacter = _controller.CurCharacter;
+            skillSlotChosen = _controller.SelectedSkillSlot;
+            skillChosen = skillSlotChosen.skill;
+            if (skillSlotChosen == null)
             {
                 MyConsole.Print("未选择技能", MessageColor.Red);
                 _controller.Transition(CharacterStateType.WaitForCommand);
                 return;
             }
-            if (selectedSkillSlot.remainCoolDown > 0 && _controller.CurCharacter.property.AP.Value < selectedSkillSlot.skill.AP_Cost) {
+            if (skillSlotChosen.remainCoolDown > 0 && curCharacter.property.AP.Value < skillChosen.AP_Cost) {
                 MyConsole.Print("未满足技能释放条件", MessageColor.Red);
                 _controller.Transition(CharacterStateType.WaitForCommand);
                 return;
             }
-            var skill = selectedSkillSlot.skill;
-            MyConsole.Print($"[SkillChosenState] {_controller.CurCharacter.characterName}选择了{skill.skillName}", MessageColor.Green);
+            MyConsole.Print($"[SkillChosenState] {curCharacter.characterName}选择了{skillChosen.skillName}", MessageColor.Green);
             EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.OnEntityLeftClicked, OnEntityClicked);
-            // TODO 监听鼠标右键点击事件
+            // TODO 显示攻击范围。
+            // TODO 监听鼠标右键点击事件来取消一个目标的选择
+            EventCenter<GameEvent>.Instance.AddListener(GameEvent.OnRightMouseClick, HandleMouseRightClicked);
         }
 
-        public void OnUpdate() { }
+        public void HandleMouseRightClicked()
+        {
+            // TODO 临时措施，后面需要与按键绑定系统结合
+            if (_targets.Count > 0)
+            {
+                _targets.Pop();
+                MyConsole.Print($"取消选择目标，进度{_targets.Count} / {skillChosen.maxTargetCount}", MessageColor.Yellow);
+            }
+            if (_targets.Count == 0)
+            {
+                _controller.Transition(CharacterStateType.WaitForCommand);
+            }
+        }
 
         public void OnExit()
         {
             _targets.Clear();
-            // TODO 执行技能释放逻辑
+            EventCenter<GameEvent>.Instance.RemoveListener(GameEvent.OnRightMouseClick, HandleMouseRightClicked);
             EventCenter<GameEvent>.Instance.RemoveListener<BaseEntity>(GameEvent.OnEntityLeftClicked, OnEntityClicked);
         }
         
         private void OnEntityClicked(BaseEntity clickedEntity)
         {
             var targetType = clickedEntity.entityType;
-            var canImpactEntityType = selectedSkillSlot.skill.canImpactEntityType;
+            var canImpactEntityType = skillChosen.canImpactEntityType;
             // var canImpactFactionType = selectedSkillSlot.skill.canImpactFactionType;
+            // TODO 先判断是否在攻击范围内，再接下面判断。
+            if (!IsTargetInRange(clickedEntity))
+            {
+                MyConsole.Print($"目标超出攻击范围 {skillChosen.range}（攻击范围显示开发已加入日程 ： {DateTime.Now}）", MessageColor.Red);
+                return;
+            }
+            // 判断目标类型是否符合技能要求
             if ((canImpactEntityType & targetType) != 0)
             {
                 switch (targetType)
                 {
                     case EntityType.Character:
                         _targets.Push(clickedEntity);
+                        MyConsole.Print(
+                            $"选择了{clickedEntity.entityType} {clickedEntity.name}，进度{_targets.Count} / {skillChosen.maxTargetCount}", MessageColor.Green);
                         break;
                     case EntityType.Item:
                         _targets.Push(clickedEntity);
@@ -76,6 +105,13 @@ namespace Entity.Character.Player.State
             }
         }
         
-        private bool IsSelectFinish() => _targets.Count == selectedSkillSlot.skill.maxTargetCount;
+        private bool IsSelectFinish() => _targets.Count == skillChosen.maxTargetCount;
+
+        private bool IsTargetInRange(BaseEntity target)
+        {
+            return skillSlotChosen.skill.isTargetInRange(
+                curCharacter.transform.position, 
+                target.transform.position);
+        }
     }
 }

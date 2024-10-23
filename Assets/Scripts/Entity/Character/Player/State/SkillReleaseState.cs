@@ -33,7 +33,7 @@ namespace Entity.Character.Player.State
             _controller.Transition(CharacterStateType.WaitForCommand);
         }
 
-        public void OnUpdate()
+        public void HandleMouseRightClicked()
         {
             
         }

@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0857ed5d4e0544008f470a5bba7f0745, type: 3}
-  m_Name: "\u9B54\u6CD5\u98DE\u5F39"
+  m_Name: "\u4E3B\u624B\u653B\u51FB"
   m_EditorClassIdentifier: 
-  id: 1
-  skillName: "\u9B54\u6CD5\u98DE\u5F39"
-  skillIcon: {fileID: -557995631, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  range: 6
-  rangeType: 2
+  id: 2
+  skillName: "\u4E3B\u624B\u653B\u51FB"
+  skillIcon: {fileID: 21300000, guid: 409b9d8a5c232fd4b8b2e278a64b6802, type: 3}
+  range: 1
+  rangeType: 1
   canImpactEntityType: -1
   canImpactFactionType: 6
-  maxTargetCount: 3
+  maxTargetCount: 1
   canSameTarget: 0
   isChanneling: 0
-  coolDown: 2
+  coolDown: 1
   AP_Cost: 2
   SP_Cost: 0
   damageType: 1
-  damage: 3
+  damage: 7

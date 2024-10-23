@@ -1,7 +1,9 @@
 using System;
 using Entity;
-using EventSystem;
+using MyEventSystem;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace InputSystem
 {
@@ -10,64 +12,61 @@ namespace InputSystem
         [Header("射线相机")]
         [SerializeField] private Camera eventCamera;
         
-        public Action<BaseEntity> onEntityClicked;
-        public Action<BaseEntity> onEntityCancelSelected;
-        public Action onRightMouseClick;
-
-        // 可考虑使用BindableProperty
-        public bool isAllowInput = true;
-        
-        // private bool _isLeftControlPressed;
+        // public Action<BaseEntity> onEntityClicked;
+        // public Action<BaseEntity> onEntityCancelSelected;
+        // public Action OnRightMouseClick;
         private bool isLeftMousePressed;
         private bool isRightMousePressed;
         
         private void ResetInput()
         {
-            // _isLeftControlPressed = false;
             isLeftMousePressed = false;
             isRightMousePressed = false;
         }
 
         private void Update()
         {
-            if (!isAllowInput) return;
-            ResetInput();
-            isLeftMousePressed = Input.GetMouseButtonDown(0);
-            isRightMousePressed = Input.GetMouseButtonDown(1);
-            
-            if (isLeftMousePressed)
-            {
-                if (TryGetEntityAtMousePosition(out var entity))
-                {
-                    // onEntityClicked?.Invoke(entity);
-                    EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnEntityLeftClicked, entity);
-                }
-            }
-            else if (isRightMousePressed)
-            {
-                onRightMouseClick?.Invoke();
-                // if (TryGetEntityAtMousePosition(out var entity)) onEntityCancelSelected?.Invoke(entity);
-            }
-            
-            // HandleHover();
-        }
-
-        private void HandleHover()
-        {
+            if (EventSystem.current.IsPointerOverGameObject()) 
+                return;
             if (TryGetEntityAtMousePosition(out var entity))
             {
-                CursorTargetManager.Instance.SetEntityHover(entity, entity.transform.position);
-            }
-            else
-            {
-                CursorTargetManager.Instance.CancelHover();
+                ResetInput();
+                isLeftMousePressed = Input.GetMouseButtonDown(0);
+                isRightMousePressed = Input.GetMouseButtonDown(1);
+            
+                EventCenter<GameEvent>.Instance.Invoke(GameEvent.SetHoverEntity, entity);
+                if (isLeftMousePressed)
+                {
+                    EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnEntityLeftClicked, entity);
+                }
+                else if (isRightMousePressed)
+                {
+                    // OnRightMouseClick?.Invoke();
+                    EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnRightMouseClick);
+                }
             }
         }
+
+        // private void HandleHover()
+        // {
+        //     if (TryGetEntityAtMousePosition(out var entity))
+        //     {
+        //         EventCenter<GameEvent>.Instance.Invoke(GameEvent.SetHoverEntity, entity);
+        //     }
+        //     else
+        //     {
+        //         CursorTargetManager.Instance.CancelHover();
+        //     }
+        // }
         
 #if UNITY_EDITOR
         [Header("调试设置")]
         [SerializeField] bool isDebug;
 #endif
+        // public PlayerInputProvider(Action onRightMouseClick)
+        // {
+        //     this.OnRightMouseClick = onRightMouseClick;
+        // }
         private bool TryGetEntityAtMousePosition(out BaseEntity baseEntity)
         {
             baseEntity = null;

@@ -13,6 +13,7 @@ namespace UISystem
         MainMenusPanel,
         CharacterEmporiumPanel,
         BattlePanel,
+        BattleEndPanel,
     }
     
     // public enum PanelOperation

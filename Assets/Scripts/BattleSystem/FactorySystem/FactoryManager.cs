@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using BattleSystem.FactionSystem;
 using Entity.Character;
-using Entity.Character.Player.State;
 using UnityEngine;
-using Utility.FSM;
 using Utility.Singleton;
 
 namespace FactorySystem
 {
+    // TODO 通过EPPlus插件读取EXCEL数据来初始化实体列表
     public class FactoryManager : SingletonMono<FactoryManager>
     {
         [Header("实体设置")]
