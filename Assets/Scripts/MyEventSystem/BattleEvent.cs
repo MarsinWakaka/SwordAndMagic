@@ -7,6 +7,8 @@ namespace MyEventSystem
     /// </summary>
     public enum GameEvent
     {
+        DeployCharacterResource,     // 部署资源
+        DeployCharacterSelected,     // 部署角色
         // 鼠标
         // OnLeftMouseClick,   // 鼠标左键点击
         OnRightMouseClick,  // 鼠标右键点击
@@ -23,12 +25,18 @@ namespace MyEventSystem
         // UI通知角色管理器的事件
         OnCharacterSlotUIClicked, // 角色被选中时触发：UI点击来设置角色选中 -> 告知角色管理器
         OnSkillSlotUIClicked,        // 技能被选中时触发：UI点击来设置技能选中 -> 告知技能管理器
+        OnSkillReleaseButtonClicked, // 技能释放按钮被点击 -> 告知技能管理器
 
         // 管理器通知UI的事件
         UpdateUIOfActionUnitOrder,  // 更新行动单位顺序
         UpdateUIOfPlayerParty,      // 管理器设置玩家队伍 -> 通知UI更新
         UpdateUIOfSelectedCharacter,// 管理器设置玩家角色回合开始 -> 通知UI更新
         OpenBattleEndPanel,         // 战斗结束 -> 打开战斗结束面板
+        
+        // 角色控制器通知技能UI的事件
+        OnSkillTargetChoseCountChanged, // 技能目标选择数量变化 -> 告知UI更新
+        OnSKillChosenStateEnter,        // 技能选择状态进入 -> 告知UI更新
+        OnSKillChosenStateExit,         // 技能选择状态退出 -> 告知UI更新
         
         SetHoverEntity,      // 更新调查面板
         

@@ -23,7 +23,7 @@ MonoBehaviour:
   canSameTarget: 0
   isChanneling: 0
   coolDown: 3
-  AP_Cost: 4
-  SP_Cost: 1
+  AP_Cost: 3
+  SP_Cost: 3
   damageType: 1
   damage: 30

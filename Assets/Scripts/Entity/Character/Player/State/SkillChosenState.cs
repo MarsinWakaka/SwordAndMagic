@@ -26,42 +26,35 @@ namespace Entity.Character.Player.State
             curCharacter = _controller.CurCharacter;
             skillSlotChosen = _controller.SelectedSkillSlot;
             skillChosen = skillSlotChosen.skill;
-            if (skillSlotChosen == null)
-            {
-                MyConsole.Print("未选择技能", MessageColor.Red);
-                _controller.Transition(CharacterStateType.WaitForCommand);
-                return;
-            }
-            if (skillSlotChosen.remainCoolDown > 0 && curCharacter.property.AP.Value < skillChosen.AP_Cost) {
-                MyConsole.Print("未满足技能释放条件", MessageColor.Red);
-                _controller.Transition(CharacterStateType.WaitForCommand);
-                return;
-            }
-            MyConsole.Print($"[SkillChosenState] {curCharacter.characterName}选择了{skillChosen.skillName}", MessageColor.Green);
-            EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.OnEntityLeftClicked, OnEntityClicked);
+            MyConsole.Print($"[技能选中状态] {curCharacter.characterName}选择了{skillChosen.skillName}", MessageColor.White);
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnSKillChosenStateEnter, skillChosen);
             // TODO 显示攻击范围。
-            // TODO 监听鼠标右键点击事件来取消一个目标的选择
             EventCenter<GameEvent>.Instance.AddListener(GameEvent.OnRightMouseClick, HandleMouseRightClicked);
+            EventCenter<GameEvent>.Instance.AddListener(GameEvent.OnSkillReleaseButtonClicked, TransitionToSkillRelease);
+            EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.OnEntityLeftClicked, OnEntityClicked);
         }
 
         public void HandleMouseRightClicked()
         {
+            Debug.Log($"{DateTime.Now} 鼠标右键命令接受成功");
             // TODO 临时措施，后面需要与按键绑定系统结合
-            if (_targets.Count > 0)
-            {
-                _targets.Pop();
-                MyConsole.Print($"取消选择目标，进度{_targets.Count} / {skillChosen.maxTargetCount}", MessageColor.Yellow);
-            }
-            if (_targets.Count == 0)
-            {
+            // 假如从选择目标 > 0时，按下退出鼠标右键，则只取消选择目标，不退出技能选择状态
+            if (_targets.Count == 0) {
                 _controller.Transition(CharacterStateType.WaitForCommand);
+                return;
             }
+            
+            _targets.Pop();
+            EventCenter<GameEvent>.Instance.Invoke<int>(GameEvent.OnSkillTargetChoseCountChanged, _targets.Count);
+            MyConsole.Print($"取消选择目标，进度{_targets.Count} / {skillChosen.maxTargetCount}", MessageColor.Yellow);
         }
 
         public void OnExit()
         {
             _targets.Clear();
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnSKillChosenStateExit);
             EventCenter<GameEvent>.Instance.RemoveListener(GameEvent.OnRightMouseClick, HandleMouseRightClicked);
+            EventCenter<GameEvent>.Instance.RemoveListener(GameEvent.OnSkillReleaseButtonClicked, TransitionToSkillRelease);
             EventCenter<GameEvent>.Instance.RemoveListener<BaseEntity>(GameEvent.OnEntityLeftClicked, OnEntityClicked);
         }
         
@@ -69,8 +62,8 @@ namespace Entity.Character.Player.State
         {
             var targetType = clickedEntity.entityType;
             var canImpactEntityType = skillChosen.canImpactEntityType;
+            // TODO 判断该阵营 是否符合 技能可影响的对象范围
             // var canImpactFactionType = selectedSkillSlot.skill.canImpactFactionType;
-            // TODO 先判断是否在攻击范围内，再接下面判断。
             if (!IsTargetInRange(clickedEntity))
             {
                 MyConsole.Print($"目标超出攻击范围 {skillChosen.range}（攻击范围显示开发已加入日程 ： {DateTime.Now}）", MessageColor.Red);
@@ -97,12 +90,8 @@ namespace Entity.Character.Player.State
                         break;
                 }
             }
-            
-            if (IsSelectFinish())
-            {
-                // 栈 转 数组
-                _controller.Transition(CharacterStateType.OnSkillRelease, _targets.ToArray());
-            }
+            EventCenter<GameEvent>.Instance.Invoke<int>(GameEvent.OnSkillTargetChoseCountChanged, _targets.Count);
+            if (IsSelectFinish()) TransitionToSkillRelease();
         }
         
         private bool IsSelectFinish() => _targets.Count == skillChosen.maxTargetCount;
@@ -112,6 +101,11 @@ namespace Entity.Character.Player.State
             return skillSlotChosen.skill.isTargetInRange(
                 curCharacter.transform.position, 
                 target.transform.position);
+        }
+        
+        private void TransitionToSkillRelease()
+        {
+            _controller.Transition(CharacterStateType.OnSkillRelease, _targets.ToArray());
         }
     }
 }

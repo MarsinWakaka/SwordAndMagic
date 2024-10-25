@@ -1,4 +1,3 @@
-using ConsoleSystem;
 using Entity.Character;
 using MyEventSystem;
 using UnityEngine;

@@ -27,9 +27,14 @@ namespace BattleSystem.SkillSystem
         Enemy = 4,
         All = 7,
     }
+
+    public interface IInvestigation
+    {
+        string GetDescription();
+    }
     
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public abstract class BaseSkill : ScriptableObject
+    public abstract class BaseSkill : ScriptableObject, IInvestigation
     {
         private Character caster;
         
@@ -37,6 +42,8 @@ namespace BattleSystem.SkillSystem
         public int id;
         public string skillName;
         public Sprite skillIcon;
+        [TextArea(2, 5)]
+        public string skillDescription = "【描述】暂无描述";
         [Header("技能效果")]
         public Effect[] effects;
         
@@ -55,18 +62,6 @@ namespace BattleSystem.SkillSystem
         [Header("技能消耗")]
         public int AP_Cost;
         public int SP_Cost;
-        //
-        // private IScope _releaseScope;
-        // private IImpactScope _impactScope;
-        //
-        // protected void Init(IScope releaseScope, IImpactScope impactScope)
-        // {
-        //     if (releaseScope == null) Debug.LogError("ReleaseScope is null");
-        //     if (impactScope == null) Debug.LogError("ImpactScope is null");
-        //     
-        //     _releaseScope = releaseScope;
-        //     _impactScope = impactScope;
-        // }
 
         /// <summary>
         /// 通过曼哈顿距离判断目标点是否在施法范围内
@@ -92,5 +87,11 @@ namespace BattleSystem.SkillSystem
         /// step4：执行技能效果
         /// </summary>
         public abstract void Execute(Character caster, BaseEntity[] targets);
+
+        public string GetDescription()
+        {
+            // TODO 将思考如何字符串的技能关键字替换为具体的值
+            return skillDescription;
+        }
     }
 }

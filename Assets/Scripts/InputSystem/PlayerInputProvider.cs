@@ -3,7 +3,6 @@ using Entity;
 using MyEventSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 namespace InputSystem
 {
@@ -32,18 +31,19 @@ namespace InputSystem
             {
                 ResetInput();
                 isLeftMousePressed = Input.GetMouseButtonDown(0);
-                isRightMousePressed = Input.GetMouseButtonDown(1);
             
                 EventCenter<GameEvent>.Instance.Invoke(GameEvent.SetHoverEntity, entity);
                 if (isLeftMousePressed)
                 {
                     EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnEntityLeftClicked, entity);
                 }
-                else if (isRightMousePressed)
-                {
-                    // OnRightMouseClick?.Invoke();
-                    EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnRightMouseClick);
-                }
+            }
+            isRightMousePressed = Input.GetMouseButtonDown(1);
+            if (isRightMousePressed)
+            {
+                // OnRightMouseClick?.Invoke();
+                print($"{DateTime.Now} 鼠标右键事件触发");
+                EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnRightMouseClick);
             }
         }
 

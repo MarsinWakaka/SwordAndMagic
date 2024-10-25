@@ -2,7 +2,6 @@ using System;
 using Entity.Character;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UISystem.PanelPart.BattlePanelPart
@@ -39,6 +38,8 @@ namespace UISystem.PanelPart.BattlePanelPart
         }
         public void OnBeforeRecycle()
         {
+            // TODO 思考是否会出现lastSkillSlot为空的情况
+            // if (lastSkillSlot == null) return;
             lastSkillSlot.OnSkillUsed -= HandleSkillReleased;
             lastSkillSlot = null;
         }

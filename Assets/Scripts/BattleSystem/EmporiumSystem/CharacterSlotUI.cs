@@ -1,18 +1,12 @@
 using System;
+using Entity.Character;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace BattleSystem.EmporiumSystem
 {
-    public struct SlotData
-    {
-        public int characterClass;
-        public Sprite sprite;
-        public int sellPrice;
-    }
-    
-    public class CharacterSlot : MonoBehaviour, IPointerClickHandler
+    public class CharacterSlotUI : MonoBehaviour, IPointerClickHandler
     {
         private int _slotIndex;
         
@@ -21,8 +15,7 @@ namespace BattleSystem.EmporiumSystem
         
         public Action<int> onSlotClicked;
 
-        public void Init(int slotIndex)
-        {
+        public void Init(int slotIndex) {
             _slotIndex = slotIndex;
         }
 
@@ -31,10 +24,10 @@ namespace BattleSystem.EmporiumSystem
             onSlotClicked?.Invoke(_slotIndex);
         }
         
-        public void SetSlot(SlotData slotData)
+        public void SetSlot(Character character)
         {
-            icon.sprite = slotData.sprite;
-            sellPriceText.text = slotData.sellPrice.ToString();
+            icon.sprite = character.sprite;
+            sellPriceText.text = character.sellPrice.ToString();
         }
     }
 }

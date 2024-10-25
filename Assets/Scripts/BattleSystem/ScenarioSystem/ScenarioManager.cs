@@ -24,12 +24,12 @@ namespace BattleSystem.ScenarioSystem
                 yield return performanceList[_curPfmIndex].StartPerformance();
                 _curPfmIndex++;
             }
-            EventCenter<GameStateEvent>.Instance.Invoke(GameStateEvent.GameStateScenarioEnd);
+            EventCenter<GameStage>.Instance.Invoke(GameStage.ScenarioEnd);
         }
 
         public void OnScenarioEnd()
         {
-            EventCenter<GameStateEvent>.Instance.Invoke(GameStateEvent.GameStatePlayerDeployedStart);
+            EventCenter<GameStage>.Instance.Invoke(GameStage.PlayerDeployedStart);
         }
     }
 }

@@ -151,6 +151,8 @@ MonoBehaviour:
   sellPrice: 25
   settingProperty: {fileID: 11400000, guid: c4bcf462c4901fc4c9d80e7c20a2fbd3, type: 2}
   skills:
+  - skill: {fileID: 11400000, guid: 4dad6f404cf9a6d43ae2a07428d07920, type: 2}
+    remainCoolDown: 0
   - skill: {fileID: 11400000, guid: 3f9e5f72097c1054a9436c89116ad2c2, type: 2}
     remainCoolDown: 0
   - skill: {fileID: 11400000, guid: b45e4ab5eef362345a4a3795a58c6c72, type: 2}

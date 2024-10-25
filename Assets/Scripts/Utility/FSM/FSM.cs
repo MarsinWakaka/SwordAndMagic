@@ -26,11 +26,6 @@ namespace Utility.FSM
             }
 #endif
         }
-        
-        public void UpdateFSM()
-        {
-            _currentState.HandleMouseRightClicked();
-        }
 
         // ReSharper disable Unity.PerformanceAnalysis
         public void Transition(TK key, object param = null)

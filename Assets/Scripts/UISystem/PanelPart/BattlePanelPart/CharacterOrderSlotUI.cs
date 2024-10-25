@@ -1,8 +1,6 @@
-using BattleSystem.Entity.Character;
 using BattleSystem.FactionSystem;
 using Entity.Character;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UISystem.PanelPart.BattlePanelPart

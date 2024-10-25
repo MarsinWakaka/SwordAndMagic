@@ -29,7 +29,7 @@ namespace BattleSystem
         private void OnGameResourceLoadStart()
         {
             MyConsole.Print("【游戏资源加载开始】", MessageFontColor);
-            EventCenter<GameStateEvent>.Instance.AddListener(GameStateEvent.GameStateGameResourceLoadEnd, OnGameResourceLoadEnd);
+            EventCenter<GameStage>.Instance.AddListener(GameStage.GameResourceLoadEnd, OnGameResourceLoadEnd);
             
             // 测试加载关卡1
             GameResourceManager.Instance.OnLoadLevelResourceStart(1);// 游戏资源加载开始 --执行完毕-> 游戏资源加载结束
@@ -38,8 +38,8 @@ namespace BattleSystem
         private void OnGameResourceLoadEnd()
         {
             MyConsole.Print("【游戏资源加载结束】", MessageFontColor);
-            EventCenter<GameStateEvent>.Instance.RemoveListener(GameStateEvent.GameStateGameResourceLoadEnd, OnGameResourceLoadEnd);
-            EventCenter<GameStateEvent>.Instance.AddListener(GameStateEvent.GameStateScenarioStart, OnScenarioStart);
+            EventCenter<GameStage>.Instance.RemoveListener(GameStage.GameResourceLoadEnd, OnGameResourceLoadEnd);
+            EventCenter<GameStage>.Instance.AddListener(GameStage.ScenarioStart, OnScenarioStart);
             
             GameResourceManager.Instance.OnLoadLevelResourceEnd();// 游戏资源加载结束 --执行完毕-> 演出开始
         }
@@ -47,8 +47,8 @@ namespace BattleSystem
         private void OnScenarioStart()
         {
             MyConsole.Print("【演出开始】", MessageFontColor);
-            EventCenter<GameStateEvent>.Instance.RemoveListener(GameStateEvent.GameStateScenarioStart, OnScenarioStart);
-            EventCenter<GameStateEvent>.Instance.AddListener(GameStateEvent.GameStateScenarioEnd, OnScenarioEnd);
+            EventCenter<GameStage>.Instance.RemoveListener(GameStage.ScenarioStart, OnScenarioStart);
+            EventCenter<GameStage>.Instance.AddListener(GameStage.ScenarioEnd, OnScenarioEnd);
             
             scenarioManager.OnScenarioStart(); // 场景演出开始 --执行完毕-> 场景演出结束
         }
@@ -56,8 +56,8 @@ namespace BattleSystem
         private void OnScenarioEnd()
         {
             MyConsole.Print("【演出结束】", MessageFontColor);
-            EventCenter<GameStateEvent>.Instance.RemoveListener(GameStateEvent.GameStateScenarioEnd, OnScenarioEnd);
-            EventCenter<GameStateEvent>.Instance.AddListener(GameStateEvent.GameStatePlayerDeployedStart, OnPlayerDeployedStart);
+            EventCenter<GameStage>.Instance.RemoveListener(GameStage.ScenarioEnd, OnScenarioEnd);
+            EventCenter<GameStage>.Instance.AddListener(GameStage.PlayerDeployedStart, OnPlayerDeployedStart);
             
             scenarioManager.OnScenarioEnd(); // 场景演出结束 --执行完毕-> 玩家部署开始
         }
@@ -65,8 +65,8 @@ namespace BattleSystem
         private void OnPlayerDeployedStart()
         {
             MyConsole.Print("【玩家部署开始】", MessageFontColor);
-            EventCenter<GameStateEvent>.Instance.RemoveListener(GameStateEvent.GameStatePlayerDeployedStart, OnPlayerDeployedStart);
-            EventCenter<GameStateEvent>.Instance.AddListener(GameStateEvent.GameStatePlayerDeployedEnd, OnPlayerDeployedEnd);
+            EventCenter<GameStage>.Instance.RemoveListener(GameStage.PlayerDeployedStart, OnPlayerDeployedStart);
+            EventCenter<GameStage>.Instance.AddListener(GameStage.PlayerDeployedEnd, OnPlayerDeployedEnd);
             
             deployManager.OnDeployStart(); // 玩家部署开始 --执行完毕-> 玩家部署结束
         }
@@ -74,8 +74,8 @@ namespace BattleSystem
         private void OnPlayerDeployedEnd()
         {
             MyConsole.Print("【玩家部署结束】", MessageFontColor);
-            EventCenter<GameStateEvent>.Instance.RemoveListener(GameStateEvent.GameStatePlayerDeployedEnd, OnPlayerDeployedEnd);
-            EventCenter<GameStateEvent>.Instance.AddListener(GameStateEvent.GameStateBattleStart, OnBattleStart);
+            EventCenter<GameStage>.Instance.RemoveListener(GameStage.PlayerDeployedEnd, OnPlayerDeployedEnd);
+            EventCenter<GameStage>.Instance.AddListener(GameStage.BattleStart, OnBattleStart);
             
             deployManager.OnDeployEnd(); // 玩家部署结束 --执行完毕-> 战斗开始
         }
@@ -83,8 +83,8 @@ namespace BattleSystem
         private void OnBattleStart()
         {
             MyConsole.Print("【战斗开始】", MessageFontColor);
-            EventCenter<GameStateEvent>.Instance.RemoveListener(GameStateEvent.GameStateBattleStart, OnBattleStart);
-            EventCenter<GameStateEvent>.Instance.AddListener(GameStateEvent.GameStateBattleEnd, OnBattleEnd);
+            EventCenter<GameStage>.Instance.RemoveListener(GameStage.BattleStart, OnBattleStart);
+            EventCenter<GameStage>.Instance.AddListener(GameStage.BattleEnd, OnBattleEnd);
             
             CharacterManager.Instance.OnBattleStart(); // 战斗开始 --执行完毕-> 战斗结束
         }
@@ -92,7 +92,7 @@ namespace BattleSystem
         private void OnBattleEnd()
         {
             MyConsole.Print("【战斗结束】", MessageFontColor);
-            EventCenter<GameStateEvent>.Instance.RemoveListener(GameStateEvent.GameStateBattleStart, OnBattleStart);
+            EventCenter<GameStage>.Instance.RemoveListener(GameStage.BattleStart, OnBattleStart);
             
             CharacterManager.Instance.BattleEndAction(); // 战斗结束 --执行完毕-> ???
         }

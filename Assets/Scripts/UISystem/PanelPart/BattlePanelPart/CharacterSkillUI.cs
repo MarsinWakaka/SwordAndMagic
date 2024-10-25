@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using BattleSystem.SkillSystem;
+using DG.Tweening;
 using Entity.Character;
 using MyEventSystem;
 using UnityEngine;
@@ -8,16 +10,26 @@ namespace UISystem.PanelPart.BattlePanelPart
     public class CharacterSkillUI : MonoBehaviour
     {
         private CanvasGroup canvasGroup;
-        private void Awake() => canvasGroup = GetComponent<CanvasGroup>();
+
+        private float skillChosenUIY;
+        private float skillListUIY;
+        private void Awake()
+        {
+            canvasGroup = GetComponent<CanvasGroup>();
+            skillChosenUIY = skillChosenUI.transform.position.y;
+            skillListUIY = transform.position.y;
+            EventCenter<GameEvent>.Instance.AddListener<BaseSkill>(GameEvent.OnSKillChosenStateEnter, OpenSkillChosenUI);
+        }
 
         [Header("技能格子UI预制体 & 技能格子UI列表")]
         [SerializeField] private CharacterSkillSlotUI skillSlotUIPrefab;
         [SerializeField] private RectTransform skillSlotUIContainer;
         [SerializeField] private List<CharacterSkillSlotUI> skillSlotUIs = new();
         [SerializeField] private int skillSelectedIndex;
-        [Header("技能列表")]
-        [SerializeField] private List<SkillSlot> skillSlots;
+        [Header("技能选中UI")]
+        [SerializeField] private SkillChosenUI skillChosenUI;
         
+        private List<SkillSlot> skillSlots;
         private Character curCharacter;
 
         public void SetSkillUI(Character character)
@@ -41,6 +53,8 @@ namespace UISystem.PanelPart.BattlePanelPart
                 GetSlot(i).SetSkillSlot(skillSlots[i]);
             }
             RecycleUnused(skillSlots.Count);
+            
+            OpenSkillListUI();
         }
         
         private void DisableSkillPanel(){
@@ -58,8 +72,27 @@ namespace UISystem.PanelPart.BattlePanelPart
         {
             skillSelectedIndex = slotIndex;
             // 向事件中心发送 当前选中技能被按下
-            print($"当前选中技能: {skillSlots[slotIndex].skill.skillName}");
+            // print($"当前选中技能: {skillSlots[slotIndex].skill.skillName}");
+            // 这两者的顺序不能颠倒，否则可能出现UI处于技能选择状态，但角色状态机因为不满足技能释放条件而退出技能选择状态
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnSkillSlotUIClicked, skillSlots[slotIndex]);
+        }
+
+        private void OpenSkillListUI()
+        {
+            transform.DOMoveY(skillListUIY, 0.5f);
+            skillChosenUI.transform.DOMoveY(skillChosenUIY, 0.5f);
+            // 移除技能选择状态的监听
+            EventCenter<GameEvent>.Instance.RemoveListener(GameEvent.OnSKillChosenStateExit, OpenSkillListUI);
+        }
+
+        private void OpenSkillChosenUI(BaseSkill skill)
+        {
+            skillChosenUI.SetSkillChosenUI(skill);
+            // TODO 临时处理，后面需要做些方便的调整
+            transform.DOMoveY(skillChosenUIY, 0.5f);
+            skillChosenUI.transform.DOMoveY(skillListUIY, 0.5f);
+            // 开启技能选择状态的监听
+            EventCenter<GameEvent>.Instance.AddListener(GameEvent.OnSKillChosenStateExit, OpenSkillListUI);
         }
         
         private void RecycleUnused(int startIndex) {

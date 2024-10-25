@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Utility.Singleton;
@@ -117,7 +118,23 @@ namespace UISystem
             panel.OnEnter();
             _panelStack.Push(panel);
         }
-
+        
+        public void PushPanel(PanelType panelType, Action onComplete)
+        {
+            PushPanel(panelType);
+            onComplete?.Invoke();
+        }
+        
+        public void PushPanel(PanelType panelType, Action<BasePanel> onComplete)
+        {
+            if (_panelStack.Count > 0) 
+                _panelStack.Peek().OnPause();
+            var panel = GetPanel(panelType);
+            panel.OnEnter();
+            _panelStack.Push(panel);
+            onComplete?.Invoke(panel);
+        }
+        
         public void PopPanel()
         {
             if (_panelStack.Count == 0) return;

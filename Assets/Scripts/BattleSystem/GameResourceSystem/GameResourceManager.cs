@@ -55,14 +55,14 @@ namespace GameResourceSystem
             // 通过制作Prefab，然后加载
 
             // 资源加载完毕
-            EventCenter<GameStateEvent>.Instance.Invoke(GameStateEvent.GameStateGameResourceLoadEnd);
+            EventCenter<GameStage>.Instance.Invoke(GameStage.GameResourceLoadEnd);
             yield return null;
         }
 
         public void OnLoadLevelResourceEnd()
         {
             // 通知开始场景演出
-            EventCenter<GameStateEvent>.Instance.Invoke(GameStateEvent.GameStateScenarioStart);
+            EventCenter<GameStage>.Instance.Invoke(GameStage.ScenarioStart);
         }
     }
 }

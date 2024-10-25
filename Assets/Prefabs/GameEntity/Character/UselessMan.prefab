@@ -250,4 +250,6 @@ MonoBehaviour:
   skills:
   - skill: {fileID: 11400000, guid: 62e358134e756b7418484b1ca84451c2, type: 2}
     remainCoolDown: 0
+  - skill: {fileID: 11400000, guid: d181a56290c1dfe45beebfa17e219ac3, type: 2}
+    remainCoolDown: 0
   property: {fileID: 11400000, guid: 882a3f1d016666543953ecb781b7b097, type: 2}

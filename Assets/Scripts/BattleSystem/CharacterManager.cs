@@ -140,7 +140,7 @@ namespace BattleSystem
                     MyConsole.Print("[游戏结束] 玩家胜利", MessageColor.Black);
                 else
                     MyConsole.Print("[游戏结束] 敌人胜利", MessageColor.Black);
-                EventCenter<GameStateEvent>.Instance.Invoke(GameStateEvent.GameStateBattleEnd);
+                EventCenter<GameStage>.Instance.Invoke(GameStage.BattleEnd);
                 return true;
             }
 

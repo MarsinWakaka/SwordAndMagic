@@ -1,5 +1,3 @@
-#define GameTest
-
 using System.Collections.Generic;
 using BattleSystem.Emporium;
 using BattleSystem.FactionSystem;
@@ -17,6 +15,8 @@ namespace BattleSystem.DeploySystem
     {
         [Header("自动部署角色（测试用）")]
         [SerializeField] bool autoDeploy = false;
+        
+        [Header("角色售卖列表")]
         // TODO 这里序列化只是暂时的，后面通过事件获取场景加载完毕后的角色数据
         [SerializeField] private List<Character> characterSellList = new();
         private int _characterSelectedIndex = -1;
@@ -24,22 +24,17 @@ namespace BattleSystem.DeploySystem
         public void OnDeployStart()
         {
             // 面板结束按钮 --点击-> 玩家部署结束阶段
-            UIManager.Instance.PushPanel(PanelType.CharacterEmporiumPanel);
-            var emporiumPanel = UIManager.Instance.GetCurrentPanel() as CharacterEmporiumPanel;
-            if (emporiumPanel == null)
-            {
-                print("获取角色商店面板失败，请检查");
-                return;
-            }
-            // [Done]如何给部署面板可售卖的角色数据
-            emporiumPanel.SetCharacterToBuyList(characterSellList);
-            // [Done]监听UI事件，获取玩家选择的角色
-            emporiumPanel.OnSelectChanged += (x) => {_characterSelectedIndex = x;};
-            
-#if GameTest
+            UIManager.Instance.PushPanel(PanelType.CharacterEmporiumPanel, OnPushPanelComplete);
+            EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.OnEntityLeftClicked, TryDeploy);
+        }
+
+        private void OnPushPanelComplete()
+        {
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.DeployCharacterResource, characterSellList);
+            EventCenter<GameEvent>.Instance.AddListener<int>(GameEvent.DeployCharacterSelected, DeployCharacterSelected);
+#if UNITY_EDITOR
             if (autoDeploy)
             {// TODO 模拟测试
-                emporiumPanel.OnSelectChanged(0);
                 FactoryManager.Instance.CreateCharacter(
                     FactionType.Player, 
                     characterSellList[0].entityClassID, 
@@ -55,17 +50,21 @@ namespace BattleSystem.DeploySystem
                     characterSellList[2].entityClassID, 
                     new Vector2(1, 4)
                 );
-                // 拿到角色商店面板，模拟点击结束按钮
-                emporiumPanel.EndDeployButtonClicked();
             }
 #endif
-            EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.OnEntityLeftClicked, TryDeploy);
+        }
+        
+        private void DeployCharacterSelected(int index)
+        {
+            _characterSelectedIndex = index;
         }
 
         private bool TryGetSelectedCharacter(out Character character)
         {
             character = null;
-            if (_characterSelectedIndex == -1) return false;
+            if (_characterSelectedIndex == -1) 
+                return false;
+            
             character = characterSellList[_characterSelectedIndex];
             return true;
         }
@@ -98,9 +97,15 @@ namespace BattleSystem.DeploySystem
 
         public void OnDeployEnd()
         {
+            if (UIManager.Instance.GetCurrentPanel() is CharacterEmporiumPanel) 
+                UIManager.Instance.PopPanel();
+            else
+                Debug.LogError("当前面板不是CharacterEmporiumPanel，请检查面板加载顺序");
+            
             // TODO 这里也可以做下延时，比如1秒后再开始战斗，给玩家一点时间看看自己的部署，同时UI可以做切换过渡
             EventCenter<GameEvent>.Instance.RemoveListener<BaseEntity>(GameEvent.OnEntityLeftClicked, TryDeploy);
-            EventCenter<GameStateEvent>.Instance.Invoke(GameStateEvent.GameStateBattleStart);
+            // 7、通知战斗开始
+            EventCenter<GameStage>.Instance.Invoke(GameStage.BattleStart);
         }
     }
 }

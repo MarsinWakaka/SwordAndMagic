@@ -10,7 +10,8 @@ namespace UISystem.PanelPart.BattlePanelPart
     public class InvestigationPanel : MonoBehaviour
     {
         private CanvasGroup canvasGroup;
-        
+        [Header("角色名称")]
+        [SerializeField] Text characterName;
         [Header("生命值")]
         [SerializeField] RectTransform curHpBar;
         [SerializeField] RectTransform maxHpBar;
@@ -38,6 +39,7 @@ namespace UISystem.PanelPart.BattlePanelPart
         {
             if (entity is Character character) {
                 if (character == lastCharacter) return;
+                characterName.text = character.characterName;
                 SetInvestigationUI(character);
                 return;
             }

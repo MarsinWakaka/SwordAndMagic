@@ -12,14 +12,9 @@ namespace Entity
         Item = 2,
         Tile = 4,
     }
-
-    public interface IInvestigation
-    {
-        // string GetDescription();
-    }
     
     [RequireComponent(typeof(SpriteRenderer))]
-    public abstract class BaseEntity : MonoBehaviour, IInvestigation
+    public abstract class BaseEntity : MonoBehaviour//, IInvestigation
     {
         [Header("实体属性")]
         public int entityClassID;
@@ -48,6 +43,7 @@ namespace Entity
             if (CharacterManager.IsInstanceNull) return;
         }
 
+        // public abstract string GetDescription();
         // public abstract string GetDescription();
     }
 }

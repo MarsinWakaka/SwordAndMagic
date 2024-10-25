@@ -24,10 +24,8 @@ namespace Entity.Character.Player.State
             // TODO 玩家在选择未激活对象时，也要退出这个角色的等待命令状态
         }
         
-        public void HandleMouseRightClicked()
-        {
-            
-        }
+        // TODO 添加玩家鼠标右键调查角色
+        // public void HandleMouseRightClicked()
 
         public void OnExit()
         {
@@ -44,6 +42,21 @@ namespace Entity.Character.Player.State
         private void SkillSelectedEventHandle(SkillSlot skillSlot)
         {
             _controller.SelectedSkillSlot = skillSlot;
+            var skillSlotChosen = _controller.SelectedSkillSlot;
+            var skillChosen = skillSlotChosen.skill;
+            if (skillSlotChosen == null)
+            {
+                MyConsole.Print("未选择技能", MessageColor.Red);
+                // _controller.Transition(CharacterStateType.WaitForCommand);
+                return;
+            }
+            if (skillSlotChosen.remainCoolDown > 0 || 
+                _controller.CurCharacter.property.AP.Value < skillChosen.AP_Cost || 
+                _controller.CurCharacter.property.SP.Value < skillChosen.SP_Cost){
+                MyConsole.Print("未满足技能释放条件", MessageColor.Red);
+                // _controller.Transition(CharacterStateType.WaitForCommand);
+                return;
+            }
             _controller.Transition(CharacterStateType.OnSkillChosen);
         }
         
