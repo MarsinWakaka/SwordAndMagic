@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using BattleSystem.Entity.Character;
 using Entity.Character;
 using UISystem.PanelPart.BattlePanelPart;
 using UnityEngine;

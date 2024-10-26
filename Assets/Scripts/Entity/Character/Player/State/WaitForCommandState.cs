@@ -50,7 +50,7 @@ namespace Entity.Character.Player.State
                 // _controller.Transition(CharacterStateType.WaitForCommand);
                 return;
             }
-            if (skillSlotChosen.remainCoolDown > 0 || 
+            if (skillSlotChosen.RemainCoolDown.Value > 0 || 
                 _controller.CurCharacter.property.AP.Value < skillChosen.AP_Cost || 
                 _controller.CurCharacter.property.SP.Value < skillChosen.SP_Cost){
                 MyConsole.Print("未满足技能释放条件", MessageColor.Red);
@@ -59,10 +59,5 @@ namespace Entity.Character.Player.State
             }
             _controller.Transition(CharacterStateType.OnSkillChosen);
         }
-        
-        // private void OnEntityLeftClicked(BaseEntity baseEntity)
-        // {
-        //     
-        // }
     }
 }

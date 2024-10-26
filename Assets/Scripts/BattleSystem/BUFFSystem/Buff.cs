@@ -1,5 +1,4 @@
 using System;
-using BattleSystem.Entity.Character;
 using Entity.Character;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -30,7 +29,7 @@ namespace BattleSystem.BUFFSystem
         public BurnBuff(Character target, int duration)
         {
             BuffType = BuffType.Burn;
-            target.OnStartTurnEvent += ApplyBuffEffect;
+            // target.OnStartTurnEvent += ApplyBuffEffect;
         }
         
         public override void ApplyBuffEffect()

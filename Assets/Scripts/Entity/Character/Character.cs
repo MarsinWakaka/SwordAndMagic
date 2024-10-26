@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using BattleSystem.Entity.Character;
 using BattleSystem.FactionSystem;
 using BattleSystem.SkillSystem;
 using ConsoleSystem;
@@ -23,10 +22,9 @@ namespace Entity.Character
     {
         [FormerlySerializedAs("Skill")] 
         public BaseSkill skill;
-        public int remainCoolDown;
+        public BindableProperty<int> RemainCoolDown = new();
 
-        public void CoolDown() => remainCoolDown = Mathf.Max(0, remainCoolDown - 1);
-        public Action OnSkillUsed;
+        public void CoolDownForOneRound() => RemainCoolDown.Value = Mathf.Max(0, RemainCoolDown.Value - 1);
     }
     
     /// <summary>
@@ -63,12 +61,12 @@ namespace Entity.Character
 
         #region 角色事件
 
-        public event Action OnStartTurnEvent; // 单位回合开始时只触发一次，用于通知监听者(例如Buff)
-        // public event Action OnEndTurnEvent;// 单位回合结束时只触发一次，用于通知监听者(例如Buff)
+        // public event Action OnStartTurnEvent;// 单位回合开始时只触发一次，用于通知监听者(例如Buff)
+        // public event Action OnEndTurnEvent;  // 单位回合结束时只触发一次，用于通知监听者(例如Buff)
+        // public event Action<DamageType, int> OnTakeDamage; // int 为伤害值，用于通知监听，通常为Buff效果
         public event Action ReadyToEndEvent;  // 单位点击结束回合按钮时触发，用于通知监听
         public event Action CancelReadyToEndEvent; // 单位取消结束回合按钮时触发，用于通知监听
         public event Action<Character> OnDeathEvent; // 单位死亡时触发，用于通知监听，通常为Buff，瓦片。
-        // public event Action<DamageType, int> OnTakeDamage; // int 为伤害值，用于通知监听，通常为Buff效果
         
         #endregion
 
@@ -92,13 +90,11 @@ namespace Entity.Character
             // 回合开始时的逻辑
             property.AP.Value = Mathf.Min(property.AP.Value + 2, CharacterProperty.AP_MAX);
             property.RWR.Value = property.WR_MAX.Value;
-            foreach (var skillSlot in Skills) {
-                skillSlot.CoolDown();
-            }
+            CoolDownSkills();
             
             IsOnTurn = true;
             IsReadyToEndTurn = false;
-            OnStartTurnEvent?.Invoke();
+            // OnStartTurnEvent?.Invoke();
             
             // TODO 根据阵营不同，控制方式不同
             
@@ -107,6 +103,15 @@ namespace Entity.Character
                 // TODO 向AI处理队列添加自身，让其决定技能释放或移动
                 MyConsole.Print($"[敌人行动] {characterName}", MessageColor.Yellow);
                 SwitchEndTurnReadyState(); // 模拟点击了一次结束回合按钮
+            }
+        }
+        
+        [ContextMenu("减少所有技能CD一回合")]
+        private void CoolDownSkills()
+        {
+            foreach (var skillSlot in Skills)
+            {
+                skillSlot.CoolDownForOneRound();
             }
         }
         

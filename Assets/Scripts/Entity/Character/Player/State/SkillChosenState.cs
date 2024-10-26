@@ -34,7 +34,7 @@ namespace Entity.Character.Player.State
             EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.OnEntityLeftClicked, OnEntityClicked);
         }
 
-        public void HandleMouseRightClicked()
+        private void HandleMouseRightClicked()
         {
             Debug.Log($"{DateTime.Now} 鼠标右键命令接受成功");
             // TODO 临时措施，后面需要与按键绑定系统结合

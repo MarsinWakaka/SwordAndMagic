@@ -1,6 +1,5 @@
 using System;
 using BattleSystem.BUFFSystem;
-using BattleSystem.Entity.Character;
 using Entity.Character;
 using UnityEngine;
 using UnityEngine.Serialization;

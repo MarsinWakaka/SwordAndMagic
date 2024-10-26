@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using BattleSystem.Entity;
-using BattleSystem.Entity.Character;
+using Entity.Character;
 
 namespace BattleSystem
 {

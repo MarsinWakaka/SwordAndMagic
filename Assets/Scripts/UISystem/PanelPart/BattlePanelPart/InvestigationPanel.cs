@@ -1,4 +1,3 @@
-using BattleSystem.Entity.Character;
 using Entity;
 using Entity.Character;
 using MyEventSystem;

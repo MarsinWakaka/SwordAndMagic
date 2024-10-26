@@ -20,16 +20,16 @@ namespace UISystem.PanelPart.BattlePanelPart
         {
             endTurnButtonText = endTurnButton.GetComponentInChildren<Text>();
             endTurnButton.onClick.AddListener(OnEndTurnButtonClick);
-            EventCenter<GameEvent>.Instance.AddListener<Character>(GameEvent.UpdateUIOfSelectedCharacter , UpdateUI);
+            EventCenter<GameEvent>.Instance.AddListener<Character>(GameEvent.UpdateUIOfSelectedCharacter , SetSelectedCharacterUI);
         }
 
-        private void UpdateUI(Character character)
+        private void SetSelectedCharacterUI(Character character)
         {
             // MyConsole.Print("[事件接受]" + GameEvent.UpdateUIOfSelectedCharacter, MessageColor.Black);
             // if (selectedCharacter == character) return;
             selectedCharacter = character;
             statusUI.SetStatusUI(selectedCharacter);
-            skillsUI.SetSkillUI(selectedCharacter);
+            skillsUI.InitializeSkillUI(selectedCharacter);
             RefreshEndButtonState();
         }
         

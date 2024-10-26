@@ -1,9 +1,9 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
+using BattleSystem;
 using UnityEngine;
 using Utility;
 
-namespace BattleSystem.Entity.Character
+namespace Entity.Character
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")] // Disable naming rule
     [CreateAssetMenu(menuName = "创建角色数据", fileName = "New Character Data")]
@@ -33,6 +33,7 @@ namespace BattleSystem.Entity.Character
 
         [Header("行动点 与 技能点")] 
         public const int AP_MAX = 6; // Max Action Points，最大行动点
+        public const int SP_MAX = 3;
 
         public readonly int SkillPoints_MAX = 3;  // Max Skill Points，最大技能
 
