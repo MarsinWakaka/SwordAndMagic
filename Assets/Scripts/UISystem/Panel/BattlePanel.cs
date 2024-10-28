@@ -1,20 +1,17 @@
-using System.Collections.Generic;
-using Entity.Character;
-using UISystem.PanelPart.BattlePanelPart;
+using SceneSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace UISystem.Panel
 {
     public class BattlePanel : BasePanel
     {
-        // [SerializeField] private PlayerPartyUIController playerPartyUIController;
-        // [SerializeField] private CharacterOrderIndicatorUI orderIndicatorUI;
-        // [SerializeField] private InvestigationUI investigationUI;
-        
-        // public void UpdateCharacterOrderUI(Character[] units)
-        // {
-        //     orderIndicatorUI.InitOrderIndicatorUI(units);
-        // }
+        [SerializeField] private Button exitButton;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            exitButton.onClick.AddListener(() => { GameSceneManager.LoadScene(new MainScene()); });
+        }
     }
 }

@@ -5,12 +5,10 @@ using UnityEngine;
 
 namespace UISystem
 {
-
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class BasePanel : MonoBehaviour, IPanel
     {
         public PanelType panelType;
-        
         private CanvasGroup _canvasGroup;
 
         protected virtual void Awake()

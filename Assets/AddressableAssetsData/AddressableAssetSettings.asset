@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: a12b49fb90cdc9840985f64e7fe9fdc7
+  m_DefaultGroup: 689fb5e4ff3340b4b9d435a8f8811fd0
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 88d1de42007030d2a7913ca67bf1c686
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -46,11 +46,12 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: b70a70799ff8799468cc6b9e9eb8498d, type: 2}
   - {fileID: 11400000, guid: 305f632e2c5f1ec4ea67f501b94edf30, type: 2}
+  - {fileID: 11400000, guid: fa859e80c3d982e478ca1c23fce01976, type: 2}
+  - {fileID: 11400000, guid: 87e4f3d7def34ea438e2d8cb0b9b25be, type: 2}
   - {fileID: 11400000, guid: bb462fcd910c5cc43be09b49fc3ecf5f, type: 2}
   - {fileID: 11400000, guid: e2eb81c61eeaa6949b56ec1192dd2562, type: 2}
   - {fileID: 11400000, guid: c63b1db64ad830940851c5aa73f14cc6, type: 2}
   - {fileID: 11400000, guid: c0a2a52218bd1104eb42e945eadbd54d, type: 2}
-  - {fileID: 11400000, guid: a21b4eb829599ff4a9352c27a713849f, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -92,6 +93,8 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - Tile
+    - Character
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 4f495efdec1d1154dadb2b6087c1796f, type: 2}

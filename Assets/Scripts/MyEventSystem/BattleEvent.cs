@@ -9,6 +9,7 @@ namespace MyEventSystem
     {
         DeployCharacterResource,     // 部署资源
         DeployCharacterSelected,     // 部署角色
+        DeployCharacterSuccess,      // 部署成功
         // 鼠标
         // OnLeftMouseClick,   // 鼠标左键点击
         OnRightMouseClick,  // 鼠标右键点击

@@ -59,7 +59,6 @@ namespace InputSystem
         public BaseEntity BaseEntityHover => hoverBaseEntity;
         
         #endregion
-
         
         #region Select Entity
         

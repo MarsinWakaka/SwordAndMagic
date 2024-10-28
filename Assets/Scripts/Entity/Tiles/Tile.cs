@@ -1,9 +1,6 @@
-using System;
 using ConsoleSystem;
 using MyEventSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Utility;
 
 namespace Entity.Tiles
 {
@@ -29,7 +26,7 @@ namespace Entity.Tiles
         [Header("瓦片状态显示")]
         private TileType TileType;
         public bool isOccupied;     // 是否被占据
-        public Character.Character occupier;
+        public Unit.Character occupier;
 
         private void Start()
         {

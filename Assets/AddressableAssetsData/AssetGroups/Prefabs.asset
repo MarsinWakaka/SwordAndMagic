@@ -18,39 +18,56 @@ MonoBehaviour:
   m_GUID: 8444b969b55d7c94098f126ad061df56
   m_SerializeEntries:
   - m_GUID: 06291776bcc26b8459af6e73d3e3d24b
-    m_Address: Assets/Prefab/Style/SelectStyle.prefab
+    m_Address: SelectStyle.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32c7cc11157a92f43a993c4cac3e5345
+    m_Address: Assets/Prefabs/GameEntity/Character/Wizard.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Character
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3c8e77e628c6698459a6aaece23ac154
-    m_Address: Assets/Prefab/Style/HoverStyle.prefab
+    m_Address: HoverStyle.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a3c28e5abd770f40a6c5a09dd51b8fd
-    m_Address: Assets/Prefab/GameEntity/Tiles/Water.prefab
+    m_Address: GameEntity/Tiles/Water.prefab
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Tile
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6aff52d3391bd3a4f942ef8de634c1ce
-    m_Address: Assets/Prefab/GameEntity/Tiles/Hollow.prefab
+    m_Address: GameEntity/Tiles/Hollow.prefab
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Tile
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f33b61cd5f1fc3468391a4304182b78
-    m_Address: Assets/Prefab/GameEntity/Character/WestWindKnight.prefab
+    m_Address: GameEntity/Character/WestWindKnight.prefab
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Character
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 819387266861d054bab60ce99e9216ec
+    m_Address: Assets/Prefabs/GameEntity/Character/Goblin.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Character
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a28df060b264cc64595bcd4f7ae1e15d
-    m_Address: Assets/Prefab/GameEntity/Character/UselessMan.prefab
+    m_Address: GameEntity/Character/UselessMan.prefab
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Character
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e23355e6da445264c89c6ae589e0bc79
-    m_Address: Assets/Prefab/GameEntity/Tiles/Ground.prefab
+    m_Address: GameEntity/Tiles/Ground.prefab
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Tile
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7370781eafe023a4eb4d4c0a94ead7a7, type: 2}

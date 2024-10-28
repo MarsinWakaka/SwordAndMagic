@@ -1,7 +1,9 @@
 using System.Collections;
 using BattleSystem;
+using Obsolete.DeprecatedBattleSystem;
 using UnityEngine;
 using Utility;
+using Utility.Singleton;
 using Random = UnityEngine.Random;
 
 namespace DeprecatedBattleSystem

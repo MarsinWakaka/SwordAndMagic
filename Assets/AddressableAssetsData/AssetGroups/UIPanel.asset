@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: UIPanel
+  m_EditorClassIdentifier: 
+  m_GroupName: UIPanel
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 47c46e9b594c2f74381f9cb1ea224fa7
+  m_SerializeEntries:
+  - m_GUID: 10f56e494078a3246b98e3425e439885
+    m_Address: Assets/Prefabs/UI/UIPanel/BattlePanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a26b9dead9f73474c9be472b996ca6da
+    m_Address: Assets/Prefabs/UI/UIPanel/CharacterEmporiumPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad21c23b44881804a8026b4dc2a96921
+    m_Address: Assets/Prefabs/UI/UIPanel/BattleEndPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e63e71043d013ff43bb2579db48783ef
+    m_Address: Assets/Prefabs/UI/UIPanel/MainMenusPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 7370781eafe023a4eb4d4c0a94ead7a7, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 31777906a9929804e9e0d963c60a2cb5, type: 2}
+    - {fileID: 11400000, guid: 727ef86a918a31e41ba8e527ad9f294f, type: 2}

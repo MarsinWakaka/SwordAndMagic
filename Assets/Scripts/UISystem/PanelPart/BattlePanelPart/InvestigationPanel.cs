@@ -1,5 +1,6 @@
 using Entity;
 using Entity.Character;
+using Entity.Unit;
 using MyEventSystem;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,19 +11,19 @@ namespace UISystem.PanelPart.BattlePanelPart
     {
         private CanvasGroup canvasGroup;
         [Header("角色名称")]
-        [SerializeField] Text characterName;
+        [SerializeField] UnityEngine.UI.Text characterName;
         [Header("生命值")]
         [SerializeField] RectTransform curHpBar;
         [SerializeField] RectTransform maxHpBar;
-        [SerializeField] Text hpText;
+        [SerializeField] UnityEngine.UI.Text hpText;
         [Header("物理防御")]
         [SerializeField] RectTransform curDefBar;
         [SerializeField] RectTransform maxDefBar;
-        [SerializeField] Text defText;
+        [SerializeField] UnityEngine.UI.Text defText;
         [Header("魔法防御")]
         [SerializeField] RectTransform curMdefBar;
         [SerializeField] RectTransform maxMdefFBar;
-        [SerializeField] Text mdefText;
+        [SerializeField] UnityEngine.UI.Text mdefText;
         
         private Character lastCharacter;
         private CharacterProperty property;

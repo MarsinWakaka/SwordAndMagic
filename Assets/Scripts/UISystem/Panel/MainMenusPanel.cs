@@ -1,14 +1,19 @@
-using UnityEngine.SceneManagement;
+using UISystem.PanelPart.MainPanelPart;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace UISystem
 {
     public class MainMenusPanel : BasePanel
     {
+        [Header("按钮组")]
         public Button loadGameButton;
         public Button newGameButton;
         public Button settingButton;
         public Button exitButton;
+        [Header("关卡选择器")]
+        // [SerializeField] private GameObject mainPart;
+        [SerializeField] private LevelChooseUI levelChooseUI;
         
         protected override void Awake()
         {
@@ -16,12 +21,12 @@ namespace UISystem
             
             loadGameButton.onClick.AddListener(() =>
             {
-                print("Load Game");
+                print("TODO Load 用户数据");
             });
-            newGameButton.onClick.AddListener(NextLevel);
+            newGameButton.onClick.AddListener(OpenLevelChooseUI);
             settingButton.onClick.AddListener(() =>
             {
-                
+                print("TODO Load 设置面板");
             });
             exitButton.onClick.AddListener(() =>
             {
@@ -32,15 +37,25 @@ namespace UISystem
 #endif
             });
             
-#if UNITY_EDITOR
-            Invoke(nameof(NextLevel), 0.1f);
-#endif
+            levelChooseUI.OnCancelButtonClick += CloseLevelChooseUI;
+        }
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            CloseLevelChooseUI();
         }
         
-        private void NextLevel()
+        private void CloseLevelChooseUI()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            UIManager.Instance.PopPanel();
+            levelChooseUI.gameObject.SetActive(false);
+            
+        }
+        
+        private void OpenLevelChooseUI()
+        {
+            levelChooseUI.gameObject.SetActive(true);
+            // SceneSystem.GameSceneManager.LoadScene(new SceneSystem.BattleScene(1));
         }
     }
 }

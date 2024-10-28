@@ -225,6 +225,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &743349710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 743349711}
+  - component: {fileID: 743349712}
+  m_Layer: 0
+  m_Name: ApplicationRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &743349711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743349710}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.1374142, y: 4.319019, z: 10.946366}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &743349712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743349710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6185eb3f5f144cdb66ca20f1964c966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1569892624
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +305,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.17319329, g: 0.26415092, b: 0.19496405, a: 0}
+  m_BackGroundColor: {r: 0.21698111, g: 0.13612494, b: 0.1976826, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -329,6 +373,10 @@ PrefabInstance:
       propertyPath: panelRoot
       value: 
       objectReference: {fileID: 727120578}
+    - target: {fileID: 1491575671413672772, guid: b19c48aee9a58a142a4bfc1f41d82847, type: 3}
+      propertyPath: mainMenusPanelRef.m_AssetGUID
+      value: e63e71043d013ff43bb2579db48783ef
+      objectReference: {fileID: 0}
     - target: {fileID: 3251086712654402004, guid: b19c48aee9a58a142a4bfc1f41d82847, type: 3}
       propertyPath: m_Name
       value: UI
@@ -466,3 +514,4 @@ SceneRoots:
   - {fileID: 1569892627}
   - {fileID: 4034495557531829686}
   - {fileID: 387082859}
+  - {fileID: 743349711}

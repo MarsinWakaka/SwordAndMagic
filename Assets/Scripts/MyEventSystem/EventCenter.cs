@@ -78,6 +78,10 @@ public class EventHandler<T1, T2> : IEventInterface
 public class EventCenter<TK> : Singleton<EventCenter<TK>>
 {
     private readonly Dictionary<TK, IEventInterface> _events = new();
+    
+    public void Clear() {
+        _events.Clear();
+    }
 
     #region 参数个数为0
     

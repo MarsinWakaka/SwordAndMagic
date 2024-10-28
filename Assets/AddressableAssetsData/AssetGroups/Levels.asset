@@ -22,11 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f312f3cf7ad59f74fb6aa3d332353a0f
-    m_Address: Assets/StreamingAssets/Level/terrianDataParser.txt
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7370781eafe023a4eb4d4c0a94ead7a7, type: 2}
   m_SchemaSet:

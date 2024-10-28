@@ -1,5 +1,7 @@
 using BattleSystem.FactionSystem;
+using Entity;
 using Entity.Character;
+using Entity.Unit;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,5 +1,4 @@
 using System;
-using BattleSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -16,8 +15,8 @@ namespace Entity
     [RequireComponent(typeof(SpriteRenderer))]
     public abstract class BaseEntity : MonoBehaviour//, IInvestigation
     {
-        [Header("实体属性")]
-        public int entityClassID;
+        [FormerlySerializedAs("entityClassID")] [Header("实体属性")]
+        public int entityID;
         public Guid EntityID;
         // 只读属性
         public Sprite sprite;
@@ -35,12 +34,6 @@ namespace Entity
         {
             EntityID = entityID;
             transform.position = position;
-        }
-
-        protected virtual void OnDestroy()
-        {
-            // 战斗管理器先一步销毁
-            if (CharacterManager.IsInstanceNull) return;
         }
 
         // public abstract string GetDescription();

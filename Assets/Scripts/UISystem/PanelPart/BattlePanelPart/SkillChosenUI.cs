@@ -8,8 +8,8 @@ namespace UISystem.PanelPart.BattlePanelPart
     public class SkillChosenUI : MonoBehaviour
     {
         [SerializeField] private Image skillIcon;
-        [SerializeField] private Text skillInfo;
-        [SerializeField] private Text skillDescription;
+        [SerializeField] private UnityEngine.UI.Text skillInfo;
+        [SerializeField] private UnityEngine.UI.Text skillDescription;
         [SerializeField] private Image skillSelectProgress;
         [SerializeField] private Button skillReleaseButton;
 

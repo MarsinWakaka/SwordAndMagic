@@ -12,13 +12,13 @@ namespace DeprecatedBattleSystem
 
         [Header("回合中角色信息显示")]
         [SerializeField] private Image characterIcon;
-        [SerializeField] private Text characterName;
-        [SerializeField] private Text characterHealth;
-        [SerializeField] private Text characterDefense;
-        [SerializeField] private Text characterAttackRange;
-        [SerializeField] private Text characterAttack;
-        [SerializeField] private Text characterAttackCountRemain;
-        [SerializeField] private Text characterMoveRange;
+        [SerializeField] private UnityEngine.UI.Text characterName;
+        [SerializeField] private UnityEngine.UI.Text characterHealth;
+        [SerializeField] private UnityEngine.UI.Text characterDefense;
+        [SerializeField] private UnityEngine.UI.Text characterAttackRange;
+        [SerializeField] private UnityEngine.UI.Text characterAttack;
+        [SerializeField] private UnityEngine.UI.Text characterAttackCountRemain;
+        [SerializeField] private UnityEngine.UI.Text characterMoveRange;
 
         #endregion
 
@@ -41,14 +41,14 @@ namespace DeprecatedBattleSystem
         [Header("角色信息查看面板")]
         [SerializeField] private GameObject characterDetailPanel;
         [SerializeField] private Image characterDetailIcon;
-        [SerializeField] private Text characterDetailInfo;
-        [SerializeField] private Text characterDetailName;
-        [SerializeField] private Text characterDetailHealth;
-        [SerializeField] private Text characterDetailDefense;
-        [SerializeField] private Text characterDetailAttackRange;
-        [SerializeField] private Text characterDetailAttack;
-        [SerializeField] private Text characterDetailMaxAttackCount;
-        [SerializeField] private Text characterDetailMaxMoveRange;
+        [SerializeField] private UnityEngine.UI.Text characterDetailInfo;
+        [SerializeField] private UnityEngine.UI.Text characterDetailName;
+        [SerializeField] private UnityEngine.UI.Text characterDetailHealth;
+        [SerializeField] private UnityEngine.UI.Text characterDetailDefense;
+        [SerializeField] private UnityEngine.UI.Text characterDetailAttackRange;
+        [SerializeField] private UnityEngine.UI.Text characterDetailAttack;
+        [SerializeField] private UnityEngine.UI.Text characterDetailMaxAttackCount;
+        [SerializeField] private UnityEngine.UI.Text characterDetailMaxMoveRange;
     
 
         #endregion

@@ -23,7 +23,9 @@ namespace ConsoleSystem
         // 指定颜色输出
         public static void Print(string message, MessageColor color = MessageColor.White)
         {
+#if UNITY_EDITOR
             Debug.Log($"<color={color}>{message}</color>");
+#endif
         }
     }
 }

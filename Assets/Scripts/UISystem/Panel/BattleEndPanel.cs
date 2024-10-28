@@ -1,3 +1,4 @@
+using SceneSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,11 +17,7 @@ namespace UISystem.Panel
 
         private void OnClickExitButton()
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
+            GameSceneManager.LoadScene(new MainScene());
         }
     }
 }

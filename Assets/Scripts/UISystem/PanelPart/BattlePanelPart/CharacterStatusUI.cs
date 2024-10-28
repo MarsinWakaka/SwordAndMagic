@@ -1,4 +1,6 @@
+using Entity;
 using Entity.Character;
+using Entity.Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,19 +14,19 @@ namespace UISystem.PanelPart.BattlePanelPart
         // UI在初始化后不会变化
         [Header("角色头像")]
         [SerializeField] private Image charAvatar;
-        [SerializeField] private Text charName;
+        [SerializeField] private UnityEngine.UI.Text charName;
         [Header("生命值")]
         [SerializeField] RectTransform curHpBar;
         [SerializeField] RectTransform maxHpBar;
-        [SerializeField] Text hpText;
+        [SerializeField] UnityEngine.UI.Text hpText;
         [Header("物理防御")]
         [SerializeField] RectTransform curDefBar;
         [SerializeField] RectTransform maxDefBar;
-        [SerializeField] Text defText;
+        [SerializeField] UnityEngine.UI.Text defText;
         [Header("魔法防御")]
         [SerializeField] RectTransform curMdefBar;
         [SerializeField] RectTransform maxMdefFBar;
-        [SerializeField] Text mdefText;
+        [SerializeField] UnityEngine.UI.Text mdefText;
         [Header("行动力")]
         [SerializeField] RectTransform actionPointBar;
         [SerializeField] RectTransform maxActionPointBar;
@@ -34,7 +36,7 @@ namespace UISystem.PanelPart.BattlePanelPart
         [Header("移动力面板")]
         [SerializeField] RectTransform remainWalkRangeBar;
         [SerializeField] RectTransform maxWalkRangeBar;
-        [SerializeField] Text rwrText;
+        [SerializeField] UnityEngine.UI.Text rwrText;
         #endregion
         
         // 当前展示的角色

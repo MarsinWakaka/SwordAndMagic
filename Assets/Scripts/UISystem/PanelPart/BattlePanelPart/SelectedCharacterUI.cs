@@ -1,4 +1,6 @@
+using Entity;
 using Entity.Character;
+using Entity.Unit;
 using MyEventSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,13 +14,13 @@ namespace UISystem.PanelPart.BattlePanelPart
         [FormerlySerializedAs("skillSlotUIs")] 
         [SerializeField] private CharacterSkillUI skillsUI;
         [SerializeField] private Button endTurnButton;
-        private Text endTurnButtonText;
+        private UnityEngine.UI.Text endTurnButtonText;
         
         private Character selectedCharacter;
         
         private void Awake()
         {
-            endTurnButtonText = endTurnButton.GetComponentInChildren<Text>();
+            endTurnButtonText = endTurnButton.GetComponentInChildren<UnityEngine.UI.Text>();
             endTurnButton.onClick.AddListener(OnEndTurnButtonClick);
             EventCenter<GameEvent>.Instance.AddListener<Character>(GameEvent.UpdateUIOfSelectedCharacter , SetSelectedCharacterUI);
         }

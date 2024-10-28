@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using BattleSystem.SkillSystem;
 using DG.Tweening;
+using Entity;
 using Entity.Character;
+using Entity.Unit;
 using MyEventSystem;
 using UnityEngine;
 
