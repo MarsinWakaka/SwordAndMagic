@@ -2,6 +2,7 @@ using System;
 using Entity;
 using Entity.Character;
 using Entity.Unit;
+using GamePlaySystem.FactionSystem;
 using UnityEngine;
 
 namespace BattleSystem.FactionSystem
@@ -29,7 +30,7 @@ namespace BattleSystem.FactionSystem
 
         private void SetFactionColor(FactionType faction)
         {
-            _spriteRenderer.color = FactionManager.Instance.GetFactionColor(faction);
+            _spriteRenderer.color = FactionManager.GetFactionColor(faction);
         }
     }
 }

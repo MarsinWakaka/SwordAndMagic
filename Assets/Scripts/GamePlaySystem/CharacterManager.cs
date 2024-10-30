@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using BattleSystem.FactionSystem;
 using ConsoleSystem;
 using Entity.Unit;
+using GamePlaySystem.Controller.AI;
+using GamePlaySystem.Controller.Player;
+using GamePlaySystem.FactionSystem;
 using MyEventSystem;
-using UISystem;
-using UnityEngine;
 
 namespace GamePlaySystem
 {
@@ -15,32 +16,35 @@ namespace GamePlaySystem
     public class CharacterManager // : SingletonMono<CharacterManager>
     {
         private readonly List<Character> units = new();
-        private readonly Dictionary<FactionType, List<Character>> FactionUnits = new();
+        private readonly Dictionary<FactionType, List<Character>> factionUnits = new();
         private int enemyDeadCount, playerDeadCount;    // 引入此变量减少计算量，缺点需要维护两个变量
-        public Action OnPlayerWin;
-        public Action OnEnemyWin;
+        public Action<FactionType> OnFactionWin;
         public List<Character> Units => units;
-        public List<Character> GetUnitsByFaction(FactionType faction) => FactionUnits[faction];
-
-        private readonly PlayerController playerController = new();
+        public List<Character> GetUnitsByFaction(FactionType faction) => factionUnits[faction];
+        
+        // public Action<FactionType, List<Character>> OnCharactersAction;
+        
+        private PlayerController playerController;
+        private AutoController autoController;
+        public void Initialize(PlayerController playerController, AutoController autoController)
+        {
+            this.playerController = playerController;
+            this.autoController = autoController;
+        }
 
         public CharacterManager()
         {
             foreach (FactionType faction in Enum.GetValues(typeof(FactionType)))
-                FactionUnits.Add(faction, new List<Character>());
-            playerController.InitController();
+                factionUnits.Add(faction, new List<Character>());
             EventCenter<GameEvent>.Instance.AddListener<Character>(GameEvent.OnCharacterCreated, RegisterCharacter);
             EventCenter<GameEvent>.Instance.AddListener<Character>(GameEvent.OnCharacterSlotUIClicked, CharacterSelectedHandle);
         }
 
         public void OnBattleStartAction()
         {
-            UIManager.Instance.PushPanel(PanelType.BattlePanel, () =>
-            {
-                units.Sort();
-                NextBatchUnit();
-                EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty, FactionUnits[FactionType.Player].ToArray());
-            });
+            units.Sort();
+            NextBatchUnit();
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty, factionUnits[FactionType.Player].ToArray());
         }
 
         #region 角色轮询控制
@@ -73,6 +77,9 @@ namespace GamePlaySystem
                 if (curUnit.Faction.Value != curFaction) break;
                 activeCharacters.Add(curUnit);
             }
+            // ## new
+            // OnCharactersAction?.Invoke(curFaction, activeCharacters);
+            // ##
             foreach (var activeUnit in activeCharacters)
             {
                 UnitStartTurn(activeUnit);
@@ -80,6 +87,9 @@ namespace GamePlaySystem
             // 如果可以行动的友方角色，切换SelectCharacterUI到第一个行动的角色
             if (activeCharacters[0].Faction.Value == FactionType.Player) {
                 CharacterSelectedHandle(activeCharacters[0]);
+            } else {
+                playerController.SetCharacter(null);
+                autoController.AddControlQueue(activeCharacters);
             }
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfActionUnitOrder, GetCharacterOrder());
         }
@@ -139,14 +149,11 @@ namespace GamePlaySystem
         /// </summary>
         private bool TryHandleGameOver()
         {
-            bool isPlayerWin = enemyDeadCount == FactionUnits[FactionType.Enemy].Count;
-            bool isEnemyWin = playerDeadCount == FactionUnits[FactionType.Player].Count;
+            bool isPlayerWin = enemyDeadCount == factionUnits[FactionType.Enemy].Count;
+            bool isEnemyWin = playerDeadCount == factionUnits[FactionType.Player].Count;
             if (isPlayerWin || isEnemyWin)
             {
-                if (isPlayerWin)
-                    OnPlayerWin?.Invoke();
-                else
-                    OnEnemyWin?.Invoke();
+                OnFactionWin?.Invoke(isPlayerWin ? FactionType.Player : FactionType.Enemy);
                 return true;
             }
             return false;
@@ -194,7 +201,7 @@ namespace GamePlaySystem
         {
             character.OnDeathEvent += UnRegisterUnit;
             units.Add(character);
-            FactionUnits[character.Faction.Value].Add(character);
+            factionUnits[character.Faction.Value].Add(character);
         }
 
         /// <summary>
@@ -215,7 +222,7 @@ namespace GamePlaySystem
             
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfActionUnitOrder, GetCharacterOrder());
             if (character.Faction.Value == FactionType.Player)
-                EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty,  FactionUnits[FactionType.Player].ToArray());
+                EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty,  factionUnits[FactionType.Player].ToArray());
             // TODO 如果是选中角色死亡，更新SelectCharacterUI
         }
         

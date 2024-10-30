@@ -3,6 +3,7 @@ using BattleSystem.FactionSystem;
 using Entity;
 using Entity.Unit;
 using GamePlaySystem.EmporiumSystem;
+using GamePlaySystem.FactionSystem;
 using MyEventSystem;
 using UISystem;
 using UISystem.Panel;

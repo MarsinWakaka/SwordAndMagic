@@ -17,7 +17,7 @@ MonoBehaviour:
   skillIcon: {fileID: 21300000, guid: 409b9d8a5c232fd4b8b2e278a64b6802, type: 3}
   skillDescription: 
   range: 1
-  rangeType: 1
+  impactType: 0
   canImpactEntityType: -1
   canImpactFactionType: 6
   maxTargetCount: 1

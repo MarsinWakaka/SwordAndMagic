@@ -19,7 +19,7 @@ namespace GamePlaySystem.SkillSystem
     {
         Self = 1,
         Ally = 2,
-        Enemy = 4,
+        Hostile = 4,
         All = 7,
     }
 

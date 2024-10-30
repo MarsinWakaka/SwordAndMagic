@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ConsoleSystem;
 using ResourcesSystem;
 using UnityEngine;
 using Utility.Singleton;
@@ -64,6 +65,7 @@ namespace UISystem
         
         public void PushPanel(PanelType panelType, Action onComplete)
         {
+            MyConsole.Print($"PushPanel {panelType}");
             if (_panelStack.Count > 0) _panelStack.Peek().OnPause();
             GetPanel(panelType, (panel) =>
             {
@@ -75,6 +77,7 @@ namespace UISystem
         
         public void PopPanel()
         {
+            MyConsole.Print($"PopPanel {_panelStack.Peek()}");
             if (_panelStack.Count == 0) return;
             _panelStack.Pop().OnExit();
             if (_panelStack.Count == 0) return;

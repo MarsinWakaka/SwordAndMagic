@@ -19,6 +19,6 @@ MonoBehaviour:
   canBlockMove: 0
   canBlockAtk: 0
   isAttackable: 0
-  moveCost: 1
+  leaveCost: 1
   durability: 0
-  risk: 0
+  score: 5

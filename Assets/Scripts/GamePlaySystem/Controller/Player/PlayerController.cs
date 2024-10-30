@@ -1,11 +1,11 @@
 using Entity.Character.Player.State;
+using Entity.Unit;
 using Entity.Unit.State;
-using GamePlaySystem.Controller.Player;
 using GamePlaySystem.Controller.Player.State;
 using UnityEngine;
 using Utility.FSM;
 
-namespace Entity.Unit
+namespace GamePlaySystem.Controller.Player
 {
     public class PlayerController
     {
@@ -16,7 +16,7 @@ namespace Entity.Unit
         public Vector2 Destination;
         public SkillSlot SelectedSkillSlot;
         
-        public void InitController()
+        public void Initialize()
         {
             fsm = new FSM<ControllerState>();
             fsm.AddState(ControllerState.Inactive, new InactiveState(this));
@@ -26,13 +26,6 @@ namespace Entity.Unit
             fsm.AddState(ControllerState.OnSkillRelease, new SkillReleaseState(this));
             
             fsm.SetDefaultState(ControllerState.Inactive);
-        }
-        
-        private void ResetParams()
-        {
-            Destination = Vector2.zero;
-            SelectedSkillSlot = null;
-            fsm.Transition(ControllerState.Inactive);
         }
         
         public void SetCharacter(Character newCharacter)
@@ -46,6 +39,13 @@ namespace Entity.Unit
             }
         }
         
+        private void ResetParams()
+        {
+            Destination = Vector2.zero;
+            SelectedSkillSlot = null;
+            fsm.Transition(ControllerState.Inactive);
+        }
+
         public void Transition(ControllerState state, object param = null)
         {
             fsm.Transition(state, param);

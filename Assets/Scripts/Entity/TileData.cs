@@ -15,6 +15,7 @@ namespace Entity
         public bool isAttackable;   // 是否可被攻击
         [FormerlySerializedAs("moveCost")] public int leaveCost = 1;        // 移动消耗
         public int durability;      // 耐久度 
-        public int risk;            // 威胁度
+        [Tooltip("此瓦片的推荐度（针对AI）")]
+        public int score;           // 
     }
 }

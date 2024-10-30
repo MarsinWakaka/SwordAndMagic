@@ -144,15 +144,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa22dc6384043809b34e077afd3c3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityClassID: 20003
+  entityID: 20003
   sprite: {fileID: -1809622180, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
   entityType: 1
+  Renderer: {fileID: 0}
   characterName: "\u54E5\u5E03\u6797"
   sellPrice: 5
   settingProperty: {fileID: 11400000, guid: e0dea944df3276d46a464c10908ca17d, type: 2}
   skills:
   - skill: {fileID: 11400000, guid: 62e358134e756b7418484b1ca84451c2, type: 2}
-    remainCoolDown: 0
+  - skill: {fileID: 11400000, guid: d181a56290c1dfe45beebfa17e219ac3, type: 2}
   property: {fileID: 11400000, guid: 4efce5fd6b108814a983904de0d5ca62, type: 2}
 --- !u!1 &4939682833729556822
 GameObject:

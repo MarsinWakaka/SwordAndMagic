@@ -15,8 +15,9 @@ MonoBehaviour:
   id: 0
   skillName: "\u8FDC\u7A0B\u6253\u51FB"
   skillIcon: {fileID: 21300000, guid: 6ddaf757a7c6d464c9ff9c404b41d1e3, type: 3}
-  range: 6
-  rangeType: 2
+  skillDescription: "\u3010\u63CF\u8FF0\u3011\u6682\u65E0\u63CF\u8FF0"
+  range: 5
+  impactType: 0
   canImpactEntityType: -1
   canImpactFactionType: 6
   maxTargetCount: 1

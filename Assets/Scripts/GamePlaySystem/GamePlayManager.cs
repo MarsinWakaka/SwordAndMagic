@@ -12,7 +12,7 @@ namespace GamePlaySystem
     {
         private LevelDataManager levelDataManager;
         [SerializeField] private ScenarioManager scenarioManager;
-        // TODO 将其从MonoBehaviour改为其它。
+        // TODO 将其从MonoBehaviour改为其它。前提是解决部署资源获取问题
         [SerializeField] private DeployManager deployManager;
         [SerializeField] private BattleManager battleManager;
         
@@ -21,6 +21,7 @@ namespace GamePlaySystem
         private void Awake()
         {
             levelDataManager = new LevelDataManager();
+            // TODO 读取资源后往DeployManager里面传递
             EventCenter<GameStage>.Instance.AddListener<int>(GameStage.GameResourceLoadStart, OnGameResourceLoadStart);
         }
 
@@ -83,7 +84,7 @@ namespace GamePlaySystem
             EventCenter<GameStage>.Instance.RemoveListener(GameStage.BattleStart, OnBattleStart);
             EventCenter<GameStage>.Instance.AddListener(GameStage.BattleEnd, OnBattleEnd);
             
-            battleManager.OnBattleStart(); // 战斗开始 --执行完毕-> 战斗结束
+            battleManager.OnBattleStartAction(); // 战斗开始 --执行完毕-> 战斗结束
         }
 
         private void OnBattleEnd()

@@ -10,13 +10,14 @@ namespace InputSystem
     /// <summary>
     /// 用于获取当前鼠标操作的对戏对象，以及对戏对象的选择
     /// </summary>
+    [Obsolete("类似功能开发中")]
     public class CursorTargetManager : SingletonMono<CursorTargetManager>
     {
         private PlayerInputProvider targetPlayerInputProvider;
         
         [Header("样式设置器")]
         [SerializeField] private HoverStyleHelper hoverHelper;
-        [SerializeField] private SelectStyleHelper selectHelper;
+        // [SerializeField] private SelectStyleHelper selectHelper;
         
         // 选择的次数
         private readonly Dictionary<BaseEntity, int> _selectDict = new();

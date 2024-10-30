@@ -467,8 +467,6 @@ GameObject:
   m_Component:
   - component: {fileID: 917586057}
   - component: {fileID: 917586058}
-  - component: {fileID: 917586059}
-  - component: {fileID: 917586061}
   m_Layer: 0
   m_Name: Cursor Target Manager
   m_TagString: Untagged
@@ -507,46 +505,6 @@ MonoBehaviour:
   hoverStyle: {fileID: 8085944710477268563}
   hoverDuration: 0.1
   hoverFadeDuration: 0.2
---- !u!114 &917586059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917586055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9e51e1ee1d4a7d47945ee0b8fea373e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectStylePrefab: {fileID: 5688123773314578134, guid: 06291776bcc26b8459af6e73d3e3d24b, type: 3}
-  numList:
-  - {fileID: -1165709352, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  - {fileID: -671802166, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  - {fileID: 65743769, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  - {fileID: -74696868, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  - {fileID: 970218744, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  - {fileID: 2058237787, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  - {fileID: 1039707928, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  - {fileID: 1967627817, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  - {fileID: 1562216174, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  - {fileID: -249117053, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  selectDuration: 0
-  styleRoot: {fileID: 170268059}
---- !u!114 &917586061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917586055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 929846430ffd4517b90cb77987ed2788, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverHelper: {fileID: 917586058}
-  selectHelper: {fileID: 917586059}
 --- !u!1 &1143709120
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +683,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4702397a49d6c124e923d47bdd422d23, type: 2}
   - {fileID: 11400000, guid: 91acbd1168072ba4580693bff78bb273, type: 2}
   - {fileID: 11400000, guid: 58dcbea2f5c81354c82a6d3493701408, type: 2}
+  tileParent: {fileID: 0}
 --- !u!1 &1849024596
 GameObject:
   m_ObjectHideFlags: 0

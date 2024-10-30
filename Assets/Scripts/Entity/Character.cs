@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BattleSystem.FactionSystem;
 using ConsoleSystem;
+using GamePlaySystem.FactionSystem;
 using GamePlaySystem.SkillSystem;
 using MyEventSystem;
 using UnityEngine;
@@ -104,21 +105,28 @@ namespace Entity.Unit
             // 敌人行动时，根据AI选择技能或移动
             if (Faction.Value == FactionType.Enemy){
                 // TODO 向AI处理队列添加自身，让其决定技能释放或移动
-                MyConsole.Print($"[敌人行动] {characterName}", MessageColor.Yellow);
+                // MyConsole.Print($"[敌人行动] {characterName}", MessageColor.Yellow);
                 // 等待0.2s 下一批单位行动
                 // 因为敌人开始回合时 NextBatchUnit调用，但是在UnitStartTurn里敌人如果在0帧中完成了行动，导致调用UnityReadyToEndHandle
                 // 然后由于清空了activeCharacters的值，导致在遍历activeCharacters时foreach发生循环错误
                 // CharacterManager可能需要做下轮询管理。
-                Invoke(nameof(SwitchEndTurnReadyState), 0.2f); // 模拟点击了一次结束回合按钮
+                // Invoke(nameof(SwitchEndTurnReadyState), 0.2f); // 模拟点击了一次结束回合按钮
             }
         }
-        
-        [ContextMenu("减少所有技能CD一回合")]
-        private void CoolDownSkills()
+
+        /// 添加一个waitForEnd状态，用于等待玩家点击结束回合按钮
+        /// <summary>
+        /// 切换 玩家等待结束状态，由玩家点击结束回合按钮触发
+        /// </summary>
+        public void SwitchEndTurnReadyState()
         {
-            foreach (var skillSlot in Skills)
-            {
-                skillSlot.CoolDownForOneRound();
+            // TODO 等待同批角色 行动结束
+            IsReadyToEndTurn = !IsReadyToEndTurn;
+            MyConsole.Print($"[准备结束状态切换] {characterName} {IsReadyToEndTurn}", MessageColor.Yellow);
+            if (IsReadyToEndTurn){
+                ReadyToEndEvent?.Invoke();
+            }else{
+                CancelReadyToEndEvent?.Invoke();
             }
         }
         
@@ -127,6 +135,15 @@ namespace Entity.Unit
             // TODO Do Something when character is inactive
             IsOnTurn = false;
             IsReadyToEndTurn = true;    // TODO 技能强制控制眩晕是否导致此
+        }
+
+        [ContextMenu("减少所有技能CD一回合")]
+        private void CoolDownSkills()
+        {
+            foreach (var skillSlot in Skills)
+            {
+                skillSlot.CoolDownForOneRound();
+            }
         }
 
         private void Dead()
@@ -191,22 +208,6 @@ namespace Entity.Unit
             }else{
                 damage -= defence;
                 defence = 0;
-            }
-        }
-
-        /// 添加一个waitForEnd状态，用于等待玩家点击结束回合按钮
-        /// <summary>
-        /// 切换 玩家等待结束状态，由玩家点击结束回合按钮触发
-        /// </summary>
-        public void SwitchEndTurnReadyState()
-        {
-            // TODO 等待同批角色 行动结束
-            IsReadyToEndTurn = !IsReadyToEndTurn;
-            MyConsole.Print($"[准备结束状态切换] {characterName} {IsReadyToEndTurn}", MessageColor.Yellow);
-            if (IsReadyToEndTurn){
-                ReadyToEndEvent?.Invoke();
-            }else{
-                CancelReadyToEndEvent?.Invoke();
             }
         }
         

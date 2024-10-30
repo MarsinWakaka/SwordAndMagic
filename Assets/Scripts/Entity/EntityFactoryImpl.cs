@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BattleSystem.FactionSystem;
+using GamePlaySystem.FactionSystem;
 using ResourcesSystem;
 using UnityEngine;
 using Object = UnityEngine.Object;

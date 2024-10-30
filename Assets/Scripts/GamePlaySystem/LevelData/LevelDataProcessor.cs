@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using BattleSystem.FactionSystem;
 using ConsoleSystem;
 using Entity;
+using GamePlaySystem.FactionSystem;
 using UnityEngine;
 
 namespace GamePlaySystem.LevelData
@@ -136,7 +137,7 @@ namespace GamePlaySystem.LevelData
                     return;
                 }
                 entityFactory.CreateCharacter(entityIndex,new Vector2(x, y), FactionType.Enemy);   
-                // EntityFactory.Instance.CreateCharacter(FactionType.Enemy, entityIndex, new Vector2(x, y));
+                // EntityFactory.Instance.CreateCharacter(FactionType.Hostile, entityIndex, new Vector2(x, y));
             }
         }
     }

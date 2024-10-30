@@ -12,6 +12,9 @@ namespace GamePlaySystem.SkillSystem
         public DamageType damageType;
         public int damage;
 
+        /// <summary>
+        /// 未来会在障碍物情况下进行重写
+        /// </summary>
         public override bool isTargetInATKRange(Vector2 casterPosition, Vector2 targetPosition)
         {
             // 使用曼哈顿距离

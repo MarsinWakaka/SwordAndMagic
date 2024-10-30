@@ -2,6 +2,7 @@ using BattleSystem.FactionSystem;
 using Entity;
 using Entity.Character;
 using Entity.Unit;
+using GamePlaySystem.FactionSystem;
 using UnityEngine;
 using UnityEngine.UI;
 

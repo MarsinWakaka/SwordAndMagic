@@ -21,8 +21,9 @@ namespace GamePlaySystem.TileSystem
         private const int MapHeight = 30;
         private readonly Dictionary<TileType, TileData> _tileDict = new();
         private readonly Tile[,] _tiles = new Tile[MapWidth, MapHeight]; // 后续从关卡数据中读取
-        
+        // TODO 从关卡数据中读取，从而去掉Mono
         [SerializeField] private List<TileData> tileData = new();
+        [SerializeField] private Transform tileParent;
         private void Awake()
         {
             foreach (var data in tileData)
@@ -49,6 +50,7 @@ namespace GamePlaySystem.TileSystem
         private void RegisterTile(Tile tile)
         {
             // TODO 注册瓦片
+            tile.transform.SetParent(tileParent);
             var pos = tile.transform.position;
             _tiles[(int) pos.x, (int) pos.y] = tile;
             // TODO 根据其类型，更新瓦片数据
