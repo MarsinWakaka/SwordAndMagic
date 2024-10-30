@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35dcf9f3c1e4c1eb5fa081772ee1e71, type: 3}
+  m_Name: "\u5730\u9762"
+  m_EditorClassIdentifier: 
+  tileType: 1
+  typeName: "\u5730\u9762"
+  tileSprite: {fileID: -165662360, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
+  description: "\u5E73\u5E73\u65E0\u5947\u7684\u5730\u9762"
+  canBlockMove: 0
+  canBlockAtk: 0
+  isAttackable: 0
+  moveCost: 1
+  durability: 0
+  risk: 0

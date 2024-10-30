@@ -1,4 +1,4 @@
-using BattleSystem.SkillSystem;
+using GamePlaySystem.SkillSystem;
 using MyEventSystem;
 using UnityEngine;
 using UnityEngine.UI;

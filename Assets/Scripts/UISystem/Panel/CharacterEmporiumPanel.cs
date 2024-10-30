@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using BattleSystem.Emporium;
 using Entity;
 using Entity.Character;
 using Entity.Unit;
+using GamePlaySystem.EmporiumSystem;
 using MyEventSystem;
 using UISystem.PanelPart.CharacterEmporiumPart;
 using UnityEngine;

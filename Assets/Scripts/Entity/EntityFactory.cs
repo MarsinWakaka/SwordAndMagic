@@ -47,7 +47,7 @@ namespace Entity
     //             return;
     //         }
     //         // 创建实体
-    //         if (primitive is not Unit.Character charPrefab) {
+    //         if (primitive is not Player.Character charPrefab) {
     //             Debug.LogError($"实体不是角色: {entityClassID}, Type: {primitive.GetType()}");
     //             return;
     //         }

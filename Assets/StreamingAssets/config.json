@@ -8,5 +8,5 @@
   "uiPanelPath": "Assets/Prefabs/UI/UIPanel",
   
   "characterPrefabPath" : "Character",
-  "tilePrefabPath" : "Tile"
+  "tilePrefabPath" : "Assets/Prefabs/Entities/Tiles/Tile.prefab"
 }

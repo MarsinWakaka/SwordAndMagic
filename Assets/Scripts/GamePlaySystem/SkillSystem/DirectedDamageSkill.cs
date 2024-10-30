@@ -1,11 +1,9 @@
 using ConsoleSystem;
 using Entity;
-using Entity.Character;
-using Entity.Tiles;
 using Entity.Unit;
 using UnityEngine;
 
-namespace BattleSystem.SkillSystem
+namespace GamePlaySystem.SkillSystem
 {
     [CreateAssetMenu(menuName = "技能/指向性伤害技能", fileName = "指向性伤害技能")]
     public class DirectedDamageSkill : BaseSkill
@@ -14,7 +12,7 @@ namespace BattleSystem.SkillSystem
         public DamageType damageType;
         public int damage;
 
-        public override bool isTargetInRange(Vector2 casterPosition, Vector2 targetPosition)
+        public override bool isTargetInATKRange(Vector2 casterPosition, Vector2 targetPosition)
         {
             // 使用曼哈顿距离
             return range >= Mathf.Abs(casterPosition.x - targetPosition.x) + Mathf.Abs(casterPosition.y - targetPosition.y);
@@ -25,7 +23,7 @@ namespace BattleSystem.SkillSystem
             throw new System.NotImplementedException();
         }
 
-        public override Vector2[] GetReleaseScope(Vector2 targetPosition)
+        public override Vector2[] GetReleaseScope(Vector2 startPos)
         {
             var scope = new Vector2[1];
             return scope;

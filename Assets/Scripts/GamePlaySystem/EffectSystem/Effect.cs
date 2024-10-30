@@ -1,12 +1,7 @@
 using System;
-using BattleSystem.BUFFSystem;
-using Entity;
-using Entity.Character;
 using Entity.Unit;
-using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace BattleSystem.EffectSystem
+namespace GamePlaySystem.EffectSystem
 {
     /// <summary>
     /// 考虑替换为Command模式

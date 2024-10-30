@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using BattleSystem.Emporium;
 using BattleSystem.FactionSystem;
 using Entity;
 using Entity.Unit;
+using GamePlaySystem.EmporiumSystem;
 using MyEventSystem;
 using UISystem;
 using UISystem.Panel;

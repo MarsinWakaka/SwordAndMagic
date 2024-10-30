@@ -12,20 +12,22 @@ namespace GamePlaySystem
     /// <summary>
     /// 用于管理角色的轮询行动
     /// </summary>
-    public class CharacterManager : MonoBehaviour // : SingletonMono<CharacterManager>
+    public class CharacterManager // : SingletonMono<CharacterManager>
     {
         private readonly List<Character> units = new();
-        private readonly Dictionary<FactionType, List<Character>> factionUnits = new();
+        private readonly Dictionary<FactionType, List<Character>> FactionUnits = new();
         private int enemyDeadCount, playerDeadCount;    // 引入此变量减少计算量，缺点需要维护两个变量
         public Action OnPlayerWin;
         public Action OnEnemyWin;
+        public List<Character> Units => units;
+        public List<Character> GetUnitsByFaction(FactionType faction) => FactionUnits[faction];
 
         private readonly PlayerController playerController = new();
 
-        protected void Awake()
+        public CharacterManager()
         {
             foreach (FactionType faction in Enum.GetValues(typeof(FactionType)))
-                factionUnits.Add(faction, new List<Character>());
+                FactionUnits.Add(faction, new List<Character>());
             playerController.InitController();
             EventCenter<GameEvent>.Instance.AddListener<Character>(GameEvent.OnCharacterCreated, RegisterCharacter);
             EventCenter<GameEvent>.Instance.AddListener<Character>(GameEvent.OnCharacterSlotUIClicked, CharacterSelectedHandle);
@@ -37,7 +39,7 @@ namespace GamePlaySystem
             {
                 units.Sort();
                 NextBatchUnit();
-                EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty, factionUnits[FactionType.Player].ToArray());
+                EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty, FactionUnits[FactionType.Player].ToArray());
             });
         }
 
@@ -102,12 +104,7 @@ namespace GamePlaySystem
             readyToEndCount++;
             MyConsole.Print($"[单位准备结束] 准备结束 -  {readyToEndCount} / {activeCharacters.Count}", MessageColor.Yellow);
             if (activeCharacters.Count == readyToEndCount)
-            {
-                // 等待0.2s 下一批单位行动
-                // 因为敌人开始回合时 NextBatchUnit调用，但是在UnitStartTurn里敌人如果在0帧中完成了行动，导致调用UnityReadyToEndHandle
-                // 然后由于清空了activeCharacters的值，导致在遍历activeCharacters时foreach发生循环错误
-                Invoke(nameof(BatchUnitEndTurn), 0.2f);
-            }
+                BatchUnitEndTurn();
         }
         
         /// <summary>
@@ -142,8 +139,8 @@ namespace GamePlaySystem
         /// </summary>
         private bool TryHandleGameOver()
         {
-            bool isPlayerWin = enemyDeadCount == factionUnits[FactionType.Enemy].Count;
-            bool isEnemyWin = playerDeadCount == factionUnits[FactionType.Player].Count;
+            bool isPlayerWin = enemyDeadCount == FactionUnits[FactionType.Enemy].Count;
+            bool isEnemyWin = playerDeadCount == FactionUnits[FactionType.Player].Count;
             if (isPlayerWin || isEnemyWin)
             {
                 if (isPlayerWin)
@@ -197,7 +194,7 @@ namespace GamePlaySystem
         {
             character.OnDeathEvent += UnRegisterUnit;
             units.Add(character);
-            factionUnits[character.Faction.Value].Add(character);
+            FactionUnits[character.Faction.Value].Add(character);
         }
 
         /// <summary>
@@ -218,7 +215,7 @@ namespace GamePlaySystem
             
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfActionUnitOrder, GetCharacterOrder());
             if (character.Faction.Value == FactionType.Player)
-                EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty,  factionUnits[FactionType.Player].ToArray());
+                EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty,  FactionUnits[FactionType.Player].ToArray());
             // TODO 如果是选中角色死亡，更新SelectCharacterUI
         }
         

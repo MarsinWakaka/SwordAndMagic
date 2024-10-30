@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using BattleSystem.FactionSystem;
-using Entity.Tiles;
 using ResourcesSystem;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -11,20 +10,20 @@ namespace Entity
     public interface IEntityFactory
     {
         public Unit.Character CreateCharacter(int entityID, Vector2 position, FactionType factionType);
-        public Unit.Character CreateCharacter(int entityID, Action<Unit.Character> actionOnCreate);
-        public Tile CreateTile(int entityID, Vector2 position);
-        public Tile CreateTile(int entityID, Action<Tile> actionOnCreate);
+        public void CreateCharacter(int entityID, Action<Unit.Character> actionOnCreate);
+        public Tile CreateTile(TileType tileType, Vector2 position);
     }
     
     public class EntityFactoryImpl : IEntityFactory 
     {
         private readonly Dictionary<int, Unit.Character> _characterDict = new();
-        private readonly Dictionary<int, Tile> _tileDict = new();
+        // private readonly Dictionary<int, Tile> _tileDict = new();
+        private Tile _tilePrefab;
         
         public EntityFactoryImpl(string characterPrefabPath, string tilePrefabPath)
         {
             IResourceManager resourceManager = ServiceLocator.Get<IResourceManager>();
-            resourceManager.LoadAllResourcesAsync<GameObject>(characterPrefabPath, (gos) =>
+            resourceManager.LoadAllResourcesAsyncByTag<GameObject>(characterPrefabPath, (gos) =>
             {
                 foreach (var go in gos)
                 {
@@ -34,14 +33,11 @@ namespace Entity
                     }
                 }
             });
-            resourceManager.LoadAllResourcesAsync<GameObject>(tilePrefabPath, (gos) =>
+            resourceManager.LoadResourceAsync<GameObject>(tilePrefabPath, (go) =>
             {
-                foreach (var go in gos)
+                if (go.TryGetComponent<Tile>(out var character))
                 {
-                    if (go.TryGetComponent<Tile>(out var tile))
-                    {
-                        _tileDict.Add(tile.entityID, tile);
-                    }
+                    _tilePrefab = character;
                 }
             });
         }
@@ -50,7 +46,7 @@ namespace Entity
         {
             if (_characterDict.TryGetValue(entityID, out var character))
             {
-                var newCharacter = GameObject.Instantiate(character);
+                var newCharacter = Object.Instantiate(character);
                 newCharacter.Initialize(GenerateUniqueID(), position, factionType);
                 return newCharacter;
             }
@@ -58,46 +54,27 @@ namespace Entity
             return null;
         }
 
-        private Guid GenerateUniqueID()
-        {
-            return Guid.NewGuid();
-        }
-
-        public Unit.Character CreateCharacter(int entityID, Action<Unit.Character> actionOnCreate)
+        public void CreateCharacter(int entityID, Action<Unit.Character> actionOnCreate)
         {
             if (_characterDict.TryGetValue(entityID, out var character))
             {
-                var newCharacter = GameObject.Instantiate(character);
+                var newCharacter = Object.Instantiate(character);
                 actionOnCreate?.Invoke(newCharacter);
-                return newCharacter;
+                return;
             }
             Debug.LogError("实体不存在: " + entityID);
-            return null;
         }
 
-        public Tile CreateTile(int entityID, Vector2 position)
+        public Tile CreateTile(TileType tileType, Vector2 position)
         {
-            if (_tileDict.TryGetValue(entityID, out var tile))
-            {
-                var newTile = GameObject.Instantiate(tile);
-                newTile.name = $"tile.name_{position}";
-                newTile.transform.position = position;
-                return newTile;
-            }
-            Debug.LogError("实体不存在: " + entityID);
-            return null;
+            var newTile = Object.Instantiate(_tilePrefab);
+            newTile.Initialize(tileType, position);
+            return newTile;
         }
-        
-        public Tile CreateTile(int entityID, Action<Tile> actionOnCreate)
+
+        private Guid GenerateUniqueID()
         {
-            if (_tileDict.TryGetValue(entityID, out var tile))
-            {
-                var newTile = GameObject.Instantiate(tile);
-                actionOnCreate?.Invoke(newTile);
-                return newTile;
-            }
-            Debug.LogError("实体不存在: " + entityID);
-            return null;
+            return Guid.NewGuid();
         }
     }
 }

@@ -45,5 +45,7 @@ namespace MyEventSystem
         OnTileCreated,
         OnCharacterCreated, // TODO 管理器添加，并更新
         OnCharacterDeath,   // TODO 管理器删除，并更新
+        
+        RangeOperation,          // 显示范围
     }
 }

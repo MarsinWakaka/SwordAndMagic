@@ -6,12 +6,13 @@ using MyEventSystem;
 using UISystem;
 using UnityEngine;
 
-namespace BattleSystem
+namespace GamePlaySystem
 {
     public class GamePlayManager : MonoBehaviour
     {
-        [SerializeField] private LevelDataManager levelDataManager;
+        private LevelDataManager levelDataManager;
         [SerializeField] private ScenarioManager scenarioManager;
+        // TODO 将其从MonoBehaviour改为其它。
         [SerializeField] private DeployManager deployManager;
         [SerializeField] private BattleManager battleManager;
         
@@ -19,6 +20,7 @@ namespace BattleSystem
         
         private void Awake()
         {
+            levelDataManager = new LevelDataManager();
             EventCenter<GameStage>.Instance.AddListener<int>(GameStage.GameResourceLoadStart, OnGameResourceLoadStart);
         }
 

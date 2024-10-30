@@ -46,27 +46,11 @@ namespace InputSystem
                 EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnRightMouseClick);
             }
         }
-
-        // private void HandleHover()
-        // {
-        //     if (TryGetEntityAtMousePosition(out var entity))
-        //     {
-        //         EventCenter<GameEvent>.Instance.Invoke(GameEvent.SetHoverEntity, entity);
-        //     }
-        //     else
-        //     {
-        //         CursorTargetManager.Instance.CancelHover();
-        //     }
-        // }
         
 #if UNITY_EDITOR
         [Header("调试设置")]
         [SerializeField] bool isDebug;
 #endif
-        // public PlayerInputProvider(Action onRightMouseClick)
-        // {
-        //     this.OnRightMouseClick = onRightMouseClick;
-        // }
         private bool TryGetEntityAtMousePosition(out BaseEntity baseEntity)
         {
             baseEntity = null;

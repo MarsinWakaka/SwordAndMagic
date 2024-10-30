@@ -1,4 +1,4 @@
-using BattleSystem.Emporium;
+using GamePlaySystem.EmporiumSystem;
 using MyEventSystem;
 using UISystem;
 using UnityEngine;
@@ -18,20 +18,29 @@ namespace SceneSystem
         public void Init()
         {
             // 初始化开始场景
-            SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-            SceneManager.sceneLoaded += ActionOnSceneLoaded;
+            if (SceneManager.GetActiveScene().name == sceneName)
+            {
+                UIManager.Instance.PushPanel(PanelType.MainMenusPanel, null);
+            }
+            else
+            {
+                var loadHandle = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+                if (loadHandle != null)
+                    loadHandle.completed += operation =>
+                    {
+                        UIManager.Instance.PushPanel(PanelType.MainMenusPanel, null);
+                    };
+                else
+                {
+                    Debug.LogError($"Load Scene Failed，请检查场景名字是否正确 {sceneName}");
+                }
+            }
         }
         
         public void Release()
         {
             // 释放场景
             UIManager.Instance.PopPanel();
-        }
-        
-        private void ActionOnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            UIManager.Instance.PushPanel(PanelType.MainMenusPanel, null);
-            SceneManager.sceneLoaded -= ActionOnSceneLoaded;
         }
     }
     
@@ -47,7 +56,7 @@ namespace SceneSystem
         public void Init()
         {
             // 初始化战斗场景
-            var loadHandle = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+            var loadHandle = SceneManager.LoadSceneAsync(sceneName);
             if (loadHandle != null)
                 loadHandle.completed += operation =>
                 {
@@ -69,7 +78,6 @@ namespace SceneSystem
         }
     }
     
-    // Rider 标记，其它 IDE 可能不支持
     // ReSharper disable once ClassNeverInstantiated.Global
     public class GameSceneManager
     {

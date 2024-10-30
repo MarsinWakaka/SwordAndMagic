@@ -20,11 +20,12 @@ public sealed class ApplicationRoot : SingletonMono<ApplicationRoot>
     protected override void Awake()
     {
         base.Awake();
+        print($"Active Scene Count: {UnityEngine.SceneManagement.SceneManager.sceneCount}");
         ServiceLocator.Register<ISerializeTool>(new JsonSerializeTool());
         LoadConfig(Path.Combine(Application.streamingAssetsPath, "config.json"));
         ServiceLocator.Register<IResourceManager>(new AddressableManager());
-        ServiceLocator.Register<IEntityFactory>(new EntityFactoryImpl(Config.characterPrefabPath, Config.tilePrefabPath));
         ServiceLocator.Register<ILevelDataProcessor>(new LevelDataProcessor(Config.levelDataParser));
+        ServiceLocator.Register<IEntityFactory>(new EntityFactoryImpl(Config.characterPrefabPath, Config.tilePrefabPath));
     }
 
     private void Start()

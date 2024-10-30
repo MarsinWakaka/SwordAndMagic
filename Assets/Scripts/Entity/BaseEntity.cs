@@ -19,24 +19,21 @@ namespace Entity
         public int entityID;
         public Guid EntityID;
         // 只读属性
-        public Sprite sprite;
+        [HideInInspector] public Sprite sprite;
         public EntityType entityType;
 
-        protected SpriteRenderer Renderer;
+        public SpriteRenderer Renderer;
         
         protected void Awake()
         {
             Renderer = GetComponent<SpriteRenderer>();
-            Renderer.sprite = sprite;
-        }
-        
-        public void Initialize(Guid entityID, Vector2 position)
-        {
-            EntityID = entityID;
-            transform.position = position;
+            sprite = Renderer.sprite;
         }
 
-        // public abstract string GetDescription();
-        // public abstract string GetDescription();
+        protected void Initialize(Guid entityId, Vector2 position)
+        {
+            EntityID = entityId;
+            transform.position = position;
+        }
     }
 }

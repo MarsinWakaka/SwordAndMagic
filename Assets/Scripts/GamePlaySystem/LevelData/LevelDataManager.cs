@@ -1,15 +1,26 @@
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using MyEventSystem;
 using UnityEngine;
 
 namespace GamePlaySystem.LevelData
 {
-    public class LevelDataManager : MonoBehaviour
+    // public class LevelData
+    // {
+    //     public List<GridData> MapData;
+    //     
+    //     public struct GridData
+    //     {
+    //         Vector2Int position;
+    //         long data;          // 后10位bit表示地形类型，后10位表示对象类型
+    //     }
+    // }
+    
+    public class LevelDataManager
     {
         private ILevelDataProcessor dataProcessor;
         
-        protected void Awake()
+        public LevelDataManager()
         {
             dataProcessor = ServiceLocator.Get<ILevelDataProcessor>();
         }
@@ -17,26 +28,15 @@ namespace GamePlaySystem.LevelData
         // 由GameStateManager调用
         public void OnLoadLevelResourceStart(int levelIndex)
         {
-            StartCoroutine(LoadLevelResource(levelIndex));
+            // 先加载所有对象数据和地图数据
+            OnGenerateLevelData(levelIndex);
         }
-
-        private IEnumerator LoadLevelResource(int index)
+        
+        public void OnGenerateLevelData(int levelIndex)
         {
-            // TODO 制定关卡数据格式LevelData，采用JSON格式存储信息（重写思考游戏的玩法）。
-            // 开始加载资源
-            // 1、加载地形资源
-            // 通过制作地图Prefab的方式然后加载
-            ReadLevelFile(index);
-
-            // 2、加载单位资源
-            // 也是通过Prefab，制作实体包，单位被加载时，向实体管理器注册自己
-
-            // 3、加载演出资源
-            // 通过制作Prefab，然后加载
-
-            // 资源加载完毕
+            // 生成地形数据
+            ReadLevelFile(levelIndex);
             EventCenter<GameStage>.Instance.Invoke(GameStage.GameResourceLoadEnd);
-            yield return null;
         }
 
         private void ReadLevelFile(int index)
@@ -56,4 +56,3 @@ namespace GamePlaySystem.LevelData
         }
     }
 }
-// 

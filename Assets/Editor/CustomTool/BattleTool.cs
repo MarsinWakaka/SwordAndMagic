@@ -1,7 +1,6 @@
 using BattleSystem.FactionSystem;
 using Entity;
 using Entity.Character;
-using Entity.Tiles;
 using Entity.Unit;
 using UnityEditor;
 using UnityEngine;
@@ -32,21 +31,6 @@ namespace Editor.CustomTool
             }
         }
         
-        // 请注意开头为：CONTEXT/
-        [MenuItem("CONTEXT/Character/RecoverAllStatus")]
-        public static void RecoverAllStatus(MenuCommand menuCommand)
-        {
-            Character character = menuCommand.context as Character;
-            if (character != null){
-                var property = character.property;
-                Undo.RecordObject(property, "Recover All Status");
-                property.AP.Value = CharacterProperty.AP_MAX;
-                property.SP.Value = CharacterProperty.SP_MAX;
-                property.HP.Value = property.HP_MAX.Value;
-                property.RWR.Value = property.WR_MAX.Value;
-            }
-        }
-        
         [MenuItem("自定义工具/战斗场景/摧毁选中角色")]
         public static void DestroyCharacter()
         {
@@ -58,5 +42,7 @@ namespace Editor.CustomTool
                 Debug.LogError("选中的对象没有挂载角色组件");
             }
         }
+        
+        
     }
 }

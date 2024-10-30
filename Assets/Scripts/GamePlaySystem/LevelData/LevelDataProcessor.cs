@@ -61,7 +61,7 @@ namespace GamePlaySystem.LevelData
                     for (int j = labelStartRow + 1; j < curRow; j++)
                     {
                         packageData.Append(data[j]);
-                        packageData.Append("\n");
+                        if (j < curRow - 1) packageData.Append("\n"); // 最后一行数据不需要换行
                     }
 
                     switch (dataPartType)
@@ -106,7 +106,7 @@ namespace GamePlaySystem.LevelData
                     if (int.TryParse(cols[x], out var cellIndex))
                     {
                         if (cellIndex == 0) continue; // 虚空
-                        entityFactory.CreateTile(cellIndex, new Vector2(x, maxH - y));
+                        entityFactory.CreateTile((TileType)cellIndex, new Vector2(x, maxH - y));
                         // EntityFactory.Instance.CreateEntity(cellIndex, new Vector2(x, maxH - y));
                     }
                 }

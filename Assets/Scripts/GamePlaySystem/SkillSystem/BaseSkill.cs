@@ -1,23 +1,17 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using BattleSystem.EffectSystem;
 using Entity;
-using Entity.Character;
 using Entity.Unit;
+using GamePlaySystem.EffectSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace BattleSystem.SkillSystem
+namespace GamePlaySystem.SkillSystem
 {
-    public enum RangeType
+    public enum ImpactType
     {
-        Self,
         Single,
-        Circle,
-        Rectangle,
-        Line,
-        Cross,
-        Custom,
-        // All
+        Aoe,
     }
     
     [Flags]
@@ -50,7 +44,7 @@ namespace BattleSystem.SkillSystem
         
         [Header("施法范围 & 影响范围 & 作用对象")]
         public int range;
-        public RangeType rangeType;
+        [FormerlySerializedAs("rangeType")] public ImpactType impactType;
         [Header("作用对象 & 作用数量 & 是否可重复作用")]
         public EntityType canImpactEntityType;
         public CanImpactFactionType canImpactFactionType;   // 仅在canImpactEntityType为有Character时有效
@@ -67,12 +61,12 @@ namespace BattleSystem.SkillSystem
         /// <summary>
         /// 通过曼哈顿距离判断目标点是否在施法范围内
         /// </summary>
-        public abstract bool isTargetInRange(Vector2 casterPosition, Vector2 targetPosition); // => _releaseScope.IsInScope(param);
+        public abstract bool isTargetInATKRange(Vector2 casterPosition, Vector2 targetPosition); // => _releaseScope.IsInScope(param);
         
         /// <summary>
         /// 显示技能范围
         /// </summary>
-        public abstract Vector2[] GetReleaseScope(Vector2 targetPosition);
+        public abstract Vector2[] GetReleaseScope(Vector2 startPos);
         
         /// <summary>
         /// 判断受到影响的目标点，可被子类重写，因此可以自定义法术影响范围
