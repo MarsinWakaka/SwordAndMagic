@@ -32,6 +32,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e583f6e9ecd334a4a850f5ca9c786976
+    m_Address: Assets/Prefabs/UI/UIPanel/StartPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e63e71043d013ff43bb2579db48783ef
     m_Address: Assets/Prefabs/UI/UIPanel/MainMenusPanel.prefab
     m_ReadOnly: 0

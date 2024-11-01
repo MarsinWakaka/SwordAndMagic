@@ -1,11 +1,12 @@
 using ConsoleSystem;
+using Entity;
 using Utility.FSM;
 
-namespace Entity.Unit.State
+namespace GamePlaySystem.Controller.Player.State
 {
     public class ActiveState : IState
     {
-        private Unit.Character _owner;
+        private Character _owner;
         
         public void Initialize(Character owner)
         {

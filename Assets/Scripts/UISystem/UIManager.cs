@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Configuration;
 using ConsoleSystem;
 using ResourcesSystem;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace UISystem
     /// </summary>
     public enum PanelType
     {
+        StartPanel,
         MainMenusPanel,
         CharacterEmporiumPanel,
         BattlePanel,
@@ -20,8 +22,15 @@ namespace UISystem
 
     public sealed class UIManager : SingletonMono<UIManager>
     {
-        private static string UIPanelPath => ApplicationRoot.Instance.Config.uiPanelPath;
-        // [SerializeField] AssetReference mainMenusPanelRef;
+        private string uiPanelPath;
+        private string UIPanelPath {
+            get {
+                if (string.IsNullOrEmpty(uiPanelPath)) {
+                    uiPanelPath = ServiceLocator.Get<IConfigService>().ConfigData.uiPanelPath;
+                }
+                return uiPanelPath;
+            }
+        }
         [SerializeField] private Transform panelRoot;
         private readonly Dictionary<PanelType, BasePanel> _panelDict = new ();
         private readonly Stack<BasePanel> _panelStack = new ();
@@ -75,6 +84,7 @@ namespace UISystem
             });
         }
         
+        [Obsolete("Use PopPanel(PanelType panelType) instead is recommended")]
         public void PopPanel()
         {
             MyConsole.Print($"PopPanel {_panelStack.Peek()}");
@@ -83,10 +93,30 @@ namespace UISystem
             if (_panelStack.Count == 0) return;
             _panelStack.Peek().OnResume();
         }
+
+        private const string ErrorMsgSuffix = ", please check the order of pop and push operation";
+        /// <summary>
+        /// 加入了类型检查，更加安全，弹出类型不匹配的面板时将会打印错误信息
+        /// </summary>
+        /// <param name="panelType"></param>
+        public void PopPanel(PanelType panelType)
+        {
+            if (_panelStack.Count == 0) return;
+            if (_panelStack.Peek().panelType == panelType)
+            {
+                if (_panelStack.Count == 0) return;
+                _panelStack.Pop().OnExit();
+                if (_panelStack.Count == 0) return;
+                _panelStack.Peek().OnResume();
+            } else {
+                Debug.LogError(
+                    $"current type is {_panelStack.Peek().panelType}, not match with the type of {panelType}{ErrorMsgSuffix}");
+            }
+        }
         
         public void ClearPanel()
         {
-            while (_panelStack.Count > 0) _panelStack.Peek().OnExit();
+            while (_panelStack.Count > 0) _panelStack.Pop().OnExit();
         }
         
         #endregion

@@ -1,6 +1,5 @@
 using ConsoleSystem;
 using Entity;
-using Entity.Unit;
 using UnityEngine;
 
 namespace GamePlaySystem.SkillSystem
@@ -17,7 +16,7 @@ namespace GamePlaySystem.SkillSystem
         /// </summary>
         public override bool isTargetInATKRange(Vector2 casterPosition, Vector2 targetPosition)
         {
-            // 使用曼哈顿距离
+            // 暂时使用曼哈顿距离
             return range >= Mathf.Abs(casterPosition.x - targetPosition.x) + Mathf.Abs(casterPosition.y - targetPosition.y);
         }
 

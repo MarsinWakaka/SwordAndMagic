@@ -1,17 +1,16 @@
 using System.Diagnostics.CodeAnalysis;
-using BattleSystem;
 using GamePlaySystem;
 using UnityEngine;
 using Utility;
 
-namespace Entity.Unit
+namespace Entity
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")] // Disable naming rule
     [CreateAssetMenu(menuName = "创建角色数据", fileName = "New Character Data")]
     public class CharacterProperty : ScriptableObject
     {
         [Header("角色基本属性")]
-        [SerializeField] private int LV;
+        [Range(1, 12)] [SerializeField] private int LV;
         [SerializeField] private int BaseHp;
         [Tooltip("防御面板-护盾存在期间，角色不会被暴击；护盾不能通过治疗恢复")]
         [SerializeField] private int Defence_Max;
@@ -19,17 +18,17 @@ namespace Entity.Unit
         
         [Header("角色一级属性")]
         [Tooltip("体质: 影响角色倒下前能承受多少伤害(角色获得额外体质调整值的生命值)")]
-        [SerializeField] private int Constitution = 10;
+        [Range(8, 24)] [SerializeField] private int Constitution = 10;
         [Tooltip("力量：增强武器的操纵能力(影响物理攻击的命中以及伤害)")]
-        [SerializeField] private int Strength = 10;
+        [Range(8, 24)] [SerializeField] private int Strength = 10;
         [Tooltip("智力：增强魔法的操纵能力(影响魔法攻击的命中以及伤害)")]
-        [SerializeField] private int Intelligence = 10;
+        [Range(8, 24)] [SerializeField] private int Intelligence = 10;
         // [Tooltip("感知: 识破敌人行为(影响暴击率)的能力--角色攻击时，如果触发识破，造成两倍伤害; 角色受击时，如果触发识破，只受到一半伤害")]
         [Tooltip("感知: 识破敌人行为、强化治愈效果、提升角色心智类技能的命中--角色回合开始时，对场上的敌人进行感知检测，如果发现敌人的弱点，则对敌人施加<弱点标记>" +
                  "弱点标记：带有弱点标记的敌人受到的精准类型的伤害时，额外承受50%的伤害，弱点标记在敌人的行动开始时消失")]
-        [SerializeField] private int Perception = 10;
+        [Range(8, 24)] [SerializeField] private int Perception = 10;
         [Tooltip("敏捷值：影响先攻、每回合依据<敏捷调整值>额外获得移动距离、影响角色的闪避能力")]
-        [SerializeField] private int Dexterity = 10;
+        [Range(8, 24)] [SerializeField] private int Dexterity = 10;
 
 
         [Header("行动点 与 技能点")] 

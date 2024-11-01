@@ -1,5 +1,6 @@
 using System;
-using Entity.Unit;
+using Entity;
+using GamePlaySystem.SkillSystem;
 
 namespace GamePlaySystem.EffectSystem
 {
@@ -22,7 +23,7 @@ namespace GamePlaySystem.EffectSystem
 
         public override void ApplyEffect()
         {
-            target.TakeDamage(caster.property.STR.Value, DamageType.Physical);
+            target.TakeDamage(caster.Property.STR.Value, DamageType.Physical);
         }
     }
     

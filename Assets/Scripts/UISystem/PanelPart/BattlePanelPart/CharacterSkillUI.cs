@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using Entity;
-using Entity.Character;
-using Entity.Unit;
 using GamePlaySystem.SkillSystem;
 using MyEventSystem;
 using UnityEngine;
@@ -39,14 +37,14 @@ namespace UISystem.PanelPart.BattlePanelPart
             if (curCharacter != null) {
                 curCharacter.ReadyToEndEvent -= DisableSkillPanel;
                 curCharacter.CancelReadyToEndEvent -= EnableSkillPanel;
-                curCharacter.property.AP.OnValueChanged -= UpdateSkillListUIsByAP;
-                curCharacter.property.SP.OnValueChanged -= UpdateSkillListUIsBySP;
+                curCharacter.Property.AP.OnValueChanged -= UpdateSkillListUIsByAP;
+                curCharacter.Property.SP.OnValueChanged -= UpdateSkillListUIsBySP;
             }
             curCharacter = character;
             curCharacter.ReadyToEndEvent += DisableSkillPanel;
             curCharacter.CancelReadyToEndEvent += EnableSkillPanel;
-            curCharacter.property.AP.OnValueChanged += UpdateSkillListUIsByAP;
-            curCharacter.property.SP.OnValueChanged += UpdateSkillListUIsBySP;
+            curCharacter.Property.AP.OnValueChanged += UpdateSkillListUIsByAP;
+            curCharacter.Property.SP.OnValueChanged += UpdateSkillListUIsBySP;
 
             // 根据 角色状态 设置 技能栏状态
             if (curCharacter.IsOnTurn && !curCharacter.IsReadyToEndTurn)
@@ -60,8 +58,8 @@ namespace UISystem.PanelPart.BattlePanelPart
                 var slot = GetSlot(i);
                 slot.SetSkillSlot(skillSlots[i]);
                 slot.CoolDownTimeUpdateHandle(skillSlots[i].RemainCoolDown.Value);
-                slot.APUpdateHandle(curCharacter.property.AP.Value);
-                slot.SPUpdateHandle(curCharacter.property.SP.Value);
+                slot.APUpdateHandle(curCharacter.Property.AP.Value);
+                slot.SPUpdateHandle(curCharacter.Property.SP.Value);
             }
             RecycleUnused(skillSlots.Count);
             

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace ScenarioSystem.Performance
+namespace GamePlaySystem.ScenarioSystem.Scenario
 {
     public abstract class BasePerformance : MonoBehaviour
     {

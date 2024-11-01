@@ -1,8 +1,7 @@
 using System.IO;
 using Configuration;
-using Entity;
-using GamePlaySystem.LevelData;
 using ResourcesSystem;
+using SaveSystem;
 using SceneSystem;
 using UnityEngine;
 using Utility.SerializeTool;
@@ -15,17 +14,19 @@ using AddressableManager = ResourcesSystem.AddressableManager;
 /// </summary>
 public sealed class ApplicationRoot : SingletonMono<ApplicationRoot>
 {
-    public ConfigData Config { get; private set; }
-
     protected override void Awake()
     {
         base.Awake();
-        print($"Active Scene Count: {UnityEngine.SceneManagement.SceneManager.sceneCount}");
-        ServiceLocator.Register<ISerializeTool>(new JsonSerializeTool());
-        LoadConfig(Path.Combine(Application.streamingAssetsPath, "config.json"));
-        ServiceLocator.Register<IResourceManager>(new AddressableManager());
-        ServiceLocator.Register<ILevelDataProcessor>(new LevelDataProcessor(Config.levelDataParser));
-        ServiceLocator.Register<IEntityFactory>(new EntityFactoryImpl(Config.characterPrefabPath, Config.tilePrefabPath));
+        // 初始化全局服务【】
+        var configPath = Path.Combine(Application.streamingAssetsPath, "config.json");
+        var serializeTool = new JsonSerializeTool();
+        var configService = new ConfigService(configPath, serializeTool);
+        var resourceManager = new AddressableManager();
+        var userSaveService = new UserSaveService(Application.persistentDataPath, serializeTool);
+        ServiceLocator.Register<ISerializeTool>(serializeTool);
+        ServiceLocator.Register<IConfigService>(configService);
+        ServiceLocator.Register<IResourceManager>(resourceManager);
+        ServiceLocator.Register<IUserSaveService>(userSaveService);
     }
 
     private void Start()
@@ -35,15 +36,6 @@ public sealed class ApplicationRoot : SingletonMono<ApplicationRoot>
 
     private void OnApplicationQuit()
     {
-        
-    }
-    
-    private void LoadConfig(string path)
-    {
-        if (File.Exists(path)) {
-            Config = ServiceLocator.Get<ISerializeTool>().Deserialize<ConfigData>(path);
-        } else {
-            Debug.LogError("配置文件不存在: " + path);
-        }
+        // TODO 保存用户存档
     }
 }

@@ -382,5 +382,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96a66a79db04ec6bb5e3433e67536da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelType: 3
+  panelType: 4
   exitButton: {fileID: 713292891769792592}

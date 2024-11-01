@@ -1,20 +1,23 @@
 using System;
 using System.Collections.Generic;
 using ConsoleSystem;
-using GamePlaySystem.Controller.Player;
+using Entity;
+using GamePlaySystem.RangeDisplay;
 using GamePlaySystem.SkillSystem;
+using GamePlaySystem.TileSystem.Navigation;
+using GamePlaySystem.TileSystem.ViewField;
 using MyEventSystem;
 using UnityEngine;
 using Utility.FSM;
 
-namespace Entity.Unit.State
+namespace GamePlaySystem.Controller.Player.State
 {
     public class SkillChosenState : IState
     {
         private readonly Stack<BaseEntity> _targets = new();
         private SkillSlot skillSlotChosen;  // 缓存
         private BaseSkill skillChosen;      // 缓存
-        private Unit.Character curCharacter;     // 缓存
+        private Character curCharacter;     // 缓存
         
         private readonly PlayerController _controller;
         public SkillChosenState(PlayerController controller)
@@ -22,14 +25,19 @@ namespace Entity.Unit.State
             _controller = controller;
         }
 
+        private HashSet<int> atkRangeGrids;
+
         public void OnEnter(object param = null)
         {
             curCharacter = _controller.CurCharacter;
             skillSlotChosen = _controller.SelectedSkillSlot;
             skillChosen = skillSlotChosen.skill;
+            curCharacter.OnSkillChosenEnter?.Invoke(skillSlotChosen);  // 触发技能选择事件
+            var curPos = curCharacter.transform.position;
+            atkRangeGrids = ServiceLocator.Get<IViewFieldService>().GetViewFieldSets((int)curPos.x, (int)curPos.y, skillChosen.range);
+            ServiceLocator.Get<IRangeDisplayService>().ShowAttackRange(atkRangeGrids);
             MyConsole.Print($"[技能选中状态] {curCharacter.characterName}选择了{skillChosen.skillName}", MessageColor.White);
-            EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnSKillChosenStateEnter, skillChosen);
-            // TODO 显示攻击范围。
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnSKillChosenStateEnter, skillChosen); // TODO 改为UI监听角色的状态事件，而不是通过事件中心
             EventCenter<GameEvent>.Instance.AddListener(GameEvent.OnRightMouseClick, HandleMouseRightClicked);
             EventCenter<GameEvent>.Instance.AddListener(GameEvent.OnSkillReleaseButtonClicked, TransitionToSkillRelease);
             EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.OnEntityLeftClicked, OnEntityClicked);
@@ -53,7 +61,9 @@ namespace Entity.Unit.State
         public void OnExit()
         {
             _targets.Clear();
+            curCharacter.OnSkillChosenExit?.Invoke();  // 触发技能选择事件
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnSKillChosenStateExit);
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.CloseRangeOperation);
             EventCenter<GameEvent>.Instance.RemoveListener(GameEvent.OnRightMouseClick, HandleMouseRightClicked);
             EventCenter<GameEvent>.Instance.RemoveListener(GameEvent.OnSkillReleaseButtonClicked, TransitionToSkillRelease);
             EventCenter<GameEvent>.Instance.RemoveListener<BaseEntity>(GameEvent.OnEntityLeftClicked, OnEntityClicked);
@@ -99,9 +109,12 @@ namespace Entity.Unit.State
 
         private bool IsTargetInRange(BaseEntity target)
         {
-            return skillSlotChosen.skill.isTargetInATKRange(
-                curCharacter.transform.position, 
-                target.transform.position);
+            var targetPos = target.transform.position;
+            var key = NavigationService.GetIndexKey((int)targetPos.x, (int)targetPos.y);
+            return atkRangeGrids.Contains(key);
+            // return skillSlotChosen.skill.isTargetInATKRange(
+            //     curCharacter.transform.position, 
+            //     target.transform.position);
         }
         
         private void TransitionToSkillRelease()

@@ -1,7 +1,4 @@
-using BattleSystem.FactionSystem;
 using Entity;
-using Entity.Character;
-using Entity.Unit;
 using UnityEditor;
 using UnityEngine;
 
@@ -27,7 +24,7 @@ namespace Editor.CustomTool
             Debug.Log("Selected: " + Selection.activeGameObject.name);
             var character = Selection.activeGameObject.GetComponent<Character>();
             if (character != null){
-                character.property.AP.Value = CharacterProperty.AP_MAX;
+                character.Property.AP.Value = CharacterProperty.AP_MAX;
             }
         }
         

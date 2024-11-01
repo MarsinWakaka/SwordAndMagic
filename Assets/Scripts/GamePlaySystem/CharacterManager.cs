@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using BattleSystem.FactionSystem;
 using ConsoleSystem;
-using Entity.Unit;
+using Entity;
 using GamePlaySystem.Controller.AI;
 using GamePlaySystem.Controller.Player;
 using GamePlaySystem.FactionSystem;
@@ -26,6 +25,10 @@ namespace GamePlaySystem
         
         private PlayerController playerController;
         private AutoController autoController;
+        
+        /// <summary>
+        /// 需要两个控制器
+        /// </summary>
         public void Initialize(PlayerController playerController, AutoController autoController)
         {
             this.playerController = playerController;
@@ -36,7 +39,6 @@ namespace GamePlaySystem
         {
             foreach (FactionType faction in Enum.GetValues(typeof(FactionType)))
                 factionUnits.Add(faction, new List<Character>());
-            EventCenter<GameEvent>.Instance.AddListener<Character>(GameEvent.OnCharacterCreated, RegisterCharacter);
             EventCenter<GameEvent>.Instance.AddListener<Character>(GameEvent.OnCharacterSlotUIClicked, CharacterSelectedHandle);
         }
 
@@ -197,7 +199,7 @@ namespace GamePlaySystem
         /// <summary>
         /// 角色单元生成时自动调用，不需要其它模块调用
         /// </summary>
-        private void RegisterCharacter(Character character)
+        public void RegisterCharacter(Character character)
         {
             character.OnDeathEvent += UnRegisterUnit;
             units.Add(character);
@@ -227,7 +229,6 @@ namespace GamePlaySystem
         }
         
         #endregion
-        
         
         // TODO 这部分代码应该移到BattleManager中(暂未添加BattleManager)
         #region TODO

@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using Entity.Unit;
+using Entity;
+using UnityEngine;
 
 namespace GamePlaySystem
 {
@@ -14,16 +15,17 @@ namespace GamePlaySystem
         /// <summary>
         /// 获得该属性值与与属性基本值的差
         /// </summary>
-        private static int GetDeltaValue(int prop) => prop - AVG_PROP;
+        private static int GetAdjustValue(int prop) => (prop - AVG_PROP) >> 1;
         
         public static int CalculateHp(CharacterProperty property)
         {
-            return property.BaseHP.Value + GetDeltaValue(property.CON.Value) * 5 + property.Level.Value * 8;
+            int targetHP = property.BaseHP.Value + property.Level.Value * (5 + GetAdjustValue(property.CON.Value) * 3);
+            return Mathf.Max(1, targetHP);
         }
 
         public static int CalculateWalkRange(CharacterProperty characterProperty)
         {
-            return 5 + GetDeltaValue(characterProperty.DEX.Value) / 2;
+            return 5 + GetAdjustValue(characterProperty.DEX.Value);
         }
     }
 }

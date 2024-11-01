@@ -1,23 +1,21 @@
-using Entity.Character.Player.State;
-using Entity.Unit;
-using Entity.Unit.State;
+using Entity;
+using GamePlaySystem.ControlCommand;
 using GamePlaySystem.Controller.Player.State;
-using UnityEngine;
+using GamePlaySystem.SkillSystem;
 using Utility.FSM;
 
 namespace GamePlaySystem.Controller.Player
 {
     public class PlayerController
     {
-        private FSM<ControllerState> fsm;    // 角色控制器状态机
-        private Character curCharacter;
-        public Character CurCharacter => curCharacter;
-
-        public Vector2 Destination;
+        private readonly FSM<ControllerState> fsm;    // 角色控制器状态机
         public SkillSlot SelectedSkillSlot;
-        
-        public void Initialize()
+        public ICommandManager CommandManager { get; }
+        public Character CurCharacter { get; private set; }
+
+        public PlayerController(ICommandManager commandManager)
         {
+            this.CommandManager = commandManager;
             fsm = new FSM<ControllerState>();
             fsm.AddState(ControllerState.Inactive, new InactiveState(this));
             fsm.AddState(ControllerState.WaitForCommand, new WaitForCommandState(this));
@@ -30,18 +28,17 @@ namespace GamePlaySystem.Controller.Player
         
         public void SetCharacter(Character newCharacter)
         {
-            if (curCharacter != newCharacter) {
+            if (CurCharacter != newCharacter) {
                 ResetParams();
             }
-            curCharacter = newCharacter;
-            if (curCharacter != null) {
+            CurCharacter = newCharacter;
+            if (CurCharacter != null) {
                 fsm.Transition(ControllerState.WaitForCommand);
             }
         }
         
         private void ResetParams()
         {
-            Destination = Vector2.zero;
             SelectedSkillSlot = null;
             fsm.Transition(ControllerState.Inactive);
         }

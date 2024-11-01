@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Entity;
-using Entity.Unit;
 using GamePlaySystem.TileSystem;
 using UnityEngine;
 

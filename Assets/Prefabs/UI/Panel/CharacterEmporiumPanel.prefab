@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5994c0b973ea453abed6ac40239448ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelType: 1
+  panelType: 2
   emporiumPanel: {fileID: 8598606219400644506}
   goldText: {fileID: 4479114688720808202}
   endButton: {fileID: 102506642987563459}

@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 1
   skillName: "\u9B54\u6CD5\u98DE\u5F39"
   skillIcon: {fileID: -557995631, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  skillDescription: "\u9009\u4E2D\u4E09\u4E2A\u76EE\u6807\u91CA\u653E\u9B54\u6CD5\u98DE\u5F39\uFF0C\u6BCF\u4E2A\u9B54\u6CD5\u98DE\u5F39\u9020\u6210{damage}\u70B9\u9B54\u6CD5\u4F24\u5BB3\u3002"
+  skillDescription: "\u9009\u4E2D\u4E09\u4E2A\u76EE\u6807\u91CA\u653E\u9B54\u6CD5\u98DE\u5F39\uFF0C\u6BCF\u4E2A\u9B54\u6CD5\u98DE\u5F39\u9020\u62104\u70B9\u9B54\u6CD5\u4F24\u5BB3\u3002"
   range: 6
   impactType: 0
   canImpactEntityType: -1
@@ -27,4 +27,4 @@ MonoBehaviour:
   AP_Cost: 2
   SP_Cost: 1
   damageType: 1
-  damage: 3
+  damage: 4

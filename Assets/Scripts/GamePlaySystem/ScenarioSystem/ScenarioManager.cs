@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using GamePlaySystem.ScenarioSystem.Scenario;
 using MyEventSystem;
-using ScenarioSystem.Performance;
 using UnityEngine;
 
 namespace BattleSystem.ScenarioSystem
@@ -24,12 +24,12 @@ namespace BattleSystem.ScenarioSystem
                 yield return performanceList[_curPfmIndex].StartPerformance();
                 _curPfmIndex++;
             }
-            EventCenter<GameStage>.Instance.Invoke(GameStage.ScenarioEnd);
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.ScenarioEnd);
         }
 
         public void OnScenarioEnd()
         {
-            EventCenter<GameStage>.Instance.Invoke(GameStage.PlayerDeployedStart);
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.PlayerDeployedStart);
         }
     }
 }

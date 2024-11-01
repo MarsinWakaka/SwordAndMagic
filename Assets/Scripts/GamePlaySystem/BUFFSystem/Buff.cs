@@ -1,7 +1,5 @@
 using System;
 using Entity;
-using Entity.Character;
-using Entity.Unit;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

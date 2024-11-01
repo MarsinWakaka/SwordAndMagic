@@ -1,4 +1,4 @@
-﻿using Entity.Unit;
+﻿using Entity;
 
 namespace GamePlaySystem.Controller
 {

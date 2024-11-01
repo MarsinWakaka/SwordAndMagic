@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   skillName: "\u89E3\u79BB\u672F"
-  skillIcon: {fileID: 1219072248, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  skillDescription: "\u3010\u63CF\u8FF0\u3011\u6682\u65E0\u63CF\u8FF0"
+  skillIcon: {fileID: -45120724, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
+  skillDescription: "\u5927\u91CF\u7684\u9B54\u529B\u88AB\u538B\u7F29\u5728\u4E00\u4E2A\u7403\u578B\u7A7A\u95F4\uFF0C\u79BB\u5F00\u4E86\u6CD5\u6756\u5C31\u4F1A\u53D8\u5F97\u53CA\u5176\u4E0D\u7A33\u5B9A\uFF0C\u6781\u9AD8\u7684\u80FD\u91CF\u80FD\u591F\u89E3\u79BB\u88AB\u51FB\u4E2D\u7684\u7269\u4F53"
   range: 5
   impactType: 0
   canImpactEntityType: -1
@@ -24,7 +24,7 @@ MonoBehaviour:
   canSameTarget: 0
   isChanneling: 0
   coolDown: 3
-  AP_Cost: 3
-  SP_Cost: 3
+  AP_Cost: 5
+  SP_Cost: 2
   damageType: 1
   damage: 30

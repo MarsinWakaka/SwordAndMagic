@@ -1,9 +1,8 @@
 using System.Collections;
 using DG.Tweening;
-using ScenarioSystem.Performance;
 using UnityEngine;
 
-namespace ScenarioSystem.Performance
+namespace GamePlaySystem.ScenarioSystem.Scenario
 {
     public class CameraMotionPerformance : BasePerformance
     {

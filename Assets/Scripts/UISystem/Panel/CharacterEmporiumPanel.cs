@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using Entity;
-using Entity.Character;
-using Entity.Unit;
 using GamePlaySystem.EmporiumSystem;
 using MyEventSystem;
 using UISystem.PanelPart.CharacterEmporiumPart;
@@ -54,7 +52,7 @@ namespace UISystem.Panel
         // 结束部署
         private void EndDeployButtonClicked()
         {
-            EventCenter<GameStage>.Instance.Invoke(GameStage.PlayerDeployedEnd);
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.PlayerDeployedEnd);
         } 
     }
 }

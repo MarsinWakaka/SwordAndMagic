@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 7
   skillName: "\u6495\u54AC"
   skillIcon: {fileID: -1570201088, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  skillDescription: "\u3010\u63CF\u8FF0\u3011\u6682\u65E0\u63CF\u8FF0"
+  skillDescription: "\u91CE\u86EE\u751F\u7269\u4E0E\u751F\u4FF1\u6765\u7684\u672C\u9886"
   range: 1
   impactType: 0
   canImpactEntityType: -1
@@ -23,7 +23,7 @@ MonoBehaviour:
   maxTargetCount: 1
   canSameTarget: 0
   isChanneling: 0
-  coolDown: 3
+  coolDown: 2
   AP_Cost: 2
   SP_Cost: 0
   damageType: 0

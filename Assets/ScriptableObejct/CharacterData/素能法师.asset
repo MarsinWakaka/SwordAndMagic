@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: "\u7D20\u80FD\u6CD5\u5E08"
   m_EditorClassIdentifier: 
   LV: 5
-  BaseHp: 8
-  Defence_Max: 10
-  MagicDefence_Max: 20
+  BaseHp: 12
+  Defence_Max: 6
+  MagicDefence_Max: 14
   Constitution: 11
   Strength: 10
   Intelligence: 16
-  Perception: 14
-  Dexterity: 10
+  Perception: 15
+  Dexterity: 12

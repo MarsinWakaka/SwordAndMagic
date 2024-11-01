@@ -1,18 +1,30 @@
 namespace MyEventSystem
 {
+    // [个人总结]使用枚举的好处(相比于字符串的优势)：
+    // 即使是事件中心为单例模式，难以查找调用事件的地方
+    // 但是通过枚举变量的[查找用例]可以很方便地查找到调用事件的地方。
     /// <summary>
-    /// [个人总结]使用枚举的好处(相比于字符串的优势)：
-    /// 即使是事件中心为单例模式，难以查找调用事件的地方
-    /// 但是通过枚举变量的[查找用例]可以很方便地查找到调用事件的地方。
+    /// 这是战斗场景中的事件枚举，请确保退出场景时清空该类型的事件中心
     /// </summary>
     public enum GameEvent
     {
+        // 游戏阶段切换
+        GameResourceLoadStart,
+        GameResourceLoadEnd,
+        ScenarioStart,
+        ScenarioEnd,
+        PlayerDeployedStart,
+        PlayerDeployedEnd,
+        BattleStart,
+        BattleEnd,
+        
+        // 部署阶段
         DeployCharacterResource,     // 部署资源
         DeployCharacterSelected,     // 部署角色
         DeployCharacterSuccess,      // 部署成功
         // 鼠标
-        // OnLeftMouseClick,   // 鼠标左键点击
-        OnRightMouseClick,  // 鼠标右键点击
+        // OnLeftMouseClick,    // 鼠标左键点击
+        OnRightMouseClick,      // 鼠标右键点击
         // 来自游戏实体的事件
         OnEntityLeftClicked,  // 实体被左键点击
         OnEntityRightClicked, // 实体被右键点击
@@ -43,9 +55,10 @@ namespace MyEventSystem
         
         // 实体创建事件
         OnTileCreated,
-        OnCharacterCreated, // TODO 管理器添加，并更新
-        OnCharacterDeath,   // TODO 管理器删除，并更新
+        OnCharacterCreated,
+        OnCharacterDeath, 
         
-        RangeOperation,          // 显示范围
+        ShowRangeOperation,          // 显示范围
+        CloseRangeOperation,         // 关闭范围
     }
 }

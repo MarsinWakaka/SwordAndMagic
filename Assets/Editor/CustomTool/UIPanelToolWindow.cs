@@ -34,7 +34,7 @@ namespace Editor.CustomTool
                     UIManager.Instance.PushPanel(panelType, null);
                     break;
                 case OperationType.Pop:
-                    UIManager.Instance.PopPanel();
+                    UIManager.Instance.PopPanel(panelType);
                     break;
                 default:
                     Debug.LogWarning($"未知操作类型 {operationType}");

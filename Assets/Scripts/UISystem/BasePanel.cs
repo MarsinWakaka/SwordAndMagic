@@ -18,23 +18,27 @@ namespace UISystem
 
         public virtual void OnEnter()
         {
-            _canvasGroup.alpha = 1;
+            _canvasGroup.DOFade(1, 0.5f);
+            _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
         }
 
         public virtual void OnPause()
         {
+            _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
         }
 
         public virtual void OnResume()
         {
+            _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
         }
 
         public virtual void OnExit()
         {
-            _canvasGroup.alpha = 0;
+            _canvasGroup.DOFade(0, 0.5f);
+            _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
         }
     }

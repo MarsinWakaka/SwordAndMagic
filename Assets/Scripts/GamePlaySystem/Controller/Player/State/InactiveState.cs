@@ -1,4 +1,4 @@
-using Entity.Unit;
+using Entity;
 using Utility.FSM;
 
 namespace GamePlaySystem.Controller.Player.State

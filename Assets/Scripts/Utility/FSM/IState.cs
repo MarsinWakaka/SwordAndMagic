@@ -1,5 +1,4 @@
 using System;
-using Entity.Character;
 
 namespace Utility.FSM
 {

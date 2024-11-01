@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using BattleSystem.FactionSystem;
 using Entity;
-using Entity.Unit;
+using GamePlaySystem.ControlCommand;
 using GamePlaySystem.Controller.AI.AIDecisionResource;
 using GamePlaySystem.FactionSystem;
 using GamePlaySystem.SkillSystem;
@@ -15,12 +14,12 @@ namespace GamePlaySystem.Controller.AI
     {
         private readonly CharacterManager characterManager;
         private readonly TileManager _tileManager;
-        private readonly NavigationService navigationService;
+        private readonly INavigationService navigationService;
         private readonly ScoreHeatMapCooker scoreHeatMapCooker;
-
+        
         // 交由战斗管理器注入
         public AIBrain(CharacterManager characterManager, TileManager tileManager,
-            NavigationService navigationService)
+            INavigationService navigationService)
         {
             this.characterManager = characterManager;
             _tileManager = tileManager;
@@ -49,10 +48,10 @@ namespace GamePlaySystem.Controller.AI
             bool hasAnySkillReady = false; // 如果是，则角色进入最终移动距离
             bool hasAnyHostileInReadyAttackRange = false; // 如果是，则角色先移动一段距离，再进行决策。
             // 角色还能做出除了移动以外的动作
-            while (rwr > 0 && remainActionCnt > 0 && ap > 0) // 没有行动资源了 // sp <= 0 一般不判断SP，SP几乎很少单独使用
+            while (remainActionCnt > 0 && ap > 0) // 没有行动资源了 // sp <= 0 一般不判断SP，SP几乎很少单独使用
             {
                 // 这是攻击阶段的循环，分为攻击判断阶段以及距离不足时的向前靠近阶段
-                BaseSkill skillChosen = null;
+                SkillSlot skillSlotChosen = null;
                 // TODO 如果添加AOE支持，需要将其改为List
                 var targetsChosen = new List<BaseEntity>();
                 float maxActionScore = 0;
@@ -85,7 +84,7 @@ namespace GamePlaySystem.Controller.AI
                                         {
                                             maxActionScore = actionScore;
                                             // 生成动作命令，考虑对象池
-                                            skillChosen = damageSkill;
+                                            skillSlotChosen = slot;
                                             targetsChosen.Clear();
                                             targetsChosen.Add(hostile);
                                         }
@@ -99,17 +98,17 @@ namespace GamePlaySystem.Controller.AI
                     }
                 }
                 // 如果有技能可以释放
-                if (skillChosen != null)
+                if (skillSlotChosen != null)
                 {
                     // TODO 需要重新设置技能的冷却
-                    _actions.Enqueue(GetSkillCommand(skillChosen, decider, targetsChosen.ToArray()));
+                    _actions.Enqueue(GetSkillCommand(skillSlotChosen, decider, targetsChosen.ToArray()));
                     // 计算消耗
-                    ap -= skillChosen.AP_Cost;
-                    sp -= skillChosen.SP_Cost;
+                    ap -= skillSlotChosen.skill.AP_Cost;
+                    sp -= skillSlotChosen.skill.SP_Cost;
                     remainActionCnt--;
                 }
                 // 如果是因为距离不够导致没有合适的技能释放, 则考虑前进一段距离，再次递归技能，否则寻找最佳位置结束回合。
-                else if (hasAnySkillReady && hasAnyHostileInReadyAttackRange) {
+                else if (hasAnySkillReady && hasAnyHostileInReadyAttackRange && rwr > 0) {  // 还能移动
                     // 如果是因为距离原因导致没有合适的技能释放, 则考虑朝某个角色移动一段距离，再次递归技能，否则寻找最佳位置结束回合。
                     // 获取可到达的地格
                     var pathNodesDict = navigationService.GetReachablePositionDict(
@@ -121,7 +120,7 @@ namespace GamePlaySystem.Controller.AI
                     {
                         var hostilePos = hostile.transform.position;
                         if (!pathNodesDict.TryGetValue( 
-                                NavigationService.GetPathNodeKey((int)hostilePos.x, (int)hostilePos.y), out var endNode)) 
+                                NavigationService.GetIndexKey((int)hostilePos.x, (int)hostilePos.y), out var endNode)) 
                             continue;
                         // 敌人在可到达路径内
                         var moveDist = Random.Range(1, rwr + 1);
@@ -172,7 +171,7 @@ namespace GamePlaySystem.Controller.AI
                 }
                 // 【生成动作命令】，考虑对象池
                 var followPathCommand = new FollowPathCommand();
-                followPathCommand.Init(decider, pathNodesDict[NavigationService.GetPathNodeKey(bestPos.x, bestPos.y)]);
+                followPathCommand.Init(decider, pathNodesDict[NavigationService.GetIndexKey(bestPos.x, bestPos.y)]);
                 _actions.Enqueue(followPathCommand);
             }
         }
@@ -181,16 +180,15 @@ namespace GamePlaySystem.Controller.AI
         {
             var damage = skill.damage;
             var score = (float)damage;
-            if (target.property.HP.Value <= damage)
+            if (target.Property.HP.Value <= damage)
             {
                 score += KillHostileScore;
                 // TODO 如果性能允许，则更新危险热力图
             }
-
             return score;
         }
 
-        private BaseSkillCommand GetSkillCommand(BaseSkill skill, Character caster, BaseEntity[] targets)
+        private BaseSkillCommand GetSkillCommand(SkillSlot skill, Character caster, BaseEntity[] targets)
         {
             var skillCommand = new BaseSkillCommand();
             skillCommand.Init(skill, caster, targets);
@@ -213,7 +211,7 @@ namespace GamePlaySystem.Controller.AI
             // 2、绘制危险区域
             _riskMap = scoreHeatMapCooker.Cook(_decider);
             // 3、递归策略函数得到最佳决策结果
-            var prop = _decider.property;
+            var prop = _decider.Property;
             DoTactic(_decider, 1, prop.RWR.Value, prop.AP.Value, prop.SP.Value, _deciderTrans.position);
             // 4、执行决策
             return _actions;

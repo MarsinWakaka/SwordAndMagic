@@ -15,7 +15,7 @@ namespace Editor.CustomTool.BattleToolWindows
         }
         
         [Header("显示范围 (5x5)")]
-        public RangeType rangeType;
+        public RangeOp rangeOp;
         [Range(0, 20)]
         public int centerX;
         [Range(0, 20)]
@@ -27,38 +27,31 @@ namespace Editor.CustomTool.BattleToolWindows
         private void OnWizardCreate()
         {
             EventCenter<GameEvent>.Instance.Invoke(
-                GameEvent.RangeOperation, 
-                rangeType, new Vector2(centerX, centerY), range );
+                GameEvent.ShowRangeOperation, 
+                rangeOp, new Vector2(centerX, centerY), range );
         }
         
         private void OnWizardOtherButton()
         {
-            EventCenter<GameEvent>.Instance.Invoke(
-                GameEvent.RangeOperation, 
-                rangeType, new Vector2(centerX, centerY), range );
+            EventCenter<GameEvent>.Instance.Invoke<RangeOp, Vector2, int>(
+                GameEvent.ShowRangeOperation, 
+                rangeOp, new Vector2(centerX, centerY), range );
         }
 
         private void OnEnable()
         {
-            rangeType = (RangeType) EditorPrefs.GetInt("ImpactType", 0);
+            rangeOp = (RangeOp) EditorPrefs.GetInt("ImpactType", 0);
             centerX = EditorPrefs.GetInt("centerX", 2);
             centerY = EditorPrefs.GetInt("centerY", 2);
-            range = EditorPrefs.GetInt("ShowRange", 2);
-            // for (var x = 0; x < 5; x++) {
-            //     for (var y = 0; y < 5; y++) {
-            //         if (Math.Abs(x - centerX) + Math.Abs(y - centerY) <= 2) {
-            //             Positions[x, y] = 1;
-            //         }
-            //     }
-            // }
+            range = EditorPrefs.GetInt("ShowMoveRange", 2);
         }
 
         private void OnWizardUpdate()
         {
-            EditorPrefs.SetInt("ImpactType", (int) rangeType);
+            EditorPrefs.SetInt("ImpactType", (int) rangeOp);
             EditorPrefs.SetInt("centerX", centerX);
             EditorPrefs.SetInt("centerY", centerY);
-            EditorPrefs.SetInt("ShowRange", range);
+            EditorPrefs.SetInt("ShowMoveRange", range);
         }
     }
 }

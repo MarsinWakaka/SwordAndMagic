@@ -1,13 +1,19 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using Entity;
-using Entity.Unit;
 using GamePlaySystem.EffectSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace GamePlaySystem.SkillSystem
 {
+    public enum DamageType
+    {
+        Physical,
+        Magic,
+        True
+    }
+
     public enum ImpactType
     {
         Single,

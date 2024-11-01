@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using Entity.Unit;
+using Entity;
+using GamePlaySystem.ControlCommand;
 
 namespace GamePlaySystem.Controller.AI
 {

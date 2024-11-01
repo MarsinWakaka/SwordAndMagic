@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using BattleSystem.FactionSystem;
 using ConsoleSystem;
-using Entity.Unit;
-using GamePlaySystem.Controller;
+using Entity;
+using GamePlaySystem.ControlCommand;
 using GamePlaySystem.Controller.AI;
 using GamePlaySystem.Controller.Player;
 using GamePlaySystem.FactionSystem;
@@ -17,49 +15,42 @@ namespace GamePlaySystem
 {
     public class BattleManager : MonoBehaviour
     {
-        [SerializeField] private TileManager tileManager;
+        private TileManager _tileManager;
+        private INavigationService _navigationService;
         private CharacterManager characterManager;
-        [SerializeField] private RangeDisplayHelper rangeDisplayHelper;
-        // TODO 所以角色控制器也应该添加到这里
         private PlayerController playerController;
         private AutoController autoController;
-        private NavigationService navigationService;
-
-        // 由其它模块调用，决定是玩家对战还是人机对战，还是电子斗蛐蛐
-        // public void Initialize(ICharacterController controllerA, ICharacterController controllerB)
-        // {
-        //     
-        // }
+        
+        public void Initialize(
+            TileManager tileManager, INavigationService navigationService, ICommandManager commandManager)
+        {
+            _tileManager = tileManager;
+            _navigationService = navigationService;
+            characterManager = new CharacterManager();
+            autoController = new GameObject("自动控制器").AddComponent<AutoController>();
+            
+            var aiBrain = new AIBrain(characterManager, _tileManager, _navigationService);
+            autoController.Initialize(aiBrain, commandManager);
+            playerController = new PlayerController(commandManager);
+            // TODO 考虑使用通用的控制接口，这样就可以快速替换是玩家对战还是人机对战亦或者电子斗蛐蛐
+            characterManager.Initialize(playerController, autoController);
+        }
         
         private void Awake()
         {
-            navigationService = new NavigationService(tileManager);
-            characterManager = new CharacterManager();
-            playerController = new PlayerController();
-            playerController.Initialize();
-            autoController = new GameObject("自动控制器").AddComponent<AutoController>();
-            autoController.Initialize(new AIBrain(characterManager, tileManager, navigationService));
-            // TODO 考虑使用通用的控制接口，这样就可以快速替换是玩家对战还是人机对战亦或者电子斗蛐蛐
-            characterManager.Initialize(playerController, autoController);
-            AddListeners();
+            EventCenter<GameEvent>.Instance.AddListener<Tile>(GameEvent.OnTileCreated, TileCreatedHandle);
+            EventCenter<GameEvent>.Instance.AddListener<Character>(GameEvent.OnCharacterCreated, CharacterCreateHandle);
         }
         
-        private void OnDestroy()
+        private void TileCreatedHandle(Tile tile)
         {
-            if (EventCenter<GameEvent>.IsInstanceNull) return;
-            RemoveListeners();
+            _tileManager.RegisterTile(tile);
         }
         
-        private void AddListeners()
+        private void CharacterCreateHandle(Character character)
         {
-            EventCenter<GameEvent>.Instance.AddListener<RangeType, Vector2, int> 
-                (GameEvent.RangeOperation, ShowRangeHandle);
-        }
-        
-        private void RemoveListeners()
-        {
-            EventCenter<GameEvent>.Instance.RemoveListener<RangeType, Vector2, int> 
-                (GameEvent.RangeOperation, ShowRangeHandle);
+            characterManager.RegisterCharacter(character);
+            _tileManager.InitCharacterPosOnTile(character);
         }
         
         public void OnBattleStartAction()
@@ -73,23 +64,7 @@ namespace GamePlaySystem
         private void OnFactionWin(FactionType faction)
         {
             MyConsole.Print($"[游戏结束] {faction}胜利", MessageColor.Black);
-            EventCenter<GameStage>.Instance.Invoke(GameStage.BattleEnd);
-        }
-        
-        private void ShowRangeHandle(RangeType rangeType, Vector2 position, int range)
-        {
-            List<PathNode> positions = null;
-            switch (rangeType)
-            {
-                case RangeType.Movement:
-                    positions = navigationService.GetReachablePositions(
-                        (int) position.x, (int) position.y, range);
-                    break;
-                case RangeType.AttackRange:
-                    MyConsole.Print("【Show Attack Range】 攻击范围显示开发中", MessageColor.Red);
-                    break;
-            }
-            rangeDisplayHelper.ShowRange(positions, rangeType);
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.BattleEnd);
         }
     }
 }

@@ -5,52 +5,134 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e439f93-90a8-434c-b04a-f93590aedceb" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AutoController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AutoController.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/IBrain.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/IBrain.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/ICharacterController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/ICharacterController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Configuration/ConfigService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Configuration/ConfigService.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ControlCommand.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ControlCommand/CommandManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ControlCommand/CommandManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ControlCommand/ConcreteCommand.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/RangeDisplay/RangeDisplayService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/RangeDisplay/RangeOp.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/RangeDisplay/RangeOp.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/SkillSystem/SkillSlot.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/SkillSystem/SkillSlot.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/ViewField.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/ViewField/IViewFieldService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/ViewField/IViewFieldService.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/ViewField/SimpleViewField.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/ViewField/SimpleViewField.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem/UserSaveService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem/UserSaveService.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneSystem/BattleScene.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneSystem/BattleScene.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneSystem/MainScene.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneSystem/MainScene.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/Behaviour.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/Behaviour/CharacterBehaviour.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/Behaviour/CharacterBehaviour.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/Behaviour/HoverAroundBehaviour.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/Behaviour/HoverAroundBehaviour.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.战旗小游戏/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.战旗小游戏/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/UIPanel.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/UIPanel.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/CustomTool/BattleTool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/CustomTool/BattleTool.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Editor/CustomTool/BattleToolWindows/CharacterCreateTool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/CustomTool/BattleToolWindows/CharacterCreateTool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/CustomTool/BattleToolWindows/RangeShowerTool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/CustomTool/BattleToolWindows/RangeShowerTool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/CustomTool/UIPanelToolWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/CustomTool/UIPanelToolWindow.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Characters/Goblin.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Characters/Goblin.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Characters/UselessMan.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Characters/UselessMan.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Characters/WestWindKnight.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Characters/WestWindKnight.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Characters/Wizard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Characters/Wizard.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/BattleEndPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/BattleEndPanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/BattlePanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/BattlePanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/CharacterEmporiumPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/CharacterEmporiumPanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/MainMenusPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/MainMenusPanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Slot/范围格子.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Slot/范围格子.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/BattleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/BattleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/CharacterData/哥布林.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/CharacterData/哥布林.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/CharacterData/无用之人.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/CharacterData/无用之人.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/CharacterData/素能法师.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/CharacterData/素能法师.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/CharacterData/西风骑士.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/CharacterData/西风骑士.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/主手攻击.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/主手攻击.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/劈砍攻击.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/劈砍攻击.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/劈砍攻击.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/劈砍攻击.asset.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/撕咬.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/撕咬.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/碎魂者.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/碎魂者.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/素能射线.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/素能射线.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/解离术.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/解离术.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/远程打击.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/远程打击.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/魔法飞弹.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/SkillData/魔法飞弹.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/TileData/地面.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/TileData/地面.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObejct/TileData/水面.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObejct/TileData/水面.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ApplicationRoot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ApplicationRoot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Configuration/ConfigData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Configuration/ConfigData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity/BaseEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entity/BaseEntity.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity/Character.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entity/Character.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity/CharacterProperty.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entity/CharacterProperty.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity/EntityFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity/EntityFactory.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity/EntityFactoryImpl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entity/EntityFactoryImpl.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity/TileData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entity/TileData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/BattleFXSystem/Helper/SelectStyleHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/BattleFXSystem/Helper/SelectStyleHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity/Tile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entity/Tile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/BUFFSystem/Buff.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/BUFFSystem/Buff.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/BattleManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/BattleManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/BattleUtilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/BattleUtilities.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/CharacterManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/CharacterManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AIBrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AIBrain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AIDecisionResource/RiskHeatMapCooker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AIDecisionResource/ScoreHeatMapCooker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AIDecisionResource/RiskHeatMapCooker.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AIDecisionResource/ScoreHeatMapCooker.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/ICommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/ICommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AIDecisionResource/ScoreHeatMapCooker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AIDecisionResource/ScoreHeatMapCooker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AutoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/AutoController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/IBrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/IBrain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/ICommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ControlCommand/ICommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/AI/ICommand.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ControlCommand/ICommand.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/ICharacterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/ICharacterController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/ActiveState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/ActiveState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/InactiveState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/InactiveState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/MovingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/MovingState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/SkillChosenState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/SkillChosenState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/SkillReleaseState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/SkillReleaseState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/WaitForCommandState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Controller/Player/State/WaitForCommandState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/DeploySystem/DeployManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/DeploySystem/DeployManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/EffectSystem/Effect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/EffectSystem/Effect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/EmporiumSystem/CharacterSlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/EmporiumSystem/CharacterSlotUI.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/FactionSystem/FactionIndicator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/FactionSystem/FactionIndicator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/FactionSystem/FactionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/FactionSystem/FactionManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/GamePlayManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/GamePlayManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/LevelData/LevelDataManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/LevelData/LevelDataManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/LevelData/LevelDataProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/LevelData/LevelDataProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/RangeDisplay/RangeDisplayer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/RangeDisplay/RangeDisplayer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/RangeDisplay/RangeDisplayService.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/Performance.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/Scenario.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/Performance/BasePerformance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/Scenario/BasePerformance.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/Performance/BasePerformance.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/Scenario/BasePerformance.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/Performance/CameraMotionPerformance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/Scenario/CameraMotionPerformance.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/Performance/CameraMotionPerformance.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/Scenario/CameraMotionPerformance.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/ScenarioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScenarioSystem/ScenarioManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScopeSystem/ImpactScope/IImpactScope.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/ScopeSystem/ImpactScope/IImpactScope.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/SkillSystem/BaseSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/SkillSystem/BaseSkill.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/SkillSystem/DirectedDamageSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/SkillSystem/DirectedDamageSkill.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/Navigation/NavigationProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/Navigation/NavigationService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/Navigation/NavigationProvider.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/Navigation/NavigationService.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/Navigation/NavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/Navigation/NavigationService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/TileManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/TileManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InputSystem/CursorTargetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputSystem/CursorTargetManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MyEventSystem/BattleEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MyEventSystem/BattleEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MyEventSystem/GameStage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MyEventSystem/GameStage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SceneSystem/GameSceneManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SceneSystem/GameSceneManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ServiceLocator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ServiceLocator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/BasePanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/BasePanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/Panel/CharacterEmporiumPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/Panel/CharacterEmporiumPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterOrderIndicatorUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterOrderIndicatorUI.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterOrderSlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterOrderSlotUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterSkillSlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterSkillSlotUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterSkillUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterSkillUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterStatusUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterStatusUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/InvestigationPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/InvestigationPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/PlayerPartySlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/PlayerPartySlotUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/PlayerPartyUIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/PlayerPartyUIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/SelectedCharacterUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/SelectedCharacterUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/CharacterEmporiumPart/CharacterEmporiumUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/CharacterEmporiumPart/CharacterEmporiumUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/MainPanelPart/LevelChooseUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/MainPanelPart/LevelChooseUI.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Levels/level_1.level" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/Levels/level_1.level" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utility/FSM/FSM.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/FSM/FSM.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utility/FSM/IState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/FSM/IState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,10 +145,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8ce0bd04a7a04b4b9395538239d3fdd846ac00/fa/922d7fd6/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b056556e1e3e470986e31b3a4edf4754176000/59/81ddc308/Transform.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.22.2/Runtime/AddressablesImpl.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -115,10 +196,10 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="附加到 Unity 编辑器" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="16672">
+    <configuration name="附加到 Unity 编辑器" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="16672" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -146,7 +227,10 @@
       <updated>1730208002174</updated>
       <workItem from="1730208005376" duration="9526000" />
       <workItem from="1730265907170" duration="30682000" />
-      <workItem from="1730303370085" duration="3682000" />
+      <workItem from="1730303370085" duration="4283000" />
+      <workItem from="1730337440312" duration="34457000" />
+      <workItem from="1730390053146" duration="3357000" />
+      <workItem from="1730427807322" duration="12531000" />
     </task>
     <servers />
   </component>

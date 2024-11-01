@@ -1,4 +1,3 @@
-using BattleSystem.FactionSystem;
 using Entity;
 using GamePlaySystem.FactionSystem;
 using UnityEditor;

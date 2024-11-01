@@ -1,21 +1,10 @@
 using System.Collections.Generic;
 using Entity;
-using MyEventSystem;
-using ResourcesSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GamePlaySystem.TileSystem
 {
-    public interface ITileManager
-    {
-        public Tile[,] GetTiles();
-        public Dictionary<TileType, TileData> GetTileDict();
-        public bool HasTile(int x, int y);
-        public bool InBorder(int x, int y);
-    }
-    
-    public class TileManager : MonoBehaviour, ITileManager
+    public class TileManager : MonoBehaviour
     {
         private const int MapWidth = 30;
         private const int MapHeight = 30;
@@ -30,24 +19,16 @@ namespace GamePlaySystem.TileSystem
             {
                 _tileDict.Add(data.tileType, data);
             }
-            EventCenter<GameEvent>.Instance.AddListener<Tile>(GameEvent.OnTileCreated, RegisterTile);
         }
-        
-        // public TileManager()
-        // {
-        //     LoadTiles();
-        //     EventCenter<GameEvent>.Instance.AddListener<Tile>(GameEvent.OnTileCreated, RegisterTile);
-        // }
         
         public Tile[,] GetTiles() => _tiles;
         public Dictionary<TileType, TileData> GetTileDict() => _tileDict;
         public bool HasTile(int x, int y) => _tiles[x, y] != null;
-
         public bool InBorder(int x, int y) => x is >= 0 and < MapWidth && y is >= 0 and < MapHeight;
         
         // public void OnRoundStart() // TODO 未来增添地形扩散。比如燃烧的地面会燃烧周围的地面 
 
-        private void RegisterTile(Tile tile)
+        public void RegisterTile(Tile tile)
         {
             // TODO 注册瓦片
             tile.transform.SetParent(tileParent);
@@ -72,15 +53,34 @@ namespace GamePlaySystem.TileSystem
             // TODO 燃烧瓦片对周围瓦片的影响
         }
         
-        // TODO 读取瓦片数据，最好从EXCEL表读取,或者JSON表里读取
-        private void LoadTiles()
+        public bool InitCharacterPosOnTile(Character character)
         {
-            ServiceLocator.Get<IResourceManager>().LoadAllResourcesAsyncByTag<TileData>("TileData", (datas) =>
-            {
-                foreach (var data in datas) {
-                    _tileDict.Add(data.tileType, data);
-                }
-            });
+            var position = character.transform.position;
+            var x = (int) position.x; var y = (int) position.y;
+            if (!InBorder(x, y) || !HasTile(x, y)) return false;
+            var tile = _tiles[x, y];
+            if (tile.IsBlocked) {
+                Debug.LogWarning("Character can't be placed on a blocked tile");
+                return false;
+            }
+            tile.OnCharacterEnter(character);
+            character.transform.position = position;
+            return true;
+        }
+        
+        // 处理角色移动后的瓦片更新
+        public bool CharacterMove(Character character, Vector3 from, Vector3 to)
+        {
+            var fromX = (int) from.x; var fromY = (int) from.y;
+            var toX = (int) to.x; var toY = (int) to.y;
+            if (!InBorder(toX, toY) || !HasTile(toX, toY)) return false;
+            var fromTile = _tiles[fromX, fromY];
+            var toTile = _tiles[toX, toY];
+            if (toTile.IsBlocked) return false;
+            fromTile.OnCharacterExit(character);
+            toTile.OnCharacterEnter(character);
+            character.transform.position = to;
+            return true;
         }
     }
 }

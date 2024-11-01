@@ -1,6 +1,6 @@
 using Entity;
-using Entity.Character;
-using Entity.Unit;
+using GamePlaySystem.SkillSystem;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,43 +14,48 @@ namespace UISystem.PanelPart.BattlePanelPart
         // UI在初始化后不会变化
         [Header("角色头像")]
         [SerializeField] private Image charAvatar;
-        [SerializeField] private UnityEngine.UI.Text charName;
+        [SerializeField] private Text charName;
         [Header("生命值")]
-        [SerializeField] RectTransform curHpBar;
-        [SerializeField] RectTransform maxHpBar;
-        [SerializeField] UnityEngine.UI.Text hpText;
+        [SerializeField] private RectTransform curHpBar;
+        [SerializeField] private RectTransform maxHpBar;
+        [SerializeField] private Text hpText;
         [Header("物理防御")]
-        [SerializeField] RectTransform curDefBar;
-        [SerializeField] RectTransform maxDefBar;
-        [SerializeField] UnityEngine.UI.Text defText;
-        [Header("魔法防御")]
-        [SerializeField] RectTransform curMdefBar;
-        [SerializeField] RectTransform maxMdefFBar;
-        [SerializeField] UnityEngine.UI.Text mdefText;
+        [SerializeField] private RectTransform curDefBar;
+        [SerializeField] private RectTransform maxDefBar;
+        [SerializeField] private Text defText;
+        [Header("魔法防御")] 
+        [SerializeField] private RectTransform curMdefBar;
+        [SerializeField] private RectTransform maxMdefFBar;
+        [SerializeField] private Text mdefText;
         [Header("行动力")]
-        [SerializeField] RectTransform actionPointBar;
-        [SerializeField] RectTransform maxActionPointBar;
+        [SerializeField] private RectTransform actionPointBar;
+        [SerializeField] private RectTransform maxActionPointBar;
         [Header("技能点")]
-        [SerializeField] RectTransform skillPointBar;
-        [SerializeField] RectTransform maxSkillPointBar;
+        [SerializeField] private RectTransform skillPointBar;
+        [SerializeField] private RectTransform maxSkillPointBar;
         [Header("移动力面板")]
-        [SerializeField] RectTransform remainWalkRangeBar;
-        [SerializeField] RectTransform maxWalkRangeBar;
-        [SerializeField] UnityEngine.UI.Text rwrText;
+        [SerializeField] private RectTransform remainWalkRangeBar;
+        [SerializeField] private RectTransform maxWalkRangeBar;
+        [SerializeField] private Text rwrText;
         #endregion
         
         // 当前展示的角色
         private Character lastCharacter;
         private CharacterProperty property;
-        
+
+        public CharacterStatusUI(RectTransform maxDefBar)
+        {
+            this.maxDefBar = maxDefBar;
+        }
+
         // 基本信息展示，由父级UI监听事件并调用
         public void SetStatusUI(Character character)
         {
             if (character == lastCharacter) return;
             if (lastCharacter != null)
-                RemoveListener(lastCharacter.property);
+                RemoveListener(lastCharacter.Property);
             
-            property = character.property;
+            property = character.Property;
             AddListener(property);
             RedrawAll(character);
             

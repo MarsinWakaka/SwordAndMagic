@@ -888,7 +888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9cec85ace1e9a4d99a9fae861b4475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelType: 0
+  panelType: 1
   loadGameButton: {fileID: 2155345833386529288}
   newGameButton: {fileID: 3836926354368828357}
   settingButton: {fileID: 3085657044163832270}

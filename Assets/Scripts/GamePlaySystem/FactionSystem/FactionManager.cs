@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
-using Entity.Unit;
+using Entity;
 using GamePlaySystem.SkillSystem;
 using UnityEngine;
-using Utility.Singleton;
 
 namespace GamePlaySystem.FactionSystem
 {
@@ -20,7 +18,7 @@ namespace GamePlaySystem.FactionSystem
     // ReSharper disable once ClassNeverInstantiated.Global
     public class FactionManager
     {
-        private static Dictionary<FactionType, Color> factionColors = new()
+        private static readonly Dictionary<FactionType, Color> factionColors = new()
         {
             {FactionType.Player, new Color(0.26f, 0.71f, 0.24f)},
             {FactionType.Enemy, new Color(0.87f, 0.27f, 0.14f)},

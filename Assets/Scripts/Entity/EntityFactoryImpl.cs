@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using BattleSystem.FactionSystem;
 using GamePlaySystem.FactionSystem;
 using ResourcesSystem;
 using UnityEngine;
@@ -10,40 +9,55 @@ namespace Entity
 {
     public interface IEntityFactory
     {
-        public Unit.Character CreateCharacter(int entityID, Vector2 position, FactionType factionType);
-        public void CreateCharacter(int entityID, Action<Unit.Character> actionOnCreate);
-        public Tile CreateTile(TileType tileType, Vector2 position);
+        public Character CreateCharacter(int entityID, Vector3 position, FactionType factionType);
+        public void CreateCharacter(int entityID, Action<Character> actionOnCreate);
+        public Tile CreateTile(TileType tileType, Vector3 position);
     }
     
     public class EntityFactoryImpl : IEntityFactory 
     {
-        private readonly Dictionary<int, Unit.Character> _characterDict = new();
-        // private readonly Dictionary<int, Tile> _tileDict = new();
+        private readonly Dictionary<int, Character> _characterDict = new();
+        private readonly string characterPrefabPath;
+        private readonly string tilePrefabPath;
         private Tile _tilePrefab;
         
         public EntityFactoryImpl(string characterPrefabPath, string tilePrefabPath)
         {
+            this.characterPrefabPath = characterPrefabPath;
+            this.tilePrefabPath = tilePrefabPath;
+        }
+        
+        public void LoadEntityData(Action onComplete)
+        {
+            bool isCharacterLoaded = false;
+            bool isTileLoaded = false;
+            // 加载实体数据
             IResourceManager resourceManager = ServiceLocator.Get<IResourceManager>();
             resourceManager.LoadAllResourcesAsyncByTag<GameObject>(characterPrefabPath, (gos) =>
             {
                 foreach (var go in gos)
                 {
-                    if (go.TryGetComponent<Unit.Character>(out var character))
+                    if (go.TryGetComponent<Character>(out var character))
                     {
                         _characterDict.Add(character.entityID, character);
                     }
                 }
+                isCharacterLoaded = true;
+                if (isTileLoaded) onComplete?.Invoke();
             });
             resourceManager.LoadResourceAsync<GameObject>(tilePrefabPath, (go) =>
             {
-                if (go.TryGetComponent<Tile>(out var character))
+                if (go.TryGetComponent<Tile>(out var tile))
                 {
-                    _tilePrefab = character;
+                    if (tile == null) Debug.LogError($"Tile prefab is null: {tilePrefabPath}");
+                    _tilePrefab = tile;
                 }
+                isTileLoaded = true;
+                if (isCharacterLoaded) onComplete?.Invoke();
             });
         }
 
-        public Unit.Character CreateCharacter(int entityID, Vector2 position, FactionType factionType)
+        public Character CreateCharacter(int entityID, Vector3 position, FactionType factionType)
         {
             if (_characterDict.TryGetValue(entityID, out var character))
             {
@@ -55,7 +69,7 @@ namespace Entity
             return null;
         }
 
-        public void CreateCharacter(int entityID, Action<Unit.Character> actionOnCreate)
+        public void CreateCharacter(int entityID, Action<Character> actionOnCreate)
         {
             if (_characterDict.TryGetValue(entityID, out var character))
             {
@@ -66,7 +80,7 @@ namespace Entity
             Debug.LogError("实体不存在: " + entityID);
         }
 
-        public Tile CreateTile(TileType tileType, Vector2 position)
+        public Tile CreateTile(TileType tileType, Vector3 position)
         {
             var newTile = Object.Instantiate(_tilePrefab);
             newTile.Initialize(tileType, position);

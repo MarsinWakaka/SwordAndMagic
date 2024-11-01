@@ -1,8 +1,8 @@
-using Entity.Unit;
-using GamePlaySystem.Controller.Player;
+using Entity;
+using GamePlaySystem.ControlCommand;
 using Utility.FSM;
 
-namespace Entity.Character.Player.State
+namespace GamePlaySystem.Controller.Player.State
 {
     public class SkillReleaseState : IState
     {        
@@ -20,17 +20,25 @@ namespace Entity.Character.Player.State
             // var impactTargets = _controller.SelectedSkillSlot.skill.GetImpactTargets(_controller.CurCharacter, chosenTargets);
             if (chosenTargets != null)
             {
-                var skillSlot = _controller.SelectedSkillSlot;
-                var character = _controller.CurCharacter;
-                
-                skillSlot.RemainCoolDown.Value = skillSlot.skill.coolDown;
-                character.property.AP.Value -= skillSlot.skill.AP_Cost;
-                character.property.SP.Value -= skillSlot.skill.SP_Cost;
-                skillSlot.skill.Execute(_controller.CurCharacter, chosenTargets);
+                var skillCommand = new BaseSkillCommand();
+                skillCommand.Init(_controller.SelectedSkillSlot, _controller.CurCharacter, chosenTargets);
+                ServiceLocator.Get<ICommandManager>().AddCommand(skillCommand, ToWaitForCommand);
+                // var skillSlot = _controller.SelectedSkillSlot;
+                // var character = _controller.CurCharacter;
+                //
+                // skillSlot.RemainCoolDown.Value = skillSlot.skill.coolDown;
+                // character.Property.AP.Value -= skillSlot.skill.AP_Cost;
+                // character.Property.SP.Value -= skillSlot.skill.SP_Cost;
+                // skillSlot.skill.Execute(_controller.CurCharacter, chosenTargets);
             }
             
             // TODO 如果有技能释放动画，可以在动画结束时调用 OnExit
             // 临时措施(目前没有技能释放动画)
+            _controller.Transition(ControllerState.WaitForCommand);
+        }
+        
+        private void ToWaitForCommand()
+        {
             _controller.Transition(ControllerState.WaitForCommand);
         }
 

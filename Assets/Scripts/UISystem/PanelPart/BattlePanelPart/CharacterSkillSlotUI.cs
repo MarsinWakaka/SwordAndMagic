@@ -1,7 +1,5 @@
 using System;
-using Entity;
-using Entity.Character;
-using Entity.Unit;
+using GamePlaySystem.SkillSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

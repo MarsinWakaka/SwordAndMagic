@@ -1,8 +1,8 @@
-using System;
-// using GamePlaySystem.Scope;
+using BattleSystem.ScopeSystem;
 using UnityEngine;
+// using GamePlaySystem.Scope;
 
-namespace BattleSystem.ScopeSystem.ImpactScope
+namespace GamePlaySystem.ScopeSystem.ImpactScope
 {
     
     public interface IImpactScope

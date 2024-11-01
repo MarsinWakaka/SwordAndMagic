@@ -1,28 +1,23 @@
 using System.Collections.Generic;
 using System.IO;
+using Configuration;
 using MyEventSystem;
 using UnityEngine;
 
 namespace GamePlaySystem.LevelData
 {
-    // public class LevelData
-    // {
-    //     public List<GridData> MapData;
-    //     
-    //     public struct GridData
-    //     {
-    //         Vector2Int position;
-    //         long data;          // 后10位bit表示地形类型，后10位表示对象类型
-    //     }
-    // }
+    public class LevelData
+    {
+        public List<int> MapData;   // 9位数字，每三位分别代表(X,Y,TileType)
+    }
     
     public class LevelDataManager
     {
-        private ILevelDataProcessor dataProcessor;
+        private ILevelDataProcessor _dataProcessor;
         
-        public LevelDataManager()
+        public LevelDataManager(ILevelDataProcessor dataProcessor)
         {
-            dataProcessor = ServiceLocator.Get<ILevelDataProcessor>();
+            _dataProcessor = dataProcessor;
         }
 
         // 由GameStateManager调用
@@ -36,15 +31,16 @@ namespace GamePlaySystem.LevelData
         {
             // 生成地形数据
             ReadLevelFile(levelIndex);
-            EventCenter<GameStage>.Instance.Invoke(GameStage.GameResourceLoadEnd);
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.GameResourceLoadEnd);
         }
 
         private void ReadLevelFile(int index)
         {
             // 通过地形索引加载地形数据
-            var dataPath = $"{ApplicationRoot.Instance.Config.levelDataPath}/level_{index}.level";
+            var config = ServiceLocator.Get<IConfigService>().ConfigData;
+            var dataPath = $"{config.levelDataPath}/level_{index}.level";
             if (File.Exists(dataPath))
-                dataProcessor.LoadLevelData(File.ReadAllText(dataPath));
+                _dataProcessor.LoadLevelData(File.ReadAllText(dataPath));
             else
                 Debug.LogError($"Data file not found: {dataPath}");
         }
@@ -52,7 +48,7 @@ namespace GamePlaySystem.LevelData
         public void OnLoadLevelResourceEnd()
         {
             // 通知开始场景演出
-            EventCenter<GameStage>.Instance.Invoke(GameStage.ScenarioStart);
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.ScenarioStart);
         }
     }
 }

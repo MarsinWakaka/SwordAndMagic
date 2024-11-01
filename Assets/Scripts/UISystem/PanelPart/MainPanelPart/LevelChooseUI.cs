@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Configuration;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UI;
@@ -33,7 +34,7 @@ namespace UISystem.PanelPart.MainPanelPart
         private void OnEnable()
         {
             // 获取关卡个数
-            var count = ApplicationRoot.Instance.Config.levelCount;
+            var count = ServiceLocator.Get<IConfigService>().ConfigData.levelCount;
             var slotCount = levelSlotList.Count;
             if (slotCount < count)
             {

@@ -1,11 +1,7 @@
-using System;
 using Entity;
-using Entity.Character;
-using Entity.Unit;
-using GamePlaySystem.FactionSystem;
 using UnityEngine;
 
-namespace BattleSystem.FactionSystem
+namespace GamePlaySystem.FactionSystem
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class FactionIndicator : MonoBehaviour

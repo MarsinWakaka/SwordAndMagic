@@ -1,6 +1,5 @@
 using System.Text;
 using System.Text.RegularExpressions;
-using BattleSystem.FactionSystem;
 using ConsoleSystem;
 using Entity;
 using GamePlaySystem.FactionSystem;

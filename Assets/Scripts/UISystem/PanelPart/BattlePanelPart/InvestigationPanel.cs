@@ -1,9 +1,6 @@
 using Entity;
-using Entity.Character;
-using Entity.Unit;
 using MyEventSystem;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UISystem.PanelPart.BattlePanelPart
 {
@@ -52,9 +49,9 @@ namespace UISystem.PanelPart.BattlePanelPart
             canvasGroup.alpha = 1;
             if (character == lastCharacter) return;
             if (lastCharacter != null)
-                RemoveListener(lastCharacter.property);
+                RemoveListener(lastCharacter.Property);
             
-            property = character.property;
+            property = character.Property;
             AddListener(property);
             RedrawAll(character);
             
@@ -65,7 +62,7 @@ namespace UISystem.PanelPart.BattlePanelPart
         {
             canvasGroup.alpha = 0;
             if (lastCharacter == null) return;
-            RemoveListener(lastCharacter.property);
+            RemoveListener(lastCharacter.Property);
             lastCharacter = null;
         }
         

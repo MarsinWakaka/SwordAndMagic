@@ -9,7 +9,22 @@ public class ServiceLocator
 
     public static void Register<T>(T service) where T : class
     {
+        if (Services.ContainsKey(typeof(T)))
+        {
+            Debug.LogError($"Service already registered: {typeof(T)}");
+            return;
+        }
         Services[typeof(T)] = service;
+    }
+    
+    public static void Unregister<T>() where T : class
+    {
+        if (Services.ContainsKey(typeof(T)))
+        {
+            Services.Remove(typeof(T));
+            return;
+        }
+        Debug.LogWarning($"Service not not in Dict: {typeof(T)}");
     }
 
     public static T Get<T>() where T : class

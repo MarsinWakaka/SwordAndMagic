@@ -30,7 +30,7 @@ namespace Entity
             sprite = Renderer.sprite;
         }
 
-        protected void Initialize(Guid entityId, Vector2 position)
+        protected void Initialize(Guid entityId, Vector3 position)
         {
             EntityID = entityId;
             transform.position = position;

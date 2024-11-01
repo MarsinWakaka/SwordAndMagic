@@ -1,88 +1,58 @@
 using System;
 using System.Collections.Generic;
-using BattleSystem.FactionSystem;
 using ConsoleSystem;
 using GamePlaySystem.FactionSystem;
 using GamePlaySystem.SkillSystem;
 using MyEventSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utility;
 using Random = UnityEngine.Random;
 
-namespace Entity.Unit
+namespace Entity
 {
-    public enum DamageType
-    {
-        Physical,
-        Magic,
-        True
-    }
-    
-    [Serializable] public class SkillSlot
-    {
-        [FormerlySerializedAs("Skill")] 
-        public BaseSkill skill;
-        public BindableProperty<int> RemainCoolDown = new();
-
-        public void CoolDownForOneRound() => RemainCoolDown.Value = Mathf.Max(0, RemainCoolDown.Value - 1);
-    }
-    
-    /// <summary>
-    /// 角色被击倒后三回合后死亡
-    /// </summary>
-    public class Character : BaseEntity, IComparable<Character>//, IBurnable
+    public class Character : BaseEntity, IComparable<Character>
     {
         [Header("角色属性")]
         public string characterName;
         public int sellPrice;
-        [SerializeField] private CharacterProperty settingProperty;// 角色属性
+        [SerializeField] private CharacterProperty property;// 角色属性
         [SerializeField] private List<SkillSlot> skills;// 技能
-
-        #region 属性区
-
+        
         public readonly BindableProperty<FactionType> Faction = new();
-        [HideInInspector] public CharacterProperty property;
-
-        #endregion
+        public CharacterProperty Property => property;
         public List<SkillSlot> Skills => skills;
+        
         // BUFF区
         // private List<Buff> buffs = new();
         // public void AddBuff(Buff buff) => buffs.Add(buff);
         // public void RemoveBuffByType(BuffType buffType) 
         // public void RemoveBuffByDurationType(BuffDurationType buffDurationType)
         // public void RemoveBuff(Buff buff)
-        #region 角色驱动数据
-
+        
         public bool IsDead { get; private set; }
         public bool IsOnTurn { get; private set; }          // 是否正在行动
         public bool IsReadyToEndTurn{ get; private set; }   // 是否准备结束回合
         
-        #endregion
-
-        #region 角色事件
-
         // public event Action OnStartTurnEvent;// 单位回合开始时只触发一次，用于通知监听者(例如Buff)
         // public event Action OnEndTurnEvent;  // 单位回合结束时只触发一次，用于通知监听者(例如Buff)
         // public event Action<DamageType, int> OnTakeDamage; // int 为伤害值，用于通知监听，通常为Buff效果
+        
         public event Action ReadyToEndEvent;  // 单位点击结束回合按钮时触发，用于通知监听
         public event Action CancelReadyToEndEvent; // 单位取消结束回合按钮时触发，用于通知监听
         public event Action<Character> OnDeathEvent; // 单位死亡时触发，用于通知监听，通常为Buff，瓦片。
+        // 注意：event 的触发只能由Character自身进行，不允许外部触发
+        public Action<SkillSlot> OnSkillChosenEnter; // 选择技能时触发，用于通知监听者(例如UI)，角色行为
+        public Action OnSkillChosenExit; // 选择技能时触发，用于通知监听者(例如UI)，角色行为
         
-        #endregion
-
-        
-        public void Initialize(Guid entityId, Vector2 position, FactionType factionType)
+        public void Initialize(Guid entityId, Vector3 position, FactionType factionType)
         {
             base.Initialize(entityId, position);
             // 深拷贝属性
-            property = settingProperty.DeepCopy();
+            property = property.DeepCopy();
             property.Initialize();
             Faction.Value = factionType;
-            
             // 在初始化完成后注册自身
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnCharacterCreated, this);
-            // CharacterManager.Instance.RegisterCharacter(this);
         }
 
         /// <summary>
@@ -92,8 +62,8 @@ namespace Entity.Unit
         {
             // TODO 眩晕的时候要不要恢复？
             // 回合开始时的逻辑
-            property.AP.Value = Mathf.Min(property.AP.Value + 2, (int)CharacterProperty.AP_MAX);
-            property.RWR.Value = property.WR_MAX.Value;
+            Property.AP.Value = Mathf.Min(Property.AP.Value + 2, (int)CharacterProperty.AP_MAX);
+            Property.RWR.Value = Property.WR_MAX.Value;
             CoolDownSkills();
             
             IsOnTurn = true;
@@ -167,27 +137,27 @@ namespace Entity.Unit
         {
             // TODO 伤害计算,数值最好缓存一下，不会修改时会频繁触发监听事件
             // TODO 死后向战斗管理器发送死亡消息，由其决定对象的销毁
-            var curHp = property.HP.Value;
+            var curHp = Property.HP.Value;
 
             switch (damageType)
             {
                 case DamageType.Physical:
-                    var def = property.DEF.Value;
+                    var def = Property.DEF.Value;
                     ApplyDamageOnDefence(ref damage, ref def);
-                    property.DEF.Value = def;
+                    Property.DEF.Value = def;
                     break;
                 case DamageType.Magic:
-                    var mdef = property.MDEF.Value;
+                    var mdef = Property.MDEF.Value;
                     ApplyDamageOnDefence(ref damage, ref mdef);
-                    property.MDEF.Value = mdef;
+                    Property.MDEF.Value = mdef;
                     break;
                 case DamageType.True:
                     break;
             }
             
             curHp -= damage;
-            curHp = Mathf.Clamp((int)curHp, (int)0, (int)property.HP_MAX.Value);
-            property.HP.Value = curHp;
+            curHp = Mathf.Clamp((int)curHp, (int)0, (int)Property.HP_MAX.Value);
+            Property.HP.Value = curHp;
             
             // TODO 血量为0不会立马死亡
             if (curHp <= 0)
@@ -219,7 +189,7 @@ namespace Entity.Unit
             if (ReferenceEquals(this, other)) return 0;
             if (ReferenceEquals(null, other)) return 1;
             // 敏捷值高的优先行动
-            var order = other.property.DEX.Value.CompareTo(property.DEX.Value);
+            var order = other.Property.DEX.Value.CompareTo(Property.DEX.Value);
             if (order != 0) return order;
             // // 其次阵营靠前的优先行动
             // order = Faction.Value.CompareTo(other.Faction.Value);

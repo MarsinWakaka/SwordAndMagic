@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Entity.Unit;
+using Entity;
+using GamePlaySystem.ControlCommand;
 using UnityEngine;
 
 namespace GamePlaySystem.Controller.AI
@@ -9,16 +9,18 @@ namespace GamePlaySystem.Controller.AI
     public class AutoController : MonoBehaviour
     {
         private IBrain _brain;
-        public void Initialize(IBrain brain) {
+        private ICommandManager _commandManager;
+        public void Initialize(IBrain brain, ICommandManager commandManager) {
             _brain = brain;
+            _commandManager = commandManager;
         }
 
-        private readonly Queue<Character> characterWaitQueue = new();
+        private readonly Queue<Character> characterWaits = new();
         
         public void AddControlQueue(Character character)
         {
-            characterWaitQueue.Enqueue(character);
-            if (characterWaitQueue.Count == 1)
+            characterWaits.Enqueue(character);
+            if (characterWaits.Count == 1)
             {
                 StartCoroutine(DoAutoControl());
             }
@@ -27,24 +29,40 @@ namespace GamePlaySystem.Controller.AI
         public void AddControlQueue(IEnumerable<Character> characters)
         {
             foreach (var character in characters) {
-                characterWaitQueue.Enqueue(character);
+                characterWaits.Enqueue(character);
             }
             StartCoroutine(DoAutoControl());
         }
-        
+
+        private readonly WaitForSeconds handleInterval = new(0.5f);
+        private readonly WaitForSeconds longHandleInterval = new(2f);
+        // 使用协程是因为AIBrain可能需要大量计算，来尽量分担主线程的在一帧中的压力
         private IEnumerator DoAutoControl()
         {
-            while (characterWaitQueue.Count > 0)
+            while (characterWaits.Count > 0)
             {
-                var commandQueue = _brain.DoTactics(characterWaitQueue.Peek());
+                var curCharacter = characterWaits.Peek();
+                var commandQueue = _brain.DoTactics(curCharacter);
+                var curCharacterCommandCount = commandQueue.Count;
+                var isCurrentCharacterAllCommandComplete = curCharacterCommandCount == 0;
                 while (commandQueue.Count > 0)
                 {
-                    var command = commandQueue.Dequeue();
-                    command.Execute();
-                    yield return new WaitForSeconds(1);
+                    if (commandQueue.Peek() is BaseSkillCommand baseSkillCommand)
+                    {
+                        curCharacter.OnSkillChosenEnter(baseSkillCommand.ChosenSkillSlot);
+                        yield return longHandleInterval;
+                        curCharacter.OnSkillChosenExit();
+                    }
+                    _commandManager.AddCommand(commandQueue.Dequeue(), () =>
+                    {
+                        isCurrentCharacterAllCommandComplete = (--curCharacterCommandCount) == 0;
+                    });
                 }
-                characterWaitQueue.Dequeue().SwitchEndTurnReadyState();
+                // 等待当前角色的所有指令执行完毕
+                while (!isCurrentCharacterAllCommandComplete) yield return handleInterval;
+                characterWaits.Dequeue().SwitchEndTurnReadyState();
             }
+            yield return null;
         }
     }
 }

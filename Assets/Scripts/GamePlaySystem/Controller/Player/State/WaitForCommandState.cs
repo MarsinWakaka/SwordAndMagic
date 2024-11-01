@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using ConsoleSystem;
-using Entity.Unit;
+using Entity;
 using GamePlaySystem.RangeDisplay;
+using GamePlaySystem.SkillSystem;
+using GamePlaySystem.TileSystem.Navigation;
 using MyEventSystem;
 using UnityEngine;
 using Utility.FSM;
@@ -16,17 +19,23 @@ namespace GamePlaySystem.Controller.Player.State
             _controller = controller;
         }
         
+        private Dictionary<int, PathNode> _pathNodeTmp;
+        
         public void OnEnter(object param = null)
         {
             _curCharacter = _controller.CurCharacter;
             // TODO 思考是否需要清空角色之前选择的目标 或者 将角色的目标选择放到角色技能选择状态里
             MyConsole.Print($"[闲置状态] {_curCharacter.characterName} ", MessageColor.Green);
-            EventCenter<GameEvent>.Instance.Invoke<RangeType, Vector2, int>(GameEvent.RangeOperation,
-                RangeType.Movement,
-                _curCharacter.transform.position,
-                _curCharacter.property.RWR.Value);
-            
-            // TODO 监听
+            // EventCenter<GameEvent>.Instance.Invoke<RangeOp, Vector2, int>(GameEvent.ShowRangeOperation,
+            //     RangeOp.ShowMovementRange,
+            //     _curCharacter.transform.position,
+            //     _curCharacter.property.RWR.Value);
+            var navigationService = ServiceLocator.Get<INavigationService>();
+            var rangeDisplayService = ServiceLocator.Get<IRangeDisplayService>();
+            var pos = _curCharacter.transform.position;
+            var rwr = _curCharacter.Property.RWR.Value;
+            _pathNodeTmp = navigationService.GetReachablePositionDict((int)pos.x, (int)pos.y, rwr);
+            rangeDisplayService.ShowMoveRange(_pathNodeTmp, rwr);
             EventCenter<GameEvent>.Instance.AddListener<Vector2>(GameEvent.OnTileLeftClicked, GroundClickEventHandle);
             EventCenter<GameEvent>.Instance.AddListener<SkillSlot>(GameEvent.OnSkillSlotUIClicked, SkillSelectedEventHandle);
             // TODO 玩家在选择未激活对象时，也要退出这个角色的等待命令状态
@@ -43,8 +52,15 @@ namespace GamePlaySystem.Controller.Player.State
         
         private void GroundClickEventHandle(Vector2 position)
         {
-            _controller.Destination = position;
-            _controller.Transition(ControllerState.Moving);
+            var destKey = NavigationService.GetIndexKey((int)position.x, (int)position.y);
+            if (_pathNodeTmp.TryGetValue(destKey, out var destNode))
+            {
+                _controller.Transition(ControllerState.Moving, destNode);
+            }
+            else
+            {
+                MyConsole.Print("无法到达的位置", MessageColor.Red);
+            }
         }
         
         private void SkillSelectedEventHandle(SkillSlot skillSlot)
@@ -54,13 +70,12 @@ namespace GamePlaySystem.Controller.Player.State
             var skillChosen = skillSlotChosen.skill;
             if (skillSlotChosen == null)
             {
-                MyConsole.Print("未选择技能", MessageColor.Red);
-                // _controller.Transition(ControllerState.WaitForCommand);
+                Debug.LogError("选中的技能槽为空");
                 return;
             }
             if (skillSlotChosen.RemainCoolDown.Value > 0 || 
-                _controller.CurCharacter.property.AP.Value < skillChosen.AP_Cost || 
-                _controller.CurCharacter.property.SP.Value < skillChosen.SP_Cost){
+                _controller.CurCharacter.Property.AP.Value < skillChosen.AP_Cost || 
+                _controller.CurCharacter.Property.SP.Value < skillChosen.SP_Cost){
                 MyConsole.Print("未满足技能释放条件", MessageColor.Red);
                 // _controller.Transition(ControllerState.WaitForCommand);
                 return;

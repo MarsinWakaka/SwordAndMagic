@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Entity.Character;
 using UnityEngine;
 
 namespace Utility.FSM

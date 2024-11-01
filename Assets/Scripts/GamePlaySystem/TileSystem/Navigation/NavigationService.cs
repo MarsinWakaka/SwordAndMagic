@@ -22,16 +22,23 @@ namespace GamePlaySystem.TileSystem.Navigation
         public override string ToString() => $"({PosX},{PosY})";
     }
     
-    public class NavigationService
+    public interface INavigationService
     {
-        private readonly ITileManager tileManager;
+        List<PathNode> GetReachablePositions(int startX, int startY, int range);
         
-        public NavigationService(ITileManager tileManager)
+        Dictionary<int, PathNode> GetReachablePositionDict(int startX, int startY, int range);
+    }
+    
+    public class NavigationService : INavigationService
+    {
+        private readonly TileManager tileManager;
+        
+        public NavigationService(TileManager tileManager)
         {
             this.tileManager = tileManager;
         }
 
-        private readonly int[,] dir = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}}; // 四联通
+        private readonly int[] dir = {0, 1, 0, -1, -1, 0, 1, 0}; // 四联通
         
         /// <summary>
         /// 获取指定位置的所有可到达位置（目前只考虑四联通,考虑了不同地形消耗的影响）
@@ -56,26 +63,26 @@ namespace GamePlaySystem.TileSystem.Navigation
             var fromNodes = new Queue<PathNode>();
             var path = new Dictionary<int, PathNode>(); // 错位存储XY坐标,每个占10bit
             fromNodes.Enqueue(startNode);
-            path.Add(GetPathNodeKey(startX, startY), startNode); // 位运算优先级低于加减法
+            path.Add(GetIndexKey(startX, startY), startNode); // 位运算优先级低于加减法
             while (fromNodes.Count > 0)
             {
                 var fromNode = fromNodes.Dequeue();
                 for (var i = 0; i < 4; i++)
                 {
-                    var curPosX = fromNode.PosX + dir[i, 0];
-                    var curPosY = fromNode.PosY + dir[i, 1];
+                    var curPosX = fromNode.PosX + dir[i * 2];
+                    var curPosY = fromNode.PosY + dir[i * 2 + 1];
                     // 此格子能否通过上一节点到达
-                    if (!tileManager.InBorder(curPosX, curPosY)) continue; // 1、在边界内
+                    if (!tileManager.InBorder(curPosX, curPosY)) continue; // 1、在边界外
                     var curTile = tiles[curPosX, curPosY];
-                    if (curTile == null) continue;                      // 2、不是空格子 
-                    if (tileDict[curTile.TileType].canBlockMove) continue; // 3、不是阻挡
-                    // TODO 避障处理
+                    if (curTile == null) continue;                       // 2、是空格子 
+                    if (tileDict[curTile.TileType].canBlockMove) continue;  // 3、阻碍移动
+                    if (curTile.IsBlocked) continue;                        // 4、没有被物体阻挡
                     var fromTile = tiles[fromNode.PosX, fromNode.PosY];
                     var curCost = fromNode.Cost + tileDict[fromTile.TileType].leaveCost;
-                    if (curCost > range) continue;                          // 4、有行动力离开此格子
+                    if (curCost > range) continue;                          // 5、没有有行动力离开此格子
                     // 此格子是否已经被访问过
                     // 如果后来的节点到达此格子的代价更小，则更新此格子的代价(需要将此格子重新加入队列)
-                    if (path.TryGetValue(GetPathNodeKey(curPosX, curPosY), out var oldCurNode)) { 
+                    if (path.TryGetValue(GetIndexKey(curPosX, curPosY), out var oldCurNode)) { 
                         if (oldCurNode.Cost > curCost) {
                             oldCurNode.Cost = curCost;
                             oldCurNode.FromNode = fromNode;
@@ -87,7 +94,7 @@ namespace GamePlaySystem.TileSystem.Navigation
                     {
                         var curNode = new PathNode(curPosX, curPosY, fromNode, curCost);
                         fromNodes.Enqueue(curNode);
-                        path.Add(GetPathNodeKey(curPosX, curPosY), curNode);
+                        path.Add(GetIndexKey(curPosX, curPosY), curNode);
                     }
                 }
             }
@@ -95,6 +102,12 @@ namespace GamePlaySystem.TileSystem.Navigation
             return path;
         }
 
-        public static int GetPathNodeKey(int x, int y) => (x << 10) + y;
+        public static int GetIndexKey(int x, int y) => (x << 10) + y;
+        
+        public static void GetXYFromIndexKey(int key, out int x, out int y)
+        {
+            x = key >> 10;
+            y = key & 0x3FF;
+        }
     }
 }

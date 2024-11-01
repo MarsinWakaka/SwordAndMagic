@@ -1,9 +1,7 @@
 using System;
 using ConsoleSystem;
 using MyEventSystem;
-using Unity.VisualScripting;
 using UnityEngine;
-using Utility;
 
 namespace Entity
 {
@@ -25,25 +23,49 @@ namespace Entity
     
     public class Tile : BaseEntity
     {
-        [Header("瓦片状态显示")]
-        [SerializeField] private TileType tileType;
+        private TileType _tileType;
+        /// 是否被堵住了, 即是角色能否行走在上面
+        private bool _isBlocked;
+        /// 站在上面的实体，可以是角色，物体等
+        public BaseEntity standOnObj;    
+        
         public TileType TileType
         {
-            get => tileType;
+            get => _tileType;
             set  {
-                if (tileType == value) return;
-                tileType = value;
-                OnTypeChanged?.Invoke(this, tileType);
+                if (_tileType == value) return;
+                _tileType = value;
+                OnTypeChanged?.Invoke(this, _tileType);
+            }
+        }
+        public Action<Tile, TileType> OnTypeChanged;
+        public bool IsBlocked => _isBlocked;
+        public BaseEntity StandOnObj
+        {
+            get => standOnObj;
+            set
+            {
+                if (standOnObj == value) return;
+                if (value is Character character)
+                {
+                    _isBlocked = true;
+                }
             }
         }
         
-        public Action<Tile, TileType> OnTypeChanged;
+        public void OnCharacterEnter(Character character)
+        {
+            standOnObj = character;
+            _isBlocked = true;
+        }
         
-        // public readonly BindableProperty<TileType> TileType = new();
-        public bool isOccupied;     // 是否被占据
-        public Unit.Character occupier;
-        
-        public void Initialize(TileType tileType, Vector2 position)
+        public void OnCharacterExit(Character character)
+        {
+            standOnObj = null;
+            _isBlocked = false;
+        }
+
+        public void Initialize(TileType tileType, Vector3 position)
         {
             TileType = tileType;
             transform.position = position;
