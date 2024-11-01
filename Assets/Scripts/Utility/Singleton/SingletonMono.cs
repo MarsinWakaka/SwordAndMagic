@@ -4,29 +4,29 @@ namespace Utility.Singleton
 {
     public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
     {
+        private static bool _isInitialized;
         private static T _instance;
-        private static readonly object _lock = new object();
+        private static readonly object Lock = new object();
 
         public static T Instance
         {
             get
             {
-                if (_instance != null) return _instance;
-
-                lock (_lock)
+                if (_instance == null)
                 {
-                    if (_instance == null)
+                    lock (Lock)
                     {
-                        _instance = FindObjectOfType<T>();
                         if (_instance == null)
                         {
-                            var obj = new GameObject(typeof(T).Name);
-                            _instance = obj.AddComponent<T>();
-                            DontDestroyOnLoad(obj);
+                            _instance = FindObjectOfType<T>();
+                            if (_instance != null) return _instance;
+                            var singletonObj = new GameObject(typeof(T).Name);
+                            _instance = singletonObj.AddComponent<T>();
+                            DontDestroyOnLoad(singletonObj);
                         }
                     }
-                    return _instance;
                 }
+                return _instance;
             }
         }
 
@@ -41,8 +41,14 @@ namespace Utility.Singleton
             {
                 Destroy(gameObject);
             }
+            if (_isInitialized) return; // 不要删哦，这个是为了继承者只被初始化一次
+            _isInitialized = true;
+            OnInitialize();
         }
 
-        public static bool IsInstanceNull => _instance == null;
+        protected virtual void OnInitialize()
+        {
+            
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace InputSystem
             if (isRightMousePressed)
             {
                 // OnRightMouseClick?.Invoke();
-                print($"{DateTime.Now} 鼠标右键事件触发");
+                // print($"{DateTime.Now} 鼠标右键事件触发");
                 EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnRightMouseClick);
             }
         }

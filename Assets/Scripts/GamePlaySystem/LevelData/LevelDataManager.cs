@@ -42,7 +42,7 @@ namespace GamePlaySystem.LevelData
             if (File.Exists(dataPath))
                 _dataProcessor.LoadLevelData(File.ReadAllText(dataPath));
             else
-                Debug.LogError($"Data file not found: {dataPath}");
+                Debug.LogError($"Property file not found: {dataPath}");
         }
 
         public void OnLoadLevelResourceEnd()

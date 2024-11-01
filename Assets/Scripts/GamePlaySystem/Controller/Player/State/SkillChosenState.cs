@@ -36,7 +36,7 @@ namespace GamePlaySystem.Controller.Player.State
             var curPos = curCharacter.transform.position;
             atkRangeGrids = ServiceLocator.Get<IViewFieldService>().GetViewFieldSets((int)curPos.x, (int)curPos.y, skillChosen.range);
             ServiceLocator.Get<IRangeDisplayService>().ShowAttackRange(atkRangeGrids);
-            MyConsole.Print($"[技能选中状态] {curCharacter.characterName}选择了{skillChosen.skillName}", MessageColor.White);
+            MyConsole.Print($"[技能选中状态] {curCharacter.CharacterName}选择了{skillChosen.skillName}", MessageColor.White);
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnSKillChosenStateEnter, skillChosen); // TODO 改为UI监听角色的状态事件，而不是通过事件中心
             EventCenter<GameEvent>.Instance.AddListener(GameEvent.OnRightMouseClick, HandleMouseRightClicked);
             EventCenter<GameEvent>.Instance.AddListener(GameEvent.OnSkillReleaseButtonClicked, TransitionToSkillRelease);
@@ -45,7 +45,7 @@ namespace GamePlaySystem.Controller.Player.State
 
         private void HandleMouseRightClicked()
         {
-            Debug.Log($"{DateTime.Now} 鼠标右键命令接受成功");
+            // Debug.Log($"{DateTime.Now} 鼠标右键命令接受成功");
             // TODO 临时措施，后面需要与按键绑定系统结合
             // 假如从选择目标 > 0时，按下退出鼠标右键，则只取消选择目标，不退出技能选择状态
             if (_targets.Count == 0) {

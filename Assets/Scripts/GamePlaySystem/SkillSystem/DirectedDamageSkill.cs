@@ -37,13 +37,13 @@ namespace GamePlaySystem.SkillSystem
             {
                 if (target is Character character)
                 {
-                    MyConsole.Print($"{caster.characterName} 对 {character.characterName} 使用了 {skillName}", MessageColor.Red);
-                    MyConsole.Print($"\t{character.characterName}被命中，受到了 {damage} 点火焰伤害", MessageColor.Red);
+                    MyConsole.Print($"{caster.CharacterName} 对 {character.CharacterName} 使用了 {skillName}", MessageColor.Red);
+                    MyConsole.Print($"\t{character.CharacterName}被命中，受到了 {damage} 点火焰伤害", MessageColor.Red);
                     character.TakeDamage(damage, damageType);
                 }
                 else if (target is Tile tile)
                 {
-                    MyConsole.Print($"{caster.characterName} 对 {tile.entityType} 使用了 {skillName}", MessageColor.Red);
+                    MyConsole.Print($"{caster.CharacterName} 对 {tile.entityType} 使用了 {skillName}", MessageColor.Red);
                 }
                 // TODO 其他类型的实体
             }

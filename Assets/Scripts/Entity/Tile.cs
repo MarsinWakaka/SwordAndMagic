@@ -71,11 +71,5 @@ namespace Entity
             transform.position = position;
             EventCenter<GameEvent>.Instance.Invoke<Tile>(GameEvent.OnTileCreated, this);
         }
-
-        private void OnMouseDown()
-        {
-            MyConsole.Print("Tile Clicked: " + transform.position, MessageColor.Black);
-            EventCenter<GameEvent>.Instance.Invoke<Vector2>(GameEvent.OnTileLeftClicked, transform.position);
-        }
     }
 }

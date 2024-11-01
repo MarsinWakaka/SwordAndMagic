@@ -45,7 +45,7 @@ namespace GamePlaySystem.RangeDisplay
                 color.a = node.Cost * factor;
                 slot.SetColor(color);
             }
-            Debug.Log($"_activeSlots: {_activeSlots.Count}");
+            // Debug.Log($"_activeSlots: {_activeSlots.Count}");
         }
 
         public void ShowMoveRange(List<PathNode> pathNodes, int maxRange)

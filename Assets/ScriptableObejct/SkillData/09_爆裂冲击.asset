@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0857ed5d4e0544008f470a5bba7f0745, type: 3}
-  m_Name: "\u788E\u9B42\u8005"
+  m_Name: "09_\u7206\u88C2\u51B2\u51FB"
   m_EditorClassIdentifier: 
-  id: 6
-  skillName: "\u788E\u9B42\u8005"
-  skillIcon: {fileID: 1286363270, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  skillDescription: "\u5BF9\u654C\u4EBA\u9020\u6210\u7075\u9B42\u4E0A\u7684\u6253\u51FB\uFF0C\u8BE5\u4F24\u5BB3\u65E0\u89C6\u62A4\u7532"
+  id: 9
+  skillName: "\u7206\u88C2\u51B2\u51FB"
+  skillIcon: {fileID: 1834520056, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
+  skillDescription: "\u5F53\u4E00\u4E2A\u8EAB\u5F62\u5F3A\u58EE\u7684\u91CE\u517D\u6325\u51FA\u5168\u529B\u4E00\u51FB\u65F6\uFF0C\u518D\u575A\u786C\u7684\u9632\u5FA1\u4E5F\u4F1A\u4E0D\u582A\u4E00\u51FB\uFF0C\u9020\u621028\u70B9\u4F24\u5BB3"
   range: 1
   impactType: 0
-  canImpactEntityType: -1
+  canImpactEntityType: 3
   canImpactFactionType: 6
   maxTargetCount: 1
   canSameTarget: 0
   isChanneling: 0
-  coolDown: 3
-  AP_Cost: 2
+  coolDown: 4
+  AP_Cost: 5
   SP_Cost: 1
-  damageType: 2
-  damage: 15
+  damageType: 0
+  damage: 28

@@ -25,18 +25,14 @@ namespace GamePlaySystem.Controller.Player.State
         {
             _curCharacter = _controller.CurCharacter;
             // TODO 思考是否需要清空角色之前选择的目标 或者 将角色的目标选择放到角色技能选择状态里
-            MyConsole.Print($"[闲置状态] {_curCharacter.characterName} ", MessageColor.Green);
-            // EventCenter<GameEvent>.Instance.Invoke<RangeOp, Vector2, int>(GameEvent.ShowRangeOperation,
-            //     RangeOp.ShowMovementRange,
-            //     _curCharacter.transform.position,
-            //     _curCharacter.property.RWR.Value);
+            MyConsole.Print($"[闲置状态] {_curCharacter.CharacterName} ", MessageColor.Green);
             var navigationService = ServiceLocator.Get<INavigationService>();
             var rangeDisplayService = ServiceLocator.Get<IRangeDisplayService>();
             var pos = _curCharacter.transform.position;
             var rwr = _curCharacter.Property.RWR.Value;
             _pathNodeTmp = navigationService.GetReachablePositionDict((int)pos.x, (int)pos.y, rwr);
             rangeDisplayService.ShowMoveRange(_pathNodeTmp, rwr);
-            EventCenter<GameEvent>.Instance.AddListener<Vector2>(GameEvent.OnTileLeftClicked, GroundClickEventHandle);
+            EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.OnEntityLeftClicked, EntityClickedHandle);
             EventCenter<GameEvent>.Instance.AddListener<SkillSlot>(GameEvent.OnSkillSlotUIClicked, SkillSelectedEventHandle);
             // TODO 玩家在选择未激活对象时，也要退出这个角色的等待命令状态
         }
@@ -46,20 +42,24 @@ namespace GamePlaySystem.Controller.Player.State
 
         public void OnExit()
         {
-            EventCenter<GameEvent>.Instance.RemoveListener<Vector2>(GameEvent.OnTileLeftClicked, GroundClickEventHandle);
+            EventCenter<GameEvent>.Instance.RemoveListener<BaseEntity>(GameEvent.OnEntityLeftClicked, EntityClickedHandle);
             EventCenter<GameEvent>.Instance.RemoveListener<SkillSlot>(GameEvent.OnSkillSlotUIClicked, SkillSelectedEventHandle);
         }
         
-        private void GroundClickEventHandle(Vector2 position)
+        private void EntityClickedHandle(BaseEntity entity)
         {
-            var destKey = NavigationService.GetIndexKey((int)position.x, (int)position.y);
-            if (_pathNodeTmp.TryGetValue(destKey, out var destNode))
+            if (entity is Tile tile)
             {
-                _controller.Transition(ControllerState.Moving, destNode);
-            }
-            else
-            {
-                MyConsole.Print("无法到达的位置", MessageColor.Red);
+                var position = tile.transform.position;
+                var destKey = NavigationService.GetIndexKey((int)position.x, (int)position.y);
+                if (_pathNodeTmp.TryGetValue(destKey, out var destNode))
+                {
+                    _controller.Transition(ControllerState.Moving, destNode);
+                }
+                else
+                {
+                    MyConsole.Print("无法到达的位置", MessageColor.Red);
+                }
             }
         }
         

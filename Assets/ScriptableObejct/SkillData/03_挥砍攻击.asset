@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0857ed5d4e0544008f470a5bba7f0745, type: 3}
+  m_Name: "03_\u6325\u780D\u653B\u51FB"
+  m_EditorClassIdentifier: 
+  id: 3
+  skillName: "\u6325\u780D\u653B\u51FB"
+  skillIcon: {fileID: -2112491502, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
+  skillDescription: "\u53D1\u52A8\u4E00\u6B21\u4E0D\u4FD7\u7684\u653B\u51FB\uFF0C\u9020\u621010\u70B9\u7269\u7406\u4F24\u5BB3"
+  range: 1
+  impactType: 0
+  canImpactEntityType: 3
+  canImpactFactionType: 6
+  maxTargetCount: 1
+  canSameTarget: 0
+  isChanneling: 0
+  coolDown: 2
+  AP_Cost: 2
+  SP_Cost: 0
+  damageType: 0
+  damage: 10

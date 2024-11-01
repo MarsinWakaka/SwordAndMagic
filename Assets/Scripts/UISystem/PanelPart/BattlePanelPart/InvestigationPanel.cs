@@ -36,7 +36,7 @@ namespace UISystem.PanelPart.BattlePanelPart
         {
             if (entity is Character character) {
                 if (character == lastCharacter) return;
-                characterName.text = character.characterName;
+                characterName.text = character.CharacterName;
                 SetInvestigationUI(character);
                 return;
             }

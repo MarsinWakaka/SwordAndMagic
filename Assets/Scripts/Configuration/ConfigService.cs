@@ -7,6 +7,7 @@ namespace Configuration
     [Serializable]
     public class ConfigData
     {
+        public string configVersion;
         public int levelCount;
         public string levelDataParser;
         public string levelDataPath;

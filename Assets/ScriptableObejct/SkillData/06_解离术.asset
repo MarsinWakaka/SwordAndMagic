@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0857ed5d4e0544008f470a5bba7f0745, type: 3}
-  m_Name: "\u89E3\u79BB\u672F"
+  m_Name: "06_\u89E3\u79BB\u672F"
   m_EditorClassIdentifier: 
-  id: 3
+  id: 6
   skillName: "\u89E3\u79BB\u672F"
   skillIcon: {fileID: -45120724, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  skillDescription: "\u5927\u91CF\u7684\u9B54\u529B\u88AB\u538B\u7F29\u5728\u4E00\u4E2A\u7403\u578B\u7A7A\u95F4\uFF0C\u79BB\u5F00\u4E86\u6CD5\u6756\u5C31\u4F1A\u53D8\u5F97\u53CA\u5176\u4E0D\u7A33\u5B9A\uFF0C\u6781\u9AD8\u7684\u80FD\u91CF\u80FD\u591F\u89E3\u79BB\u88AB\u51FB\u4E2D\u7684\u7269\u4F53"
+  skillDescription: "\u5927\u91CF\u7684\u9B54\u529B\u88AB\u538B\u7F29\u5728\u4E00\u4E2A\u7403\u578B\u7A7A\u95F4\uFF0C\u79BB\u5F00\u4E86\u6CD5\u6756\u5C31\u4F1A\u53D8\u5F97\u53CA\u5176\u4E0D\u7A33\u5B9A\uFF0C\u6781\u9AD8\u7684\u80FD\u91CF\u80FD\u591F\u89E3\u79BB\u88AB\u51FB\u4E2D\u7684\u7269\u4F53\uFF0C\u9020\u621030\u70B9\u9B54\u6CD5\u4F24\u5BB3"
   range: 5
   impactType: 0
-  canImpactEntityType: -1
+  canImpactEntityType: 3
   canImpactFactionType: 6
   maxTargetCount: 1
   canSameTarget: 0

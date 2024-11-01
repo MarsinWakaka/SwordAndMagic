@@ -50,7 +50,15 @@ namespace GamePlaySystem
         private void CharacterCreateHandle(Character character)
         {
             characterManager.RegisterCharacter(character);
-            _tileManager.InitCharacterPosOnTile(character);
+            _tileManager.InitCharacterOnTile(character);
+            character.OnDeathEvent += CharacterDeadHandle;
+        }
+        
+        private void CharacterDeadHandle(Character character)
+        {
+            character.OnDeathEvent -= CharacterDeadHandle;
+            characterManager.UnRegisterUnit(character);
+            _tileManager.RemoveCharacterOnTile(character);
         }
         
         public void OnBattleStartAction()

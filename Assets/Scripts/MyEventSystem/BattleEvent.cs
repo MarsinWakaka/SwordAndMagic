@@ -60,5 +60,8 @@ namespace MyEventSystem
         
         ShowRangeOperation,          // 显示范围
         CloseRangeOperation,         // 关闭范围
+        
+        // 相机事件
+        CameraMoveToPosition,        // 相机移动到指定位置
     }
 }

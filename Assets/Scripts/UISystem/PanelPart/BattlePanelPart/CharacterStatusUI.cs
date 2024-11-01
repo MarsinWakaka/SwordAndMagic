@@ -114,7 +114,7 @@ namespace UISystem.PanelPart.BattlePanelPart
         {
             // 设置不动UI
             charAvatar.sprite = character.sprite;
-            charName.text = character.characterName;
+            charName.text = character.CharacterName;
             // 设置动态UI
             RedrawHpBar(property.HP.Value);
             RedrawMaxHpBar(property.HP_MAX.Value);

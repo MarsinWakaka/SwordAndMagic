@@ -101,7 +101,7 @@ namespace GamePlaySystem
         /// </summary>
         private void UnitStartTurn(Character character)
         {
-            MyConsole.Print($"[新单位 {character.characterName} 开始回合] 准备结束 - {readyToEndCount} / {activeCharacters.Count}", MessageColor.Yellow);
+            MyConsole.Print($"[新单位 {character.CharacterName} 开始回合] 准备结束 - {readyToEndCount} / {activeCharacters.Count}", MessageColor.Yellow);
             // TODO 思考是否需要判断角色死亡眩晕等失能状态
             character.ReadyToEndEvent += UnitReadyToEndHandle;
             character.CancelReadyToEndEvent += CancelUnitReadyToEndHandle;
@@ -201,7 +201,6 @@ namespace GamePlaySystem
         /// </summary>
         public void RegisterCharacter(Character character)
         {
-            character.OnDeathEvent += UnRegisterUnit;
             units.Add(character);
             factionUnits[character.Faction.Value].Add(character);
         }
@@ -210,9 +209,8 @@ namespace GamePlaySystem
         /// 角色单元死后自动调用，不需要其它模块调用
         /// </summary>
         /// <param name="character"></param>
-        private void UnRegisterUnit(Character character)
+        public void UnRegisterUnit(Character character)
         {
-            character.OnDeathEvent -= UnRegisterUnit;
             // TODO 检查游戏是否结束
             if (character.Faction.Value == FactionType.Player)
                 playerDeadCount++;

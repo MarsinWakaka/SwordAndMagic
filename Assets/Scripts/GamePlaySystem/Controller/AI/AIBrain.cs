@@ -71,6 +71,7 @@ namespace GamePlaySystem.Controller.AI
                                 // TODO 获取攻击范围格子
                                 foreach (var hostile in _hostiles)
                                 {
+                                    if (hostile.Property.HP.Value <= 0) continue;
                                     if (!FactionManager.CanImpact(_decider, hostile, skill.canImpactFactionType)) continue;
                                     // 技能能否命中敌人
                                     if (damageSkill.isTargetInATKRange(
@@ -157,22 +158,28 @@ namespace GamePlaySystem.Controller.AI
                     (int) virtualPos.x, (int) virtualPos.y, rwr);
                 
                 // 根据危险热力图决定分数
-                var bestPos = new Vector2Int();
+                var bestPos = new Vector2();
                 // 遍历所有可到达的地格,取得分最高的地格。
                 foreach (var pathNode in pathNodesDict)
                 {
-                    var pos = new Vector2Int(pathNode.Value.PosX, pathNode.Value.PosY);
-                    var score = _riskMap[pos.x, pos.y];
+                    var posX = pathNode.Value.PosX;
+                    var posY = pathNode.Value.PosY;
+                    var score = _riskMap[posX, posY];
                     if (score > maxScore)
                     {
                         maxScore = score;
-                        bestPos = pos;
+                        bestPos.x = posX;
+                        bestPos.y = posY;
                     }
                 }
-                // 【生成动作命令】，考虑对象池
-                var followPathCommand = new FollowPathCommand();
-                followPathCommand.Init(decider, pathNodesDict[NavigationService.GetIndexKey(bestPos.x, bestPos.y)]);
-                _actions.Enqueue(followPathCommand);
+                if (bestPos != virtualPos)
+                {
+                    // 【生成动作命令】
+                    var followPathCommand = new FollowPathCommand();
+                    followPathCommand.Init(decider, 
+                        pathNodesDict[NavigationService.GetIndexKey((int)bestPos.x, (int)bestPos.y)]);
+                    _actions.Enqueue(followPathCommand);
+                }
             }
         }
         
@@ -209,7 +216,7 @@ namespace GamePlaySystem.Controller.AI
             // 1、获取战场地图格子
             var tiles = _tileManager.GetTiles();
             // 2、绘制危险区域
-            _riskMap = scoreHeatMapCooker.Cook(_decider);
+            _riskMap = scoreHeatMapCooker.CookScoreMap(_decider);
             // 3、递归策略函数得到最佳决策结果
             var prop = _decider.Property;
             DoTactic(_decider, 1, prop.RWR.Value, prop.AP.Value, prop.SP.Value, _deciderTrans.position);

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0857ed5d4e0544008f470a5bba7f0745, type: 3}
-  m_Name: "\u6495\u54AC"
+  m_Name: "02_\u8FDC\u7A0B\u6253\u51FB"
   m_EditorClassIdentifier: 
-  id: 7
-  skillName: "\u6495\u54AC"
-  skillIcon: {fileID: -1570201088, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
-  skillDescription: "\u91CE\u86EE\u751F\u7269\u4E0E\u751F\u4FF1\u6765\u7684\u672C\u9886"
-  range: 1
+  id: 2
+  skillName: "\u8FDC\u7A0B\u6253\u51FB"
+  skillIcon: {fileID: -272278874, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
+  skillDescription: "\u5229\u7528\u624B\u4E2D\u7684\u5F13\u7BAD\u6216\u8005\u5468\u8FB9\u7684\u4E00\u5207\u53D1\u52A8\u4E00\u6B21\u8FDC\u7A0B\u653B\u51FB\uFF0C\u9020\u62109\u70B9\u7269\u7406\u4F24\u5BB3"
+  range: 5
   impactType: 0
-  canImpactEntityType: -1
+  canImpactEntityType: 3
   canImpactFactionType: 6
   maxTargetCount: 1
   canSameTarget: 0
@@ -27,4 +27,4 @@ MonoBehaviour:
   AP_Cost: 2
   SP_Cost: 0
   damageType: 0
-  damage: 10
+  damage: 9

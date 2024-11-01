@@ -11,9 +11,6 @@ namespace GamePlaySystem.DeploySystem
 {
     public class DeployManager : MonoBehaviour
     {
-        [Header("自动部署角色（测试用）")]
-        [SerializeField] bool autoDeploy = false;
-        
         [Header("角色售卖列表")]
         // TODO 这里序列化只是暂时的，后面通过事件获取场景加载完毕后的角色数据
         private int _characterSelectedIndex = -1;
@@ -69,14 +66,14 @@ namespace GamePlaySystem.DeploySystem
             // TODO 检查玩家是否可以部署在这个位置
             
             // 检查玩家金币是否充足
-            if (selectedCharacter.sellPrice > PlayerData.Gold.Value) {
+            if (selectedCharacter.SellPrice > PlayerData.Gold.Value) {
                 print("金币不足");
                 return;
             }
             
-            print($"部署成功:{selectedCharacter.characterName}");
+            print($"部署成功:{selectedCharacter.CharacterName}");
             // 6、生成角色
-            PlayerData.Gold.Value -= selectedCharacter.sellPrice;
+            PlayerData.Gold.Value -= selectedCharacter.SellPrice;
             ServiceLocator.Get<IEntityFactory>().CreateCharacter(selectedCharacter.entityID, position, FactionType.Player);
             // EntityFactory.Instance.CreateCharacter(FactionType.Player, selectedCharacter.entityID, position);
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.DeployCharacterSuccess);   // 激活部署面板的结束按钮

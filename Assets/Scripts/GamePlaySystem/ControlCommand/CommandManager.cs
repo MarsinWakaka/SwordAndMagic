@@ -21,14 +21,13 @@ namespace GamePlaySystem.ControlCommand
     
     public interface ICommandManager
     {
-        void AddCommand(ICommand command, Action onCommandComplete);
+        void ExecuteCommand(ICommand command, Action onCommandComplete);
     }
     
     public class CommandManager : MonoBehaviour , ICommandManager
     {
-        
         private readonly Queue<CommandHandler> commandQueue = new();
-        public void AddCommand(ICommand command, Action onCommandComplete)
+        public void ExecuteCommand(ICommand command, Action onCommandComplete)
         {
             commandQueue.Enqueue(new CommandHandler(command, onCommandComplete));
             if (commandQueue.Count == 1)
@@ -50,7 +49,7 @@ namespace GamePlaySystem.ControlCommand
                         yield return HandleFollowPathCommand(followPathCommand, commandHandle.OnCommandComplete);
                         break;
                     case BaseSkillCommand baseSkillCommand:
-                        yield return HandleBaseSkillCommand(commandHandle, commandHandle.OnCommandComplete);
+                        yield return HandleBaseSkillCommand(baseSkillCommand, commandHandle.OnCommandComplete);
                         break;
                 }
                 yield return handleInterval;
@@ -58,9 +57,8 @@ namespace GamePlaySystem.ControlCommand
             }
         }
 
-        private IEnumerator HandleBaseSkillCommand(CommandHandler commandHandle, Action onComplete)
+        private IEnumerator HandleBaseSkillCommand(BaseSkillCommand baseSkillCommand, Action onComplete)
         {
-            var baseSkillCommand = (BaseSkillCommand) commandHandle.Command;
             var caster = baseSkillCommand.Caster;
             var targets = baseSkillCommand.Targets;
             var skillSlot = baseSkillCommand.ChosenSkillSlot;

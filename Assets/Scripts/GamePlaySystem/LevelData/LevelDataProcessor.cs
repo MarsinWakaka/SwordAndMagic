@@ -63,7 +63,7 @@ namespace GamePlaySystem.LevelData
                         packageData.Append(data[j]);
                         if (j < curRow - 1) packageData.Append("\n"); // 最后一行数据不需要换行
                     }
-
+                    dataPartType = dataPartType.Trim();
                     switch (dataPartType)
                     {
                         case "[Terrain Data]":

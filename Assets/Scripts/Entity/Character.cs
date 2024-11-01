@@ -12,9 +12,11 @@ namespace Entity
 {
     public class Character : BaseEntity, IComparable<Character>
     {
+        // TODO 改到Property中
+        public string CharacterName => property.characterName;
+        public int SellPrice => property.sellPrice;
+        
         [Header("角色属性")]
-        public string characterName;
-        public int sellPrice;
         [SerializeField] private CharacterProperty property;// 角色属性
         [SerializeField] private List<SkillSlot> skills;// 技能
         
@@ -92,7 +94,7 @@ namespace Entity
         {
             // TODO 等待同批角色 行动结束
             IsReadyToEndTurn = !IsReadyToEndTurn;
-            MyConsole.Print($"[准备结束状态切换] {characterName} {IsReadyToEndTurn}", MessageColor.Yellow);
+            MyConsole.Print($"[准备结束状态切换] {CharacterName} {IsReadyToEndTurn}", MessageColor.Yellow);
             if (IsReadyToEndTurn){
                 ReadyToEndEvent?.Invoke();
             }else{
@@ -125,7 +127,7 @@ namespace Entity
             
             if (Faction.Value == FactionType.Player) {
                 // TODO 玩家角色死亡，游戏结束
-                MyConsole.Print($"[玩家角色死亡] {characterName}", MessageColor.Red);
+                MyConsole.Print($"[玩家角色死亡] {CharacterName}", MessageColor.Red);
             }
         }
         

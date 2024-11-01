@@ -98,7 +98,7 @@ namespace GamePlaySystem.TileSystem.Navigation
                     }
                 }
             }
-            Debug.Log($"GetReachablePositions: {path.Count}");
+            // Debug.Log($"GetReachablePositions: {path.Count}");
             return path;
         }
 

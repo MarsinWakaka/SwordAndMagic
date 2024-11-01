@@ -22,7 +22,7 @@ namespace GamePlaySystem.Controller.Player.State
             {
                 var skillCommand = new BaseSkillCommand();
                 skillCommand.Init(_controller.SelectedSkillSlot, _controller.CurCharacter, chosenTargets);
-                ServiceLocator.Get<ICommandManager>().AddCommand(skillCommand, ToWaitForCommand);
+                ServiceLocator.Get<ICommandManager>().ExecuteCommand(skillCommand, ToWaitForCommand);
                 // var skillSlot = _controller.SelectedSkillSlot;
                 // var character = _controller.CurCharacter;
                 //

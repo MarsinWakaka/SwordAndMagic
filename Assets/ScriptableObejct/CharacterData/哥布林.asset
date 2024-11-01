@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a904c6732a9d4112a33d592b10328911, type: 3}
+  m_Script: {fileID: 11500000, guid: b7fa5d26ab32fae44a1d24cedf3df7e8, type: 3}
   m_Name: "\u54E5\u5E03\u6797"
   m_EditorClassIdentifier: 
+  characterName: "\u54E5\u5E03\u6797"
+  sellPrice: 10
   LV: 3
   BaseHp: 15
   Defence_Max: 9
@@ -21,3 +23,8 @@ MonoBehaviour:
   Intelligence: 8
   Perception: 10
   Dexterity: 14
+  skills: []
+  HostileScoreFactor: 100
+  HostileImpactRange: 5
+  FriendlyScoreFactor: -50
+  FriendlyImpactRange: 3

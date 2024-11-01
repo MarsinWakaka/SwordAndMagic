@@ -53,19 +53,27 @@ namespace GamePlaySystem.TileSystem
             // TODO 燃烧瓦片对周围瓦片的影响
         }
         
-        public bool InitCharacterPosOnTile(Character character)
+        public void InitCharacterOnTile(Character character)
         {
             var position = character.transform.position;
             var x = (int) position.x; var y = (int) position.y;
-            if (!InBorder(x, y) || !HasTile(x, y)) return false;
+            if (!InBorder(x, y) || !HasTile(x, y)) return;
             var tile = _tiles[x, y];
             if (tile.IsBlocked) {
                 Debug.LogWarning("Character can't be placed on a blocked tile");
-                return false;
+                return;
             }
             tile.OnCharacterEnter(character);
             character.transform.position = position;
-            return true;
+        }
+        
+        public void RemoveCharacterOnTile(Character character)
+        {
+            var position = character.transform.position;
+            var x = (int) position.x; var y = (int) position.y;
+            if (!InBorder(x, y) || !HasTile(x, y)) return;
+            var tile = _tiles[x, y];
+            tile.OnCharacterExit(character);
         }
         
         // 处理角色移动后的瓦片更新

@@ -3136,9 +3136,9 @@ RectTransform:
   - {fileID: 2224851538783696183}
   m_Father: {fileID: 7198864925317088978}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 540}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &287609038375632823
@@ -4831,6 +4831,7 @@ GameObject:
   - component: {fileID: 1825842828582778236}
   - component: {fileID: 589377959091222178}
   - component: {fileID: 4538171789251257476}
+  - component: {fileID: 3955757920673410341}
   m_Layer: 5
   m_Name: "\u73A9\u5BB6\u6280\u80FD\u5C55\u793A\u9762\u677F"
   m_TagString: Untagged
@@ -4880,9 +4881,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.82745105, g: 0.75294125, b: 0.6117647, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4920,6 +4921,18 @@ MonoBehaviour:
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 2
   m_ConstraintCount: 1
+--- !u!225 &3955757920673410341
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8354564379918485518}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8361981386706578451
 GameObject:
   m_ObjectHideFlags: 0

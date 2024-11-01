@@ -53,7 +53,7 @@ namespace GamePlaySystem.Controller.AI
                         yield return longHandleInterval;
                         curCharacter.OnSkillChosenExit();
                     }
-                    _commandManager.AddCommand(commandQueue.Dequeue(), () =>
+                    _commandManager.ExecuteCommand(commandQueue.Dequeue(), () =>
                     {
                         isCurrentCharacterAllCommandComplete = (--curCharacterCommandCount) == 0;
                     });

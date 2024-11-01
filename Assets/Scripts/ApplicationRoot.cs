@@ -1,4 +1,3 @@
-using System.IO;
 using Configuration;
 using ResourcesSystem;
 using SaveSystem;
@@ -14,11 +13,10 @@ using AddressableManager = ResourcesSystem.AddressableManager;
 /// </summary>
 public sealed class ApplicationRoot : SingletonMono<ApplicationRoot>
 {
-    protected override void Awake()
+    protected override void OnInitialize()
     {
-        base.Awake();
         // 初始化全局服务【】
-        var configPath = Path.Combine(Application.streamingAssetsPath, "config.json");
+        var configPath = "Assets/ConfigData.json";//Path.Combine(Application.streamingAssetsPath, "ConfigData.json");
         var serializeTool = new JsonSerializeTool();
         var configService = new ConfigService(configPath, serializeTool);
         var resourceManager = new AddressableManager();

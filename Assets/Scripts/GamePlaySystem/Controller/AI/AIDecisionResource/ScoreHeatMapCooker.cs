@@ -16,14 +16,6 @@ namespace GamePlaySystem.Controller.AI.AIDecisionResource
             _tileManager = tileManager;
         }
 
-        // TODO 将其作为角色的参数，从而定义不同角色的行为偏好
-        // TODO 例如：坦克更倾向于冲向敌人，法师更倾向于远离敌人，治疗更倾向于靠近友军
-        // 尽量靠近敌人
-        private const float HostileScoreFactor = 100;
-        private const int HostileImpactRange = 5;
-        // 尽量远离友军
-        private const float FriendlyScoreFactor = -50;
-        private const int FriendlyImpactRange = 3;
         
         private int maxX;
         private int maxY;
@@ -31,7 +23,7 @@ namespace GamePlaySystem.Controller.AI.AIDecisionResource
         private Dictionary<TileType, TileData> tileDict;
         private float[,] scoreHeatMap;
         
-        public float[,] Cook(Character decider)
+        public float[,] CookScoreMap(Character decider)
         {
             // 初始化
             tiles = _tileManager.GetTiles();
@@ -46,11 +38,12 @@ namespace GamePlaySystem.Controller.AI.AIDecisionResource
                 var pos = tile.transform.position;
                 scoreHeatMap[(int)pos.x, (int)pos.y] = tileDict[tile.TileType].score;
             }
-            CookRisk(decider);
+            ApplyCharacterImpactOnScoreMap(decider);
+            // TODO 未来将添加更多的感知信息，例如：敌人中心和队伍中心对AI的影响、地图瓦片对于分数的影响等
             return scoreHeatMap;
         }
         
-        private void CookRisk(Character decider)
+        private void ApplyCharacterImpactOnScoreMap(Character decider)
         {
             var factionType = decider.Faction.Value;
             var hostileFaction = 1 - factionType;
@@ -61,8 +54,10 @@ namespace GamePlaySystem.Controller.AI.AIDecisionResource
                 var unitPos = unit.transform.position;
                 var unitX = (int) unitPos.x;
                 var unitY = (int) unitPos.y;
+                var hostileImpactRange = unit.Property.HostileImpactRange;
+                var hostileScoreFactor = unit.Property.HostileScoreFactor;
                 // TODO 将HostileImpactRange，HostileScoreFactor作为角色的参数，从而定义不同角色的行为偏好(天才！)
-                ApplyRiskByCircleLinearDecay(unitX, unitY, HostileImpactRange, HostileScoreFactor); //后续考虑根据不同职业制作不同危险度衰减函数
+                ApplyRiskByCircleLinearDecay(unitX, unitY, hostileImpactRange, hostileScoreFactor); //后续考虑根据不同职业制作不同危险度衰减函数
                 // 角色位置不可到达，所以需要将其分数置为最小值
                 scoreHeatMap[unitX, unitY] = float.MinValue / 2;    // 防止溢出
             }
@@ -73,7 +68,9 @@ namespace GamePlaySystem.Controller.AI.AIDecisionResource
                 var unitPos = unit.transform.position;
                 var unitX = (int) unitPos.x;
                 var unitY = (int) unitPos.y;
-                ApplyRiskByCircleLinearDecay(unitX, unitY, FriendlyImpactRange, FriendlyScoreFactor); //后续考虑根据不同职业制作不同危险度衰减函数
+                var friendlyImpactRange = unit.Property.FriendlyImpactRange;
+                var friendlyScoreFactor = unit.Property.FriendlyScoreFactor;
+                ApplyRiskByCircleLinearDecay(unitX, unitY, friendlyImpactRange, friendlyScoreFactor); //后续考虑根据不同职业制作不同危险度衰减函数
                 scoreHeatMap[unitX, unitY] = float.MinValue / 2;    // 角色位置不可达
             }
         }

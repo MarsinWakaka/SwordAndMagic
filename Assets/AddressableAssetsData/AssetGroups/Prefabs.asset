@@ -22,6 +22,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24c7d692acd25764b8732514cd6cf577
+    m_Address: Assets/Prefabs/Entities/Characters/Orcs.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Character
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2d4361baee22d9049b7eedc3d39da606
     m_Address: Assets/Prefabs/Entities/Tiles/Tile.prefab
     m_ReadOnly: 0

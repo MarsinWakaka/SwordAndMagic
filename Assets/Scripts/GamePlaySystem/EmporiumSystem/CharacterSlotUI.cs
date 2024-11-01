@@ -27,7 +27,7 @@ namespace BattleSystem.EmporiumSystem
         public void SetSlot(Character character)
         {
             icon.sprite = character.sprite;
-            sellPriceText.text = character.sellPrice.ToString();
+            sellPriceText.text = character.SellPrice.ToString();
         }
     }
 }

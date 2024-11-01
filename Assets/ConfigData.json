@@ -1,0 +1,11 @@
+{
+    "configVersion": "0.1.0",
+    "levelCount": 4,
+    "levelDataParser": "\\[[^\\]]*\\]",
+    "levelDataPath": "Assets/StreamingAssets/Levels",
+    "levelDataPrefix": "level_",
+    "levelDataSuffix": ".level",
+    "uiPanelPath": "Assets/Prefabs/UI/UIPanel",
+    "characterPrefabPath": "Character",
+    "tilePrefabPath": "Assets/Prefabs/Entities/Tiles/Tile.prefab"
+}

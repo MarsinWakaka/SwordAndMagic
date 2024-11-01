@@ -15,7 +15,7 @@ namespace GamePlaySystem.Controller.Player.State
         
         public void OnEnter(object param = null)
         {
-            MyConsole.Print($"[Start Turn] {_owner.characterName} - {_owner.Faction.Value} ", MessageColor.Green);
+            MyConsole.Print($"[Start Turn] {_owner.CharacterName} - {_owner.Faction.Value} ", MessageColor.Green);
             
         }
 

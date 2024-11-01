@@ -26,26 +26,13 @@ namespace GamePlaySystem.Controller.Player.State
                 {
                     var followCommand = new FollowPathCommand();
                     followCommand.Init(_controller.CurCharacter, destNode);
-                    _controller.CommandManager.AddCommand(followCommand, FollowCommandComplete);
+                    _controller.CommandManager.ExecuteCommand(followCommand, FollowCommandComplete);
                     break;
                 }
                 default:
                     Debug.LogError($"传入的参数不是PathNode类型 {destNodeObj.GetType()}");
                     break;
             }
-
-            // TODO 需要从地图管理器获取移动范围数据，使用BFS计算可到达距离和移动消耗（可以直接去旧版战斗系统移植）
-            // TODO 替换直接计算曼哈顿距离
-            // var character = _controller.CurCharacter;
-            // var trans = character.transform;
-            // int distance = Math.Abs((int)trans.position.x - (int)_controller.Destination.x) +
-            //                Math.Abs((int)trans.position.y - (int)_controller.Destination.y);
-            // if (character.property.RWR.Value >= distance)
-            // {
-            //     trans.position = _controller.Destination;
-            //     character.property.RWR.Value -= distance;
-            // }
-            // _controller.Transition(ControllerState.WaitForCommand);
         }
         
         private void FollowCommandComplete()

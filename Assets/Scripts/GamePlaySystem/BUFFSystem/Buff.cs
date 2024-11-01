@@ -37,7 +37,7 @@ namespace BattleSystem.BUFFSystem
             // 1 ~ 4
             var damage = Random.Range(1, 5);
             // target.OnTakeDamage(Character.DamageType.Magic, damage);
-            Debug.Log($"BurnBuff: {target.characterName} 受到了 {damage} 点火焰伤害");
+            Debug.Log($"BurnBuff: {target.CharacterName} 受到了 {damage} 点火焰伤害");
         }
     }
     
