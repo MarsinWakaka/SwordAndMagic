@@ -23,7 +23,7 @@ MonoBehaviour:
   maxTargetCount: 1
   canSameTarget: 0
   isChanneling: 0
-  coolDown: 2
+  coolDown: 3
   AP_Cost: 2
   SP_Cost: 0
   damageType: 0

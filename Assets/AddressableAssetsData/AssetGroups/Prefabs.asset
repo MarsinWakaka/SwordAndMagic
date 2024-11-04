@@ -44,6 +44,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fa4193094564614d8100fd5ea549b11
+    m_Address: "Assets/Prefabs/Entities/Characters/\u89D2\u8272\u9884\u5236\u4F53.prefab"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Character
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f33b61cd5f1fc3468391a4304182b78
     m_Address: GameEntity/Character/WestWindKnight.prefab
     m_ReadOnly: 0

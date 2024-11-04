@@ -17,7 +17,7 @@ namespace GamePlaySystem.SkillSystem
     public enum ImpactType
     {
         Single,
-        Aoe,
+        // Aoe,
     }
     
     [Flags]

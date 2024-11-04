@@ -59,10 +59,11 @@ namespace GamePlaySystem.Controller.AI
                     });
                 }
                 // 等待当前角色的所有指令执行完毕
-                while (!isCurrentCharacterAllCommandComplete) yield return handleInterval;
+                while (!isCurrentCharacterAllCommandComplete) 
+                    yield return handleInterval;
+                yield return handleInterval;    // 防止角色在一帧内同时完成开始控制与结束控制（会造成角色控制器的迭代器BUG）
                 characterWaits.Dequeue().SwitchEndTurnReadyState();
             }
-            yield return null;
         }
     }
 }

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: "\u897F\u98CE\u9A91\u58EB"
   m_EditorClassIdentifier: 
   characterName: "\u897F\u98CE\u9A91\u58EB"
-  sellPrice: 18
+  sellPrice: 25
   LV: 4
   BaseHp: 15
   Defence_Max: 18
-  MagicDefence_Max: 10
+  MagicDefence_Max: 12
   Constitution: 14
   Strength: 14
   Intelligence: 11

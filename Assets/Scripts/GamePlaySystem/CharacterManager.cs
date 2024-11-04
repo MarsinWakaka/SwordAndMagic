@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CameraSystem;
 using ConsoleSystem;
 using Entity;
 using GamePlaySystem.Controller.AI;
@@ -18,21 +19,20 @@ namespace GamePlaySystem
         private readonly Dictionary<FactionType, List<Character>> factionUnits = new();
         private int enemyDeadCount, playerDeadCount;    // 引入此变量减少计算量，缺点需要维护两个变量
         public Action<FactionType> OnFactionWin;
-        public List<Character> Units => units;
         public List<Character> GetUnitsByFaction(FactionType faction) => factionUnits[faction];
         
         // public Action<FactionType, List<Character>> OnCharactersAction;
         
-        private PlayerController playerController;
-        private AutoController autoController;
+        private PlayerController _playerController;
+        private AutoController _autoController;
         
         /// <summary>
         /// 需要两个控制器
         /// </summary>
         public void Initialize(PlayerController playerController, AutoController autoController)
         {
-            this.playerController = playerController;
-            this.autoController = autoController;
+            this._playerController = playerController;
+            this._autoController = autoController;
         }
 
         public CharacterManager()
@@ -49,8 +49,8 @@ namespace GamePlaySystem
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty, factionUnits[FactionType.Player].ToArray());
         }
 
-        #region 角色轮询控制
         
+        #region 角色轮询控制
         private readonly List<Character> activeCharacters = new();  // 当前处于行动状态的角色列表
         private int unitIndexLc, unitIndexRo, readyToEndCount; // 左闭右开 [C, O)
         
@@ -90,8 +90,8 @@ namespace GamePlaySystem
             if (activeCharacters[0].Faction.Value == FactionType.Player) {
                 CharacterSelectedHandle(activeCharacters[0]);
             } else {
-                playerController.SetCharacter(null);
-                autoController.AddControlQueue(activeCharacters);
+                _playerController.SetCharacter(null);
+                _autoController.AddControlQueue(activeCharacters);
             }
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfActionUnitOrder, GetCharacterOrder());
         }
@@ -117,6 +117,16 @@ namespace GamePlaySystem
             MyConsole.Print($"[单位准备结束] 准备结束 -  {readyToEndCount} / {activeCharacters.Count}", MessageColor.Yellow);
             if (activeCharacters.Count == readyToEndCount)
                 BatchUnitEndTurn();
+            else if (activeCharacters[readyToEndCount].Faction.Value == FactionType.Player)
+            {
+                foreach (var character in activeCharacters)
+                {
+                    if (character.IsDead) continue;
+                    if (character.IsReadyToEndTurn) continue;
+                    CharacterSelectedHandle(character); // 选中下一个未准备结束的角色
+                    break;
+                }
+            }
         }
         
         /// <summary>
@@ -162,37 +172,35 @@ namespace GamePlaySystem
         }
 
         private int ToNextIndex(int index) => (index + 1) % units.Count;
-
         #endregion
         
+        
         #region 角色选中处理
-
-        private Character lastSelectedCharacter;
+        private Character playerLastSelectedCharacter;
         
         /// <summary>
         /// 设置一个角色为选中状态，不涉及UI的更新
         /// </summary>
         private void CharacterSelectedHandle(Character newSelectedCharacter)
         {
-            // 如果当前角色处于等待命令状态 OR 其它进一步状态，则退出
-            if (lastSelectedCharacter != null && lastSelectedCharacter.IsOnTurn) 
-                playerController.SetCharacter(null);    // 此为退出操作
-            
-            // TODO 判断角色是否满足行动条件，例如眩晕、死亡等
-            if (newSelectedCharacter.IsOnTurn)
+            if (newSelectedCharacter.Faction.Value == FactionType.Player)
             {
-                playerController.SetCharacter(newSelectedCharacter);
+                // 如果当前角色处于等待命令状态 OR 其它进一步状态，则退出
+                if (playerLastSelectedCharacter != null && playerLastSelectedCharacter.IsOnTurn) 
+                    _playerController.SetCharacter(null);    // 此为退出操作
+                // TODO 判断角色是否满足行动条件，例如眩晕、死亡等
+                if (newSelectedCharacter.IsOnTurn) {
+                    _playerController.SetCharacter(newSelectedCharacter);
+                }
+                EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfSelectedCharacter, newSelectedCharacter);
+                playerLastSelectedCharacter = newSelectedCharacter;
             }
-            // 通知UI显示选中单位的信息,谨防事件触发循环
-            // MyConsole.Print("[事件触发]" + GameEvent.UpdateUIOfSelectedCharacter, MessageColor.Black);
-            EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfSelectedCharacter, newSelectedCharacter);
-            lastSelectedCharacter = newSelectedCharacter;
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.CameraMoveToPosition, newSelectedCharacter.transform.position);
         }
-
         #endregion
 
-        #region 角色生成 与 死亡
         
+        #region 角色生成 与 死亡
         // 角色死亡对于角色顺序索引的影响是什么？可能会导致索引越界怎么解决？ -> 通过为角色添加死亡标记解决
         // 解决方案，死亡后将其标记为Dead，不再参与行动，但是不从列表中移除，这样不会影响索引，同时遍历等操作时等遇到Dead时跳过即可
         
@@ -225,12 +233,11 @@ namespace GamePlaySystem
                 EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty,  factionUnits[FactionType.Player].ToArray());
             // TODO 如果是选中角色死亡，更新SelectCharacterUI
         }
-        
         #endregion
         
-        // TODO 这部分代码应该移到BattleManager中(暂未添加BattleManager)
+        
+        // TODO 这部分代码应该移到BattleManager中,等待物品管理器的实现ing...
         #region TODO
-
         private const int OrderSlotCount = 10;
         readonly Character[] orderSlots = new Character[OrderSlotCount];
         private Character[] GetCharacterOrder()
@@ -249,7 +256,6 @@ namespace GamePlaySystem
             }
             return orderSlots;
         }
-
         #endregion
     }
 }

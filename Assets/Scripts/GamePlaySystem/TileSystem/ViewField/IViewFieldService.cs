@@ -8,5 +8,7 @@ namespace GamePlaySystem.TileSystem.ViewField
         public List<Vector2Int> GetViewField(int startX, int startY, int viewRange);
         
         public HashSet<int> GetViewFieldSets(int startX, int startY, int viewRange);
+        
+        public HashSet<int> GetViewFieldSets(Vector3 startPos, int viewRange);
     }
 }

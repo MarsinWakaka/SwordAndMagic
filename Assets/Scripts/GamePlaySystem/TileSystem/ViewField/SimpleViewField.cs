@@ -52,6 +52,13 @@ namespace GamePlaySystem.TileSystem.ViewField
                 }
             }
             return viewField;
-        } 
+        }
+
+        public HashSet<int> GetViewFieldSets(Vector3 startPos, int viewRange)
+        {
+            var startX = (int) startPos.x;
+            var startY = (int) startPos.y;
+            return GetViewFieldSets(startX, startY, viewRange);
+        }
     }
 }

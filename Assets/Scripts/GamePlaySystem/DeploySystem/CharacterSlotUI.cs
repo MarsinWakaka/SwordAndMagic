@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace BattleSystem.EmporiumSystem
+namespace GamePlaySystem.DeploySystem
 {
     public class CharacterSlotUI : MonoBehaviour, IPointerClickHandler
     {

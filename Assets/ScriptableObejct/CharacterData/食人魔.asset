@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\u98DF\u4EBA\u9B54"
   m_EditorClassIdentifier: 
   characterName: "\u98DF\u4EBA\u9B54"
-  sellPrice: 20
+  sellPrice: 50
   LV: 4
   BaseHp: 18
   Defence_Max: 15

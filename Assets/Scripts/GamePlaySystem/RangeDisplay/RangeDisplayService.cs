@@ -5,13 +5,6 @@ using UnityEngine.Pool;
 
 namespace GamePlaySystem.RangeDisplay
 {
-    public enum RangeType
-    {
-        None,
-        Movement,
-        AttackRange
-    }
-    
     public interface IRangeDisplayService
     {
         void ShowMoveRange(Dictionary<int, PathNode> pathNodes, int maxRange);
@@ -32,20 +25,7 @@ namespace GamePlaySystem.RangeDisplay
 
         public void ShowMoveRange(Dictionary<int, PathNode> pathNodes, int maxRange)
         {
-            // 关闭已有显示
-            CloseRangeDisplay();
-            // 决定颜色
-            var color = movementRangeColor;
-            var factor = 1f / (4 * maxRange);
-            // 显示新的
-            foreach (var node in pathNodes.Values)
-            {                        
-                var slot = _rangeSlotPool.Get();
-                slot.transform.position = new Vector3(node.PosX, node.PosY, 0);
-                color.a = node.Cost * factor;
-                slot.SetColor(color);
-            }
-            // Debug.Log($"_activeSlots: {_activeSlots.Count}");
+            ShowMoveRange(new List<PathNode>(pathNodes.Values), maxRange);
         }
 
         public void ShowMoveRange(List<PathNode> pathNodes, int maxRange)
@@ -54,16 +34,16 @@ namespace GamePlaySystem.RangeDisplay
             CloseRangeDisplay();
             // 决定颜色
             var color = movementRangeColor;
-            var factor = 1f / (4 * maxRange);
+            var factor = 1f / (3f * maxRange);
             // 显示新的
             foreach (var node in pathNodes)
             {                        
                 var slot = _rangeSlotPool.Get();
                 slot.transform.position = new Vector3(node.PosX, node.PosY, 0);
-                color.a = node.Cost * factor;
+                color.a = ((maxRange << 1) - node.Cost) * factor;
                 slot.SetColor(color);
             }
-            Debug.Log($"_activeSlots: {_activeSlots.Count}");
+            // Debug.Log($"_activeSlots: {_activeSlots.Count}");
         }
         
         public void ShowMoveRange(List<PathNode> pathNodes)
@@ -77,7 +57,6 @@ namespace GamePlaySystem.RangeDisplay
             {                        
                 var slot = _rangeSlotPool.Get();
                 slot.transform.position = new Vector3(node.PosX, node.PosY, 0);
-                color.a = node.Cost / 20f;
                 slot.SetColor(color);
             }
             Debug.Log($"_activeSlots: {_activeSlots.Count}");

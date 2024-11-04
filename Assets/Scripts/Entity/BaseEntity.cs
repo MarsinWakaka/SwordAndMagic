@@ -19,7 +19,7 @@ namespace Entity
         public int entityID;
         public Guid EntityID;
         // 只读属性
-        [HideInInspector] public Sprite sprite;
+        public Sprite sprite;
         public EntityType entityType;
 
         public SpriteRenderer Renderer;

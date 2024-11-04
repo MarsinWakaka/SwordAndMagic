@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using ConsoleSystem;
 using Entity;
+using GamePlaySystem.DeploySystem;
 using GamePlaySystem.FactionSystem;
 using UnityEngine;
 
@@ -66,6 +67,9 @@ namespace GamePlaySystem.LevelData
                     dataPartType = dataPartType.Trim();
                     switch (dataPartType)
                     {
+                        case "[Gold]":
+                            PlayerData.Gold.Value = int.Parse(packageData.ToString());
+                            break;
                         case "[Terrain Data]":
                             ProcessTerrainData(packageData.ToString());
                             break;

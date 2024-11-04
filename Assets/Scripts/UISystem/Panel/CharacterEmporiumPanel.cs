@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Entity;
-using GamePlaySystem.EmporiumSystem;
+using GamePlaySystem.DeploySystem;
 using MyEventSystem;
 using UISystem.PanelPart.CharacterEmporiumPart;
 using UnityEngine;

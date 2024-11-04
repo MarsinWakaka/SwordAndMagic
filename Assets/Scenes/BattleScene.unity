@@ -523,9 +523,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f97c997cfb24477bec74db5793b9ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoDeploy: 0
   characterSellList:
   - {fileID: 6375489769292070722, guid: a28df060b264cc64595bcd4f7ae1e15d, type: 3}
+  - {fileID: 4133371717776245240, guid: 3fa4193094564614d8100fd5ea549b11, type: 3}
   - {fileID: 4444279139307824416, guid: 6f33b61cd5f1fc3468391a4304182b78, type: 3}
   - {fileID: 4444279139307824416, guid: 32c7cc11157a92f43a993c4cac3e5345, type: 3}
 --- !u!1 &1752943533

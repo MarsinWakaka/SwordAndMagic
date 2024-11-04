@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7fa5d26ab32fae44a1d24cedf3df7e8, type: 3}
-  m_Name: "\u65E0\u7528\u4E4B\u4EBA"
+  m_Name: "\u5F13\u7BAD\u624B"
   m_EditorClassIdentifier: 
-  characterName: "\u65E0\u7528\u4E4B\u4EBA"
-  sellPrice: 9
-  LV: 2
+  characterName: "\u5F13\u7BAD\u624B"
+  sellPrice: 20
+  LV: 3
   BaseHp: 10
   Defence_Max: 5
-  MagicDefence_Max: 5
-  Constitution: 8
-  Strength: 9
+  MagicDefence_Max: 8
+  Constitution: 12
+  Strength: 13
   Intelligence: 10
   Perception: 10
-  Dexterity: 11
+  Dexterity: 10
   skills: []
-  HostileScoreFactor: 20
+  HostileScoreFactor: 40
   HostileImpactRange: 5
-  FriendlyScoreFactor: -50
+  FriendlyScoreFactor: -80
   FriendlyImpactRange: 2

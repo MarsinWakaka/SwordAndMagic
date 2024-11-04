@@ -37,7 +37,7 @@ namespace Entity
         
         // public event Action OnStartTurnEvent;// 单位回合开始时只触发一次，用于通知监听者(例如Buff)
         // public event Action OnEndTurnEvent;  // 单位回合结束时只触发一次，用于通知监听者(例如Buff)
-        // public event Action<DamageType, int> OnTakeDamage; // int 为伤害值，用于通知监听，通常为Buff效果
+        public event Action<DamageType, int> OnTakeDamage; // int 为伤害值，用于通知监听，通常为Buff效果
         
         public event Action ReadyToEndEvent;  // 单位点击结束回合按钮时触发，用于通知监听
         public event Action CancelReadyToEndEvent; // 单位取消结束回合按钮时触发，用于通知监听
@@ -71,19 +71,6 @@ namespace Entity
             IsOnTurn = true;
             IsReadyToEndTurn = false;
             // OnStartTurnEvent?.Invoke();
-            
-            // TODO 根据阵营不同，控制方式不同
-            
-            // 敌人行动时，根据AI选择技能或移动
-            if (Faction.Value == FactionType.Enemy){
-                // TODO 向AI处理队列添加自身，让其决定技能释放或移动
-                // MyConsole.Print($"[敌人行动] {characterName}", MessageColor.Yellow);
-                // 等待0.2s 下一批单位行动
-                // 因为敌人开始回合时 NextBatchUnit调用，但是在UnitStartTurn里敌人如果在0帧中完成了行动，导致调用UnityReadyToEndHandle
-                // 然后由于清空了activeCharacters的值，导致在遍历activeCharacters时foreach发生循环错误
-                // CharacterManager可能需要做下轮询管理。
-                // Invoke(nameof(SwitchEndTurnReadyState), 0.2f); // 模拟点击了一次结束回合按钮
-            }
         }
 
         /// 添加一个waitForEnd状态，用于等待玩家点击结束回合按钮
@@ -137,6 +124,7 @@ namespace Entity
         /// <returns>角色是否因此死亡</returns>
         public bool TakeDamage(int damage, DamageType damageType)
         {
+            OnTakeDamage?.Invoke(damageType, damage);
             // TODO 伤害计算,数值最好缓存一下，不会修改时会频繁触发监听事件
             // TODO 死后向战斗管理器发送死亡消息，由其决定对象的销毁
             var curHp = Property.HP.Value;
@@ -156,7 +144,7 @@ namespace Entity
                 case DamageType.True:
                     break;
             }
-            
+            if (damage <= 0) return false;
             curHp -= damage;
             curHp = Mathf.Clamp((int)curHp, (int)0, (int)Property.HP_MAX.Value);
             Property.HP.Value = curHp;

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Entity;
-using GamePlaySystem.EmporiumSystem;
 using GamePlaySystem.FactionSystem;
 using GamePlaySystem.TileSystem;
 using MyEventSystem;

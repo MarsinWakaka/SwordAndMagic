@@ -1,6 +1,6 @@
 {
     "configVersion": "0.1.0",
-    "levelCount": 4,
+    "levelCount": 5,
     "levelDataParser": "\\[[^\\]]*\\]",
     "levelDataPath": "Assets/StreamingAssets/Levels",
     "levelDataPrefix": "level_",

@@ -27,6 +27,8 @@ namespace GamePlaySystem.TileSystem.Navigation
         List<PathNode> GetReachablePositions(int startX, int startY, int range);
         
         Dictionary<int, PathNode> GetReachablePositionDict(int startX, int startY, int range);
+        
+        Dictionary<int, PathNode> GetReachablePositionDict(Vector3 pos, int range);
     }
     
     public class NavigationService : INavigationService
@@ -100,6 +102,11 @@ namespace GamePlaySystem.TileSystem.Navigation
             }
             // Debug.Log($"GetReachablePositions: {path.Count}");
             return path;
+        }
+
+        public Dictionary<int, PathNode> GetReachablePositionDict(Vector3 pos, int range)
+        {
+            return GetReachablePositionDict((int)pos.x, (int)pos.y, range);
         }
 
         public static int GetIndexKey(int x, int y) => (x << 10) + y;

@@ -31,27 +31,25 @@ namespace GamePlaySystem.Controller.AI.AIDecisionResource
             maxX = tiles.GetLength(0);
             maxY = tiles.GetLength(1);
             scoreHeatMap = new float[maxX, maxY];
-            // 计算危险度
-            foreach (var tile in tiles)
-            {
-                if (tile == null) continue;
-                var pos = tile.transform.position;
-                scoreHeatMap[(int)pos.x, (int)pos.y] = tileDict[tile.TileType].score;
-            }
-            ApplyCharacterImpactOnScoreMap(decider);
+            ApplyImpactOnScoreMap(decider);
             // TODO 未来将添加更多的感知信息，例如：敌人中心和队伍中心对AI的影响、地图瓦片对于分数的影响等
             return scoreHeatMap;
         }
         
-        private void ApplyCharacterImpactOnScoreMap(Character decider)
+        private void ApplyImpactOnScoreMap(Character decider)
         {
             var factionType = decider.Faction.Value;
             var hostileFaction = 1 - factionType;
             var hostileUnits = characterManager.GetUnitsByFaction(hostileFaction);
+            var hostileCenter = new Vector3();
+            var hostileCount = 0;
             // 计算敌人危险度
             foreach (var unit in hostileUnits)
             {
+                if (unit.IsDead) continue;
                 var unitPos = unit.transform.position;
+                hostileCenter += unitPos;
+                hostileCount++;
                 var unitX = (int) unitPos.x;
                 var unitY = (int) unitPos.y;
                 var hostileImpactRange = unit.Property.HostileImpactRange;
@@ -72,6 +70,16 @@ namespace GamePlaySystem.Controller.AI.AIDecisionResource
                 var friendlyScoreFactor = unit.Property.FriendlyScoreFactor;
                 ApplyRiskByCircleLinearDecay(unitX, unitY, friendlyImpactRange, friendlyScoreFactor); //后续考虑根据不同职业制作不同危险度衰减函数
                 scoreHeatMap[unitX, unitY] = float.MinValue / 2;    // 角色位置不可达
+            }
+            hostileCenter /= hostileCount;
+            foreach (var tile in tiles)
+            {
+                if (tile == null) continue;
+                var pos = tile.transform.position;
+                int tileX = (int) pos.x;
+                int tileY = (int) pos.y;
+                scoreHeatMap[tileX, tileY] += tileDict[tile.TileType].score;
+                scoreHeatMap[tileX, tileY] += (15 - Vector3.Distance(pos, hostileCenter));
             }
         }
         

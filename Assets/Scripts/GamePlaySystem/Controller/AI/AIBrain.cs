@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ConsoleSystem;
 using Entity;
 using GamePlaySystem.ControlCommand;
 using GamePlaySystem.Controller.AI.AIDecisionResource;
@@ -6,6 +7,7 @@ using GamePlaySystem.FactionSystem;
 using GamePlaySystem.SkillSystem;
 using GamePlaySystem.TileSystem;
 using GamePlaySystem.TileSystem.Navigation;
+using GamePlaySystem.TileSystem.ViewField;
 using UnityEngine;
 
 namespace GamePlaySystem.Controller.AI
@@ -27,9 +29,8 @@ namespace GamePlaySystem.Controller.AI
             scoreHeatMapCooker = new ScoreHeatMapCooker(this.characterManager, _tileManager);
         }
 
-        private const float ScoreEnoughToAct = 100f;
         private const float KillHostileScore = 50f;
-        private const float KillFriendlyScore = -50f;
+        private const float KillFriendlyScore = -50f;   // AOE专属
 
         private float[,] _riskMap;
         private Character _decider;
@@ -40,125 +41,168 @@ namespace GamePlaySystem.Controller.AI
 
         private readonly Queue<ICommand> _actions = new();
 
+        private const MessageColor FontColor = MessageColor.Gray;
+
         /// <summary>
         /// 尽量返回当前决策层下的最高得分的决策
         /// </summary>
-        private void DoTactic(Character decider, int remainActionCnt, int rwr, int ap, int sp, Vector2 virtualPos)
+        private void DoTactic(Character decider, int remainActionCnt, int rwr, int ap, int sp, Vector3 virtualPos)
         {
-            bool hasAnySkillReady = false; // 如果是，则角色进入最终移动距离
-            bool hasAnyHostileInReadyAttackRange = false; // 如果是，则角色先移动一段距离，再进行决策。
-            // 角色还能做出除了移动以外的动作
-            while (remainActionCnt > 0 && ap > 0) // 没有行动资源了 // sp <= 0 一般不判断SP，SP几乎很少单独使用
+            var maxIterationRestrict = 10;
+            // 角色还能做出除了移动以外的动作，则进行攻击尝试
+            MakeAttackDecisionStage:
+            while (remainActionCnt > 0 && ap > 0 && sp >= 0)
             {
+                if (maxIterationRestrict-- <= 0)
+                {
+                    Debug.LogWarning("【AI】: 迭代策略函数超过最大迭代次数，强制结束");
+                    break;
+                }
                 // 这是攻击阶段的循环，分为攻击判断阶段以及距离不足时的向前靠近阶段
+#if UNITY_EDITOR
+                MyConsole.Print($"【AI】: {decider.CharacterName} 进入攻击阶段决策判断：", MessageColor.Yellow);
+#endif
                 SkillSlot skillSlotChosen = null;
-                // TODO 如果添加AOE支持，需要将其改为List
-                var targetsChosen = new List<BaseEntity>();
-                float maxActionScore = 0;
+                var hasAnyUnitCanImpact = false;
+                var farthestSkillRange = 0;
+                var maxActionScore = 0f;
+                var targetsImpacted = new List<BaseEntity>();
                 foreach (var slot in _deciderSkills)
                 {
                     var skill = slot.skill;
-                    // 检查技能是否可释放
-                    if (slot.RemainCoolDown.Value > 0 || skill.AP_Cost > ap || skill.SP_Cost > sp) continue; 
-                    
-                    hasAnySkillReady = true;
+                    // 技能可释放前提条件检查：冷却时间、行动资源消耗
+                    if (slot.RemainCoolDown.Value > 0 || skill.AP_Cost > ap || skill.SP_Cost > sp)
+                    {
+#if UNITY_EDITOR
+                        MyConsole.Print($"【AI】: 技能{skill.skillName}未满足技能释放条件", FontColor);
+#endif
+                        continue; 
+                    }
+                    hasAnyUnitCanImpact = false;
                     // 如果是伤害技能
                     if (skill is DirectedDamageSkill damageSkill)
                     {
                         switch (damageSkill.impactType)
                         {
                             case ImpactType.Single:
-                                // TODO 获取攻击范围格子
                                 foreach (var hostile in _hostiles)
                                 {
-                                    if (hostile.Property.HP.Value <= 0) continue;
+                                    if (hostile.IsDead) continue;
                                     if (!FactionManager.CanImpact(_decider, hostile, skill.canImpactFactionType)) continue;
+                                    var hostilePos = hostile.transform.position;
+                                    hasAnyUnitCanImpact = true;
+                                    farthestSkillRange = Mathf.Max(farthestSkillRange, damageSkill.range);
                                     // 技能能否命中敌人
-                                    if (damageSkill.isTargetInATKRange(
-                                            virtualPos,
-                                            hostile.transform.position))
+                                    if (damageSkill.isTargetInATKRange( virtualPos,hostilePos))
                                     {
-                                        hasAnyHostileInReadyAttackRange = true;
                                         var actionScore = GetAttackScore(damageSkill, hostile);
                                         // 如果得分高于最高得分，则保存此动作
                                         if (actionScore > maxActionScore)
                                         {
+#if UNITY_EDITOR
+                                            MyConsole.Print($"【AI】: 选择技能{skill.skillName}攻击{hostile.CharacterName}，得分：{actionScore}", FontColor);
+#endif
                                             maxActionScore = actionScore;
                                             // 生成动作命令，考虑对象池
                                             skillSlotChosen = slot;
-                                            targetsChosen.Clear();
-                                            targetsChosen.Add(hostile);
+                                            targetsImpacted.Clear();
+                                            targetsImpacted.Add(hostile);
                                         }
                                     }
+#if UNITY_EDITOR
+                                    else
+                                    {
+                                        MyConsole.Print($"【AI】: 技能{skill.skillName}无法攻击到{hostile.CharacterName}" +
+                                                        $"，攻击距离为{skill.range},两者距离{decider.transform.position}->{hostilePos}", FontColor);
+                                    }
+#endif
                                 }
                                 break;
                             // 退一步，AOE技能只会瞄准敌人来减少遍历，不再对范围内所有格子释放(即使有可能得到更高的得分)
-                            case ImpactType.Aoe:
-                                break;
+                            // case ImpactType.Aoe:
+                                // break;
                         }
                     }
                 }
                 // 如果有技能可以释放
                 if (skillSlotChosen != null)
                 {
+#if UNITY_EDITOR
+                    MyConsole.Print($"【AI】: 最终决定释放技能{skillSlotChosen.skill.skillName}", MessageColor.Purple);
+#endif
                     // TODO 需要重新设置技能的冷却
-                    _actions.Enqueue(GetSkillCommand(skillSlotChosen, decider, targetsChosen.ToArray()));
+                    _actions.Enqueue(GetSkillCommand(skillSlotChosen, decider, targetsImpacted.ToArray()));
                     // 计算消耗
+                    remainActionCnt--;
                     ap -= skillSlotChosen.skill.AP_Cost;
                     sp -= skillSlotChosen.skill.SP_Cost;
-                    remainActionCnt--;
+                    skillSlotChosen.RemainCoolDown.Value = skillSlotChosen.skill.coolDown;
                 }
                 // 如果是因为距离不够导致没有合适的技能释放, 则考虑前进一段距离，再次递归技能，否则寻找最佳位置结束回合。
-                else if (hasAnySkillReady && hasAnyHostileInReadyAttackRange && rwr > 0) {  // 还能移动
+                else if (hasAnyUnitCanImpact && rwr > 0) {  // 还能移动
+#if UNITY_EDITOR
+                    MyConsole.Print("【AI】: 因为技能攻击距离不够，进入移动阶段决策判断：", FontColor);
+#endif
                     // 如果是因为距离原因导致没有合适的技能释放, 则考虑朝某个角色移动一段距离，再次递归技能，否则寻找最佳位置结束回合。
-                    // 获取可到达的地格
-                    var pathNodesDict = navigationService.GetReachablePositionDict(
-                        (int)_deciderTrans.position.x,
-                        (int)_deciderTrans.position.y,
-                        rwr + 1); // +1 是因为决策者走到攻击范围内即可。
-                    // 先判断有没有敌人处于移动范围内的地格，如果有直接向前移动一段随机距离，再进行攻击决策。
+                    var pathNodesDict = navigationService.GetReachablePositionDict(virtualPos, rwr); 
+                    var viewService = ServiceLocator.Get<IViewFieldService>();
                     foreach (var hostile in _hostiles)
                     {
                         var hostilePos = hostile.transform.position;
-                        if (!pathNodesDict.TryGetValue( 
-                                NavigationService.GetIndexKey((int)hostilePos.x, (int)hostilePos.y), out var endNode)) 
-                            continue;
-                        // 敌人在可到达路径内
-                        var moveDist = Random.Range(1, rwr + 1);
-                        // 可以理解为路径上不存在其它单位（除了终点位置和起点位置）（由导航系统确保）
-                        // 从终点位置开始向前移动一个，即离敌人最近，消耗最少的地格(到达此格即可进行攻击)，所以目标点是终点的前一格
-                        var destNode = endNode.FromNode; 
-                        // 尽可能的消耗随机距离所指定的步数
-                        while (moveDist < destNode.Cost && destNode.FromNode != null) destNode = destNode.FromNode;
-                        // 距离不够，换个敌对目标继续判断
-                        if (destNode.Cost > moveDist) continue;
-                        
-                        // 【生成动作命令】，考虑对象池
-                        var followPathCommand = new FollowPathCommand();
-                        followPathCommand.Init(decider, destNode);
-                        _actions.Enqueue(followPathCommand);
-                        // 【更新参数】
-                        rwr -= destNode.Cost;
-                        virtualPos = new Vector2Int(destNode.PosX, destNode.PosY);
+                        int hostilePosKey = NavigationService.GetIndexKey((int)hostilePos.x, (int)hostilePos.y);
+                        // 获取可攻击到敌人的地格
+                        var canImpactNodeKeys = viewService.GetViewFieldSets(hostilePos, farthestSkillRange);
+                        foreach (var nodeKey in canImpactNodeKeys)
+                        {
+                            if (nodeKey == hostilePosKey) continue; // 不考虑敌人所在地格
+                            if (pathNodesDict.TryGetValue(nodeKey, out var destNode))
+                            {
+                                var moveDist = Random.Range(1, rwr + 1);
+#if UNITY_EDITOR
+                                MyConsole.Print($"【AI】: 敌人{hostile.CharacterName}在攻击范围内，前进{moveDist}格子", FontColor);
+#endif
+                                while (moveDist < destNode.Cost && destNode.FromNode != null) 
+                                    destNode = destNode.FromNode;
+                                
+                                if (Mathf.Approximately(destNode.PosX, virtualPos.x) && 
+                                    Mathf.Approximately(destNode.PosY, virtualPos.y)) {
+                                    Debug.LogWarning("【AI】: 选择可攻击地点为原地，不应该出现此情况。");
+                                    continue;
+                                }
+                                // 【生成动作命令】
+                                var followPathCommand = new FollowPathCommand();
+                                followPathCommand.Init(decider, destNode);
+                                _actions.Enqueue(followPathCommand);
+                                // 【更新参数】
+                                rwr -= destNode.Cost;
+                                virtualPos = new Vector3(destNode.PosX, destNode.PosY);
+                                // 移动后重新进入攻击阶段
+                                goto MakeAttackDecisionStage;
+                            }
+                        }
                     }
+                    goto FinalMoveStage;
                 }
                 else
                 {
-                    // 没有行动资源，结束回合
-                    break;
+                    // 没有行动资源或者所有技能都没准备好，结束回合
+                    goto FinalMoveStage;
                 }
             }
             
+            FinalMoveStage:
             // 角色行动阶段，利用剩余行动资源移动至得分最高的地格。
             if (rwr > 0)
             {
+#if UNITY_EDITOR
+                MyConsole.Print("【AI】: 进入最佳落脚点选择阶段：", FontColor);
+#endif
                 float maxScore = 0;
                 // 获取可到达的地格
-                var pathNodesDict = navigationService.GetReachablePositionDict(
-                    (int) virtualPos.x, (int) virtualPos.y, rwr);
+                var pathNodesDict = navigationService.GetReachablePositionDict(virtualPos, rwr);
                 
                 // 根据危险热力图决定分数
-                var bestPos = new Vector2();
+                var bestPos = virtualPos;
                 // 遍历所有可到达的地格,取得分最高的地格。
                 foreach (var pathNode in pathNodesDict)
                 {
@@ -176,9 +220,10 @@ namespace GamePlaySystem.Controller.AI
                 {
                     // 【生成动作命令】
                     var followPathCommand = new FollowPathCommand();
-                    followPathCommand.Init(decider, 
-                        pathNodesDict[NavigationService.GetIndexKey((int)bestPos.x, (int)bestPos.y)]);
+                    var destNode = pathNodesDict[NavigationService.GetIndexKey((int)bestPos.x, (int)bestPos.y)];
+                    followPathCommand.Init(decider, destNode);
                     _actions.Enqueue(followPathCommand);
+                    // rwr -= destNode.Cost;
                 }
             }
         }

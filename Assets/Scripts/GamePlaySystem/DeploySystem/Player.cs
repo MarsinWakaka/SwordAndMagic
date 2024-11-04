@@ -1,6 +1,6 @@
 using Utility;
 
-namespace GamePlaySystem.EmporiumSystem
+namespace GamePlaySystem.DeploySystem
 {
     public static class PlayerData
     {

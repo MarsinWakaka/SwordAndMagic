@@ -149,12 +149,9 @@ MonoBehaviour:
   sprite: {fileID: -953999076, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
   entityType: 1
   Renderer: {fileID: 0}
-  characterName: "\u91CD\u7532\u9A91\u58EB"
-  sellPrice: 20
   property: {fileID: 11400000, guid: 4efce5fd6b108814a983904de0d5ca62, type: 2}
   skills:
   - skill: {fileID: 11400000, guid: 62e358134e756b7418484b1ca84451c2, type: 2}
-  - skill: {fileID: 11400000, guid: d181a56290c1dfe45beebfa17e219ac3, type: 2}
   - skill: {fileID: 11400000, guid: 5c6161b9c86b2454ab1077e355a7a756, type: 2}
   - skill: {fileID: 11400000, guid: e3707ab07184b224081e3f80926d7677, type: 2}
 --- !u!1001 &414675555080790126

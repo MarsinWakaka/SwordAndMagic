@@ -35,13 +35,13 @@ namespace UISystem.PanelPart.BattlePanelPart
         public void InitializeSkillUI(Character character)
         {
             if (curCharacter != null) {
-                curCharacter.ReadyToEndEvent -= DisableSkillPanel;
+                // curCharacter.ReadyToEndEvent -= DisableSkillPanel;
                 curCharacter.CancelReadyToEndEvent -= EnableSkillPanel;
                 curCharacter.Property.AP.OnValueChanged -= UpdateSkillListUIsByAP;
                 curCharacter.Property.SP.OnValueChanged -= UpdateSkillListUIsBySP;
             }
             curCharacter = character;
-            curCharacter.ReadyToEndEvent += DisableSkillPanel;
+            // curCharacter.ReadyToEndEvent += DisableSkillPanel;
             curCharacter.CancelReadyToEndEvent += EnableSkillPanel;
             curCharacter.Property.AP.OnValueChanged += UpdateSkillListUIsByAP;
             curCharacter.Property.SP.OnValueChanged += UpdateSkillListUIsBySP;
@@ -61,8 +61,7 @@ namespace UISystem.PanelPart.BattlePanelPart
                 slot.APUpdateHandle(curCharacter.Property.AP.Value);
                 slot.SPUpdateHandle(curCharacter.Property.SP.Value);
             }
-            RecycleUnused(skillSlots.Count);
-            
+            RecycleUnusedSlot(skillSlots.Count);
             OpenSkillListUI();
         }
         
@@ -83,8 +82,6 @@ namespace UISystem.PanelPart.BattlePanelPart
         private void OnSkillSlotClick(int slotIndex)
         {
             skillSelectedIndex = slotIndex;
-            // 向事件中心发送 当前选中技能被按下
-            // print($"当前选中技能: {skillSlots[slotIndex].skill.skillName}");
             // 这两者的顺序不能颠倒，否则可能出现UI处于技能选择状态，但角色状态机因为不满足技能释放条件而退出技能选择状态
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnSkillSlotUIClicked, skillSlots[slotIndex]);
         }
@@ -122,7 +119,7 @@ namespace UISystem.PanelPart.BattlePanelPart
         /// 回收未使用的技能格子
         /// </summary>
         /// <param name="startIndex"></param>
-        private void RecycleUnused(int startIndex) {
+        private void RecycleUnusedSlot(int startIndex) {
             for (int i = startIndex; i < skillSlotUIs.Count; i++) {
                 skillSlotUIs[i].gameObject.SetActive(false);
             }

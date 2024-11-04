@@ -12,21 +12,19 @@ namespace UISystem.PanelPart.BattlePanelPart
         [FormerlySerializedAs("skillSlotUIs")] 
         [SerializeField] private CharacterSkillUI skillsUI;
         [SerializeField] private Button endTurnButton;
-        private UnityEngine.UI.Text endTurnButtonText;
+        private Text endTurnButtonText;
         
         private Character selectedCharacter;
         
         private void Awake()
         {
-            endTurnButtonText = endTurnButton.GetComponentInChildren<UnityEngine.UI.Text>();
+            endTurnButtonText = endTurnButton.GetComponentInChildren<Text>();
             endTurnButton.onClick.AddListener(OnEndTurnButtonClick);
             EventCenter<GameEvent>.Instance.AddListener<Character>(GameEvent.UpdateUIOfSelectedCharacter , SetSelectedCharacterUI);
         }
 
         private void SetSelectedCharacterUI(Character character)
         {
-            // MyConsole.Print("[事件接受]" + GameEvent.UpdateUIOfSelectedCharacter, MessageColor.Black);
-            // if (selectedCharacter == character) return;
             selectedCharacter = character;
             statusUI.SetStatusUI(selectedCharacter);
             skillsUI.InitializeSkillUI(selectedCharacter);

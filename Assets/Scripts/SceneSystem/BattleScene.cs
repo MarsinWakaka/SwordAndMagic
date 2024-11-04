@@ -1,4 +1,4 @@
-﻿using GamePlaySystem.EmporiumSystem;
+﻿using GamePlaySystem.DeploySystem;
 using MyEventSystem;
 using UISystem;
 using UnityEngine;
@@ -23,7 +23,6 @@ namespace SceneSystem
                 loadHandle.completed += operation =>
                 {
                     // TODO 后续转移到存档类里
-                    PlayerData.Gold.Value = 50;
                     EventCenter<GameEvent>.Instance.Invoke(GameEvent.GameResourceLoadStart, levelIndex);
                 };
             else

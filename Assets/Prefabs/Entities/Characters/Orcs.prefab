@@ -107,7 +107,6 @@ MonoBehaviour:
   property: {fileID: 11400000, guid: 1467cd444c2467d4ba39d5983156e91a, type: 2}
   skills:
   - skill: {fileID: 11400000, guid: 62e358134e756b7418484b1ca84451c2, type: 2}
-  - skill: {fileID: 11400000, guid: d181a56290c1dfe45beebfa17e219ac3, type: 2}
   - skill: {fileID: 11400000, guid: 9173ff09c4dcaac4db6edb42cf8f4d83, type: 2}
   - skill: {fileID: 11400000, guid: 36b9f0d98b36e644bb38c595b8d15f0b, type: 2}
 --- !u!61 &8748683013124576040

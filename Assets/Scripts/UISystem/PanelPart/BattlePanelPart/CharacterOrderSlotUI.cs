@@ -42,7 +42,7 @@ namespace UISystem.PanelPart.BattlePanelPart
         public void OnPointerClick(PointerEventData eventData)
         {
             if (_character == null) return;
-            EventCenter<GameEvent>.Instance.Invoke(GameEvent.CameraMoveToPosition, _character.transform.position);
+            EventCenter<GameEvent>.Instance.Invoke<Character>(GameEvent.OnCharacterSlotUIClicked, _character);
         }
     }
 }

@@ -36,12 +36,12 @@ namespace GamePlaySystem.ControlCommand
             }
         }
         
-        private readonly WaitForSeconds handleInterval = new(0.5f);
+        private readonly WaitForSeconds handleInterval = new(0.7f);
         private IEnumerator DoCommand()
         {
             while (commandQueue.Count > 0)
             {
-                var commandHandle = commandQueue.Peek();
+                var commandHandle = commandQueue.Dequeue();
                 var command = commandHandle.Command;
                 switch (command)
                 {
@@ -53,7 +53,6 @@ namespace GamePlaySystem.ControlCommand
                         break;
                 }
                 yield return handleInterval;
-                commandQueue.Dequeue();
             }
         }
 
