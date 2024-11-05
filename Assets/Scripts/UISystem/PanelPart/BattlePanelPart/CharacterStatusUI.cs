@@ -10,8 +10,6 @@ namespace UISystem.PanelPart.BattlePanelPart
     {
         #region UI组件
         [Header("UI组件")]
-        // 角色不动资产
-        // UI在初始化后不会变化
         [Header("角色头像")]
         [SerializeField] private Image charAvatar;
         [SerializeField] private Text charName;
@@ -42,10 +40,19 @@ namespace UISystem.PanelPart.BattlePanelPart
         // 当前展示的角色
         private Character lastCharacter;
         private CharacterProperty property;
-
-        public CharacterStatusUI(RectTransform maxDefBar)
+        
+        public void Initialize()
         {
-            this.maxDefBar = maxDefBar;
+            lastCharacter = null;
+            property = null;
+        }
+        
+        public void Uninitialize()
+        {
+            // 减少对象引用计数
+            if (lastCharacter != null) RemoveListener(lastCharacter.Property);
+            lastCharacter = null;
+            property = null;
         }
 
         // 基本信息展示，由父级UI监听事件并调用
@@ -58,23 +65,8 @@ namespace UISystem.PanelPart.BattlePanelPart
             property = character.Property;
             AddListener(property);
             RedrawAll(character);
-            
             lastCharacter = character;
         }
-
-        // 临时测试
-#if UNITY_EDITOR
-        public void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                lastCharacter.TakeDamage(10, DamageType.Physical);
-            }else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                lastCharacter.TakeDamage(10, DamageType.Magic);
-            }
-        }
-#endif
 
         /// <summary>
         /// 如果显示的内容在不切换选中角色的情况下也会变的话，则需要对该属性添加监听

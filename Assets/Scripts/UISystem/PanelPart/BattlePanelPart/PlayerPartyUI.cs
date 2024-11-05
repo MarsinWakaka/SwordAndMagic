@@ -5,35 +5,35 @@ using UnityEngine;
 
 namespace UISystem.PanelPart.BattlePanelPart
 {
-    public class PlayerPartyUIController : MonoBehaviour
+    public class PlayerPartyUI : MonoBehaviour
     {
         [Header("左侧栏位--队伍角色设置")]
         [SerializeField] private RectTransform characterSlotContainer;
         [SerializeField] private PlayerPartySlotUI partySlotUIPrefab;
-        private readonly List<PlayerPartySlotUI> viewSlots = new();
         [Header("底部栏位--选中角色设置: 角色状态 & 技能列表 & 结束回合按钮状态")]
         [SerializeField] private SelectedCharacterUI selectCharacterUI;
         
-        private Character[] curCharacters;
+        private readonly List<PlayerPartySlotUI> viewSlots = new();
+        private List<Character> curCharacters;
         
-        private void Awake()
+        public void Initialize()
         {
-            EventCenter<GameEvent>.Instance.AddListener<Character[]>(GameEvent.UpdateUIOfPlayerParty, RefreshPlayerCharacterUI);
+            EventCenter<GameEvent>.Instance.AddListener<List<Character>>(GameEvent.UpdateUIOfPlayerParty, RefreshPlayerCharacterUI);
         }
 
-        private void OnDestroy()
+        public void Uninitialize()
         {
-            if (EventCenter<GameEvent>.IsInstanceNull) return;
-            EventCenter<GameEvent>.Instance.RemoveListener<Character[]>(GameEvent.UpdateUIOfPlayerParty, RefreshPlayerCharacterUI);
+            viewSlots.Clear();
+            EventCenter<GameEvent>.Instance.RemoveListener<List<Character>>(GameEvent.UpdateUIOfPlayerParty, RefreshPlayerCharacterUI);
         }
 
         /// <summary>
         /// 游戏开始时初始化玩家角色UI
         /// </summary>
-        private void RefreshPlayerCharacterUI(Character[] newCharacters)
+        private void RefreshPlayerCharacterUI(List<Character> newCharacters)
         {
-            MakeSureSlots(newCharacters.Length);
-            int characterCount = newCharacters.Length;
+            MakeSureSlots(newCharacters.Count);
+            int characterCount = newCharacters.Count;
             for (int i = 0; i < characterCount; i++)
             {
                 viewSlots[i].gameObject.SetActive(true);

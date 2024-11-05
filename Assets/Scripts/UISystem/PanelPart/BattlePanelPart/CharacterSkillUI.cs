@@ -18,7 +18,16 @@ namespace UISystem.PanelPart.BattlePanelPart
             canvasGroup = GetComponent<CanvasGroup>();
             skillChosenUiy = skillChosenUI.transform.position.y;
             skillListUIY = transform.position.y;
+        }
+        
+        public void Initialize()
+        {
             EventCenter<GameEvent>.Instance.AddListener<BaseSkill>(GameEvent.OnSKillChosenStateEnter, OpenSkillChosenUI);
+        }
+        
+        public void Uninitialize()
+        {
+            EventCenter<GameEvent>.Instance.RemoveListener<BaseSkill>(GameEvent.OnSKillChosenStateEnter, OpenSkillChosenUI);
         }
 
         [Header("技能格子UI预制体 & 技能格子UI列表")]

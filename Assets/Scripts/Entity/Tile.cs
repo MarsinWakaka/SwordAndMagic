@@ -1,5 +1,4 @@
 using System;
-using ConsoleSystem;
 using MyEventSystem;
 using UnityEngine;
 
@@ -52,6 +51,13 @@ namespace Entity
                 }
             }
         }
+
+        public void Initialize(TileType tileType, Vector3 position)
+        {
+            TileType = tileType;
+            transform.position = position;
+            EventCenter<GameEvent>.Instance.Invoke<Tile>(GameEvent.OnTileCreated, this);
+        }
         
         public void OnCharacterEnter(Character character)
         {
@@ -61,15 +67,9 @@ namespace Entity
         
         public void OnCharacterExit(Character character)
         {
+            // TODO 不同砖块对于角色的进入与离开进行不同的处理。例如燃烧砖块对于角色的进入会造成伤害，进入冰面有概率会使角色滑倒等
             standOnObj = null;
             _isBlocked = false;
-        }
-
-        public void Initialize(TileType tileType, Vector3 position)
-        {
-            TileType = tileType;
-            transform.position = position;
-            EventCenter<GameEvent>.Instance.Invoke<Tile>(GameEvent.OnTileCreated, this);
         }
     }
 }

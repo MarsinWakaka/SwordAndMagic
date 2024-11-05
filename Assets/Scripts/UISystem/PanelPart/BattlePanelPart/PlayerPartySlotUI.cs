@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Entity;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,12 +12,18 @@ namespace UISystem.PanelPart.BattlePanelPart
     {
         [SerializeField] private Image slotBackground;
         [SerializeField] private Image icon;
+        private Color stateNormalColor;
+        private readonly Color deadColor = new Color(0.45f, 0f, 0f);
         
         private int slotIndex = -1;
         private Action<int> onSlotClick;
-        
-        public void OnPointerClick(PointerEventData eventData)
+
+        private void Awake()
         {
+            stateNormalColor = slotBackground.color;
+        }
+
+        public void OnPointerClick(PointerEventData eventData) {
             onSlotClick?.Invoke(slotIndex);
         }
         
@@ -24,6 +31,8 @@ namespace UISystem.PanelPart.BattlePanelPart
         {
             slotIndex = index;
             onSlotClick = onClick;
+            icon.DOFade(1, 0.25f);
+            slotBackground.color = stateNormalColor;
         }
 
         public void SetCharacter(Character character)
@@ -36,11 +45,8 @@ namespace UISystem.PanelPart.BattlePanelPart
         private void OnCharacterDie(Character character)
         {
             // TODO 死亡时的UI处理
-            var curColor = icon.color;
-            curColor.a = 0.5f;
-            icon.color = curColor;
-            
-            slotBackground.color = new Color(0.45f, 0f, 0f);
+            icon.DOFade(0, 0.25f);
+            slotBackground.color = deadColor;
         }
     }
 }

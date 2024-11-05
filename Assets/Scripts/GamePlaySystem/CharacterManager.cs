@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using CameraSystem;
 using ConsoleSystem;
 using Entity;
 using GamePlaySystem.Controller.AI;
@@ -13,7 +12,7 @@ namespace GamePlaySystem
     /// <summary>
     /// 用于管理角色的轮询行动
     /// </summary>
-    public class CharacterManager // : SingletonMono<CharacterManager>
+    public class CharacterManager
     {
         private readonly List<Character> units = new();
         private readonly Dictionary<FactionType, List<Character>> factionUnits = new();
@@ -31,8 +30,8 @@ namespace GamePlaySystem
         /// </summary>
         public void Initialize(PlayerController playerController, AutoController autoController)
         {
-            this._playerController = playerController;
-            this._autoController = autoController;
+            _playerController = playerController;
+            _autoController = autoController;
         }
 
         public CharacterManager()
@@ -46,9 +45,8 @@ namespace GamePlaySystem
         {
             units.Sort();
             NextBatchUnit();
-            EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty, factionUnits[FactionType.Player].ToArray());
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty, factionUnits[FactionType.Player]);
         }
-
         
         #region 角色轮询控制
         private readonly List<Character> activeCharacters = new();  // 当前处于行动状态的角色列表
@@ -60,7 +58,6 @@ namespace GamePlaySystem
         private void NextBatchUnit()
         {
             TryHandleGameOver();
-            
             readyToEndCount = 0;
             activeCharacters.Clear();
             
@@ -219,15 +216,20 @@ namespace GamePlaySystem
         /// <param name="character"></param>
         public void UnRegisterUnit(Character character)
         {
-            // TODO 检查游戏是否结束
-            if (character.Faction.Value == FactionType.Player)
-                playerDeadCount++;
-            else if (character.Faction.Value == FactionType.Enemy)
-                enemyDeadCount++;
+            MyConsole.Print($"[角色死亡命令接收] {character.CharacterName}", MessageColor.Red);
+            switch (character.Faction.Value)
+            {
+                // TODO 检查游戏是否结束
+                case FactionType.Player:
+                    playerDeadCount++;
+                    break;
+                case FactionType.Enemy:
+                    enemyDeadCount++;
+                    break;
+            }
             if (TryHandleGameOver()) {
                 return;
             }
-            
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfActionUnitOrder, GetCharacterOrder());
             if (character.Faction.Value == FactionType.Player)
                 EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfPlayerParty,  factionUnits[FactionType.Player].ToArray());

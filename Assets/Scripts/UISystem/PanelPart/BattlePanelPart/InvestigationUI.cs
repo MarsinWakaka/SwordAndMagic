@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UISystem.PanelPart.BattlePanelPart
 {
-    public class InvestigationPanel : MonoBehaviour
+    public class InvestigationUI : MonoBehaviour
     {
         private CanvasGroup canvasGroup;
         [Header("角色名称")]
@@ -28,8 +28,19 @@ namespace UISystem.PanelPart.BattlePanelPart
         private void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
+        }
+        public void Initialize()
+        {
             canvasGroup.alpha = 0;
             EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.SetHoverEntity, UpdateInvestigationUI);
+        }
+        
+        public void Uninitialize()
+        {
+            EventCenter<GameEvent>.Instance.RemoveListener<BaseEntity>(GameEvent.SetHoverEntity, UpdateInvestigationUI);
+            if (lastCharacter != null) RemoveListener(lastCharacter.Property);
+            lastCharacter = null;
+            property = null;
         }
         
         private void UpdateInvestigationUI(BaseEntity entity)
@@ -57,8 +68,8 @@ namespace UISystem.PanelPart.BattlePanelPart
             
             lastCharacter = character;
         }
-        
-        public void CloseInvestigationUI()
+
+        private void CloseInvestigationUI()
         {
             canvasGroup.alpha = 0;
             if (lastCharacter == null) return;

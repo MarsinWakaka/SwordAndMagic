@@ -62,15 +62,12 @@ namespace Entity
         /// </summary>
         public void StartTurn()
         {
-            // TODO 眩晕的时候要不要恢复？
-            // 回合开始时的逻辑
-            Property.AP.Value = Mathf.Min(Property.AP.Value + 2, (int)CharacterProperty.AP_MAX);
+            Property.AP.Value = Mathf.Min(Property.AP.Value + 2, CharacterProperty.AP_MAX);
             Property.RWR.Value = Property.WR_MAX.Value;
             CoolDownSkills();
             
             IsOnTurn = true;
             IsReadyToEndTurn = false;
-            // OnStartTurnEvent?.Invoke();
         }
 
         /// 添加一个waitForEnd状态，用于等待玩家点击结束回合按钮
@@ -82,18 +79,14 @@ namespace Entity
             // TODO 等待同批角色 行动结束
             IsReadyToEndTurn = !IsReadyToEndTurn;
             MyConsole.Print($"[准备结束状态切换] {CharacterName} {IsReadyToEndTurn}", MessageColor.Yellow);
-            if (IsReadyToEndTurn){
-                ReadyToEndEvent?.Invoke();
-            }else{
-                CancelReadyToEndEvent?.Invoke();
-            }
+            if (IsReadyToEndTurn) ReadyToEndEvent?.Invoke(); 
+            else CancelReadyToEndEvent?.Invoke();
         }
         
         public void EndTurn()
         {
-            // TODO Do Something when character is inactive
             IsOnTurn = false;
-            IsReadyToEndTurn = true;    // TODO 技能强制控制眩晕是否导致此
+            IsReadyToEndTurn = true;
         }
 
         [ContextMenu("减少所有技能CD一回合")]
@@ -105,17 +98,12 @@ namespace Entity
             }
         }
 
-        private void Dead()
+        private void DeadAction()
         {
             IsDead = true;
+            MyConsole.Print($"[角色死亡] {CharacterName}", MessageColor.Red);
             OnDeathEvent?.Invoke(this);
-            // TODO 需要腾出位置来，通知瓦片清除自身。
             gameObject.SetActive(false);
-            
-            if (Faction.Value == FactionType.Player) {
-                // TODO 玩家角色死亡，游戏结束
-                MyConsole.Print($"[玩家角色死亡] {CharacterName}", MessageColor.Red);
-            }
         }
         
         /// <summary>
@@ -144,18 +132,13 @@ namespace Entity
                 case DamageType.True:
                     break;
             }
-            if (damage <= 0) return false;
             curHp -= damage;
             curHp = Mathf.Clamp((int)curHp, (int)0, (int)Property.HP_MAX.Value);
             Property.HP.Value = curHp;
-            
-            // TODO 血量为0不会立马死亡
-            if (curHp <= 0)
-            {
-                Dead();
-                return true;
-            }
-            return false;
+
+            if (curHp > 0) return false;
+            DeadAction();
+            return true;
         }
         
         /// <summary>

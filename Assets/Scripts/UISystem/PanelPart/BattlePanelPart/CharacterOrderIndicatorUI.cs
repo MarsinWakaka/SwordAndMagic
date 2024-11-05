@@ -9,18 +9,17 @@ namespace UISystem.PanelPart.BattlePanelPart
     {
         [SerializeField] List<CharacterOrderSlotUI> actionOrderSlots = new();
         
-        private void Awake()
+        public void Initialize()
         {
             EventCenter<GameEvent>.Instance.AddListener<Character[]>(GameEvent.UpdateUIOfActionUnitOrder, InitOrderIndicatorUI);
         }
 
-        private void OnDestroy()
+        public void Uninitialize()
         {
-            if (EventCenter<GameEvent>.IsInstanceNull) return;
             EventCenter<GameEvent>.Instance.RemoveListener<Character[]>(GameEvent.UpdateUIOfActionUnitOrder, InitOrderIndicatorUI);
         }
 
-        public void InitOrderIndicatorUI(Character[] units)
+        private void InitOrderIndicatorUI(Character[] units)
         {
             for(int i = 0; i < units.Length; i++)
             {

@@ -72,8 +72,7 @@ namespace GamePlaySystem.TileSystem
             var position = character.transform.position;
             var x = (int) position.x; var y = (int) position.y;
             if (!InBorder(x, y) || !HasTile(x, y)) return;
-            var tile = _tiles[x, y];
-            tile.OnCharacterExit(character);
+            _tiles[x, y].OnCharacterExit(character);
         }
         
         // 处理角色移动后的瓦片更新
