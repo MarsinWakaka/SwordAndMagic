@@ -63,12 +63,12 @@ namespace GamePlaySystem.ControlCommand
             var skillSlot = baseSkillCommand.ChosenSkillSlot;
             var skill = skillSlot.skill;
             skill.Execute(caster, targets);
+            yield return handleInterval;
             // 计算技能消耗
             caster.Property.AP.Value -= skill.AP_Cost;
             caster.Property.SP.Value -= skill.SP_Cost;
             skillSlot.RemainCoolDown.Value = skill.coolDown;
             onComplete?.Invoke();
-            yield return null;
         }
 
         private readonly WaitForSeconds _moveInterval = new(0.3f);

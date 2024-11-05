@@ -16,12 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 2c770a3c0f7928e47ba257a2feb14856
-  m_SerializeEntries:
-  - m_GUID: f5e9136d7ae30274f9bd157009bb25c3
-    m_Address: Assets/Scenes/BaseBattleScene.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7370781eafe023a4eb4d4c0a94ead7a7, type: 2}
   m_SchemaSet:

@@ -1,28 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entity;
+using Utility;
 using Utility.SerializeTool;
 
 namespace SaveSystem
 {
-    /// 用户存档
-    [Serializable]
-    public class UserSave
-    {
-        public string saveName;        // 存档名
-        public int coin;                // 用于角色解锁与升级
-        /// <summary>
-        /// 该存档当前的关卡数据
-        /// </summary>
-        public int[] levelUnlock;        // 已解锁关卡ID
-        public int[] levelStars;         // 获得的该关卡的最高星级
-        // public List<LevelSave> LevelSaves;
-        /// <summary>
-        /// 以下属性用于成长系统
-        /// </summary>
-        public int[] characterLevel;    // 索引为角色ID,数值为对应的角色等级
-        public int maxPlayerParty;      // 玩家最大队伍数量
-    }
-    
     public interface IUserSaveService
     {
         UserSave GetUserSave();

@@ -1,3 +1,4 @@
+using Data;
 using Entity;
 using MyEventSystem;
 using UnityEngine;
@@ -45,11 +46,13 @@ namespace UISystem.PanelPart.BattlePanelPart
         
         private void UpdateInvestigationUI(BaseEntity entity)
         {
-            if (entity is Character character) {
-                if (character == lastCharacter) return;
-                characterName.text = character.CharacterName;
-                SetInvestigationUI(character);
-                return;
+            if (entity != null) {
+                if (entity is Character character) {
+                    if (character == lastCharacter) return;
+                    characterName.text = character.CharacterName;
+                    SetInvestigationUI(character);
+                    return;
+                }
             }
             CloseInvestigationUI();
         }

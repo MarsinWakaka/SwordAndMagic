@@ -1,4 +1,3 @@
-using System;
 using Entity;
 using MyEventSystem;
 using UnityEngine;
@@ -32,17 +31,15 @@ namespace InputSystem
                 ResetInput();
                 isLeftMousePressed = Input.GetMouseButtonDown(0);
             
-                EventCenter<GameEvent>.Instance.Invoke(GameEvent.SetHoverEntity, entity);
                 if (isLeftMousePressed)
                 {
                     EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnEntityLeftClicked, entity);
                 }
             }
+            EventCenter<GameEvent>.Instance.Invoke(GameEvent.SetHoverEntity, entity);
             isRightMousePressed = Input.GetMouseButtonDown(1);
             if (isRightMousePressed)
             {
-                // OnRightMouseClick?.Invoke();
-                // print($"{DateTime.Now} 鼠标右键事件触发");
                 EventCenter<GameEvent>.Instance.Invoke(GameEvent.OnRightMouseClick);
             }
         }

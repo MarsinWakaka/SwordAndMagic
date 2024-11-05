@@ -1,3 +1,4 @@
+using Data;
 using Entity;
 using GamePlaySystem.SkillSystem;
 using JetBrains.Annotations;
@@ -170,7 +171,7 @@ namespace UISystem.PanelPart.BattlePanelPart
         
         private void RedrawSpBar(int newSp)
         {
-            var spPercent = (float)newSp / property.SkillPoints_MAX;
+            var spPercent = (float)newSp / CharacterProperty.SP_MAX;
             skillPointBar.sizeDelta = new Vector2(spPercent * maxSkillPointBar.sizeDelta.x, skillPointBar.sizeDelta.y);
         }
   

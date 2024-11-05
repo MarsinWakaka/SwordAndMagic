@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DG.Tweening;
 using Entity;
 using GamePlaySystem.SkillSystem;
 using UnityEngine;
@@ -25,9 +26,10 @@ namespace Utility.Behaviour
             _character.OnSkillChosenEnter += OnSkillChosenEnter;
             _character.OnSkillChosenExit += OnSkillChosenExit;
             _character.OnTakeDamage += OnTakeDamage;
+            _character.OnDeathEvent += OnDeathEvent;
             actionGo.SetActive(false);
         }
-
+        
         private void OnSkillChosenEnter(SkillSlot skillSlot)
         {
             actionGo.SetActive(true);
@@ -39,13 +41,16 @@ namespace Utility.Behaviour
             actionGo.SetActive(false);
         }
 
+        private bool isPlayAnim;
         private void OnTakeDamage(DamageType type, int damage)
         {
+            if (isPlayAnim) return;
             StartCoroutine(OnTakeDamageFX());
         }
         
         private IEnumerator OnTakeDamageFX()
         {
+            isPlayAnim = true;
             // 闪烁
             var color = characterSr.color;
             for (int i = 0; i < 3; i++)
@@ -55,6 +60,22 @@ namespace Utility.Behaviour
                 characterSr.color = color;
                 yield return new WaitForSeconds(0.1f);
             }
-        } 
+            isPlayAnim = false;
+        }
+
+        private void OnDeathEvent(Character character)
+        {
+            // TODO 死亡动画
+            StopAllCoroutines();
+            StartCoroutine(OnDeadFX(character));
+        }
+        
+        private IEnumerator OnDeadFX(Character character)
+        {
+            // 逐渐消失
+            characterSr.DOFade(0, 1f);
+            yield return new WaitForSeconds(1);
+            character.gameObject.SetActive(false);
+        }
     }
 }

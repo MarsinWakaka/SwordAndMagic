@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Entity;
-using GamePlaySystem.DeploySystem;
+using GamePlaySystem.LevelDataSystem;
 using MyEventSystem;
 using UISystem.PanelPart.CharacterEmporiumPart;
 using UnityEngine;
@@ -21,22 +21,24 @@ namespace UISystem.Panel
         public override void OnEnter()
         {
             base.OnEnter();
-            goldText.text = PlayerData.Gold.Value.ToString();
-            PlayerData.Gold.OnValueChanged += UpdateCoins;
+            goldText.text = LevelData.Gold.Value.ToString();
+            LevelData.Gold.OnValueChanged += UpdateCoins;
             // TODO 已知问题：玩家可以不部署直接进入游戏。
             endButton.interactable = false;
             endButton.onClick.AddListener(EndDeployButtonClicked);
             EventCenter<GameEvent>.Instance.AddListener(GameEvent.DeployCharacterSuccess, SetDeployButtonActive);
             EventCenter<GameEvent>.Instance.AddListener<List<Character>>(GameEvent.DeployCharacterResource, SetCharacterToBuyList);
+            emporiumPanel.Initialize();
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            PlayerData.Gold.OnValueChanged -= UpdateCoins;
+            LevelData.Gold.OnValueChanged -= UpdateCoins;
             endButton.onClick.RemoveListener(EndDeployButtonClicked);
             EventCenter<GameEvent>.Instance.RemoveListener(GameEvent.DeployCharacterSuccess, SetDeployButtonActive);
             EventCenter<GameEvent>.Instance.RemoveListener<List<Character>>(GameEvent.DeployCharacterResource, SetCharacterToBuyList);
+            emporiumPanel.Uninitialize();
         }
 
         #endregion

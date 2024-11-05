@@ -1,16 +1,10 @@
-using System.Collections.Generic;
 using System.IO;
 using Configuration;
 using MyEventSystem;
 using UnityEngine;
 
-namespace GamePlaySystem.LevelData
+namespace GamePlaySystem.LevelDataSystem
 {
-    public class LevelData
-    {
-        public List<int> MapData;   // 9位数字，每三位分别代表(X,Y,TileType)
-    }
-    
     public class LevelDataManager
     {
         private ILevelDataProcessor _dataProcessor;

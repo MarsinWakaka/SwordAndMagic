@@ -7,5 +7,6 @@
     "levelDataSuffix": ".level",
     "uiPanelPath": "Assets/Prefabs/UI/UIPanel",
     "characterPrefabPath": "Character",
-    "tilePrefabPath": "Assets/Prefabs/Entities/Tiles/Tile.prefab"
+    "tilePrefabPath": "Assets/Prefabs/Entities/Tiles/Tile.prefab",
+    "tileDataPath": "TileData"
 }

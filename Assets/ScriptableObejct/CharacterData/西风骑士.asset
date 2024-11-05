@@ -15,7 +15,7 @@ MonoBehaviour:
   characterName: "\u897F\u98CE\u9A91\u58EB"
   sellPrice: 25
   LV: 4
-  BaseHp: 15
+  Skills: []
   Defence_Max: 18
   MagicDefence_Max: 12
   Constitution: 14
@@ -23,7 +23,9 @@ MonoBehaviour:
   Intelligence: 11
   Perception: 11
   Dexterity: 10
-  skills: []
+  BaseHp: 15
+  BaseWalkRange: 0
+  classTable: []
   HostileScoreFactor: 70
   HostileImpactRange: 5
   FriendlyScoreFactor: -50

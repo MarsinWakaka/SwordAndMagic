@@ -27,7 +27,7 @@ namespace Entity
             this.tilePrefabPath = tilePrefabPath;
         }
         
-        public void LoadEntityData(Action onComplete)
+        public void LoadEntityPrefab(Action onComplete)
         {
             bool isCharacterLoaded = false;
             bool isTileLoaded = false;

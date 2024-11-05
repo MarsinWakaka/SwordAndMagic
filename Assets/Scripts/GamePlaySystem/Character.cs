@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ConsoleSystem;
+using Data;
 using GamePlaySystem.FactionSystem;
 using GamePlaySystem.SkillSystem;
 using MyEventSystem;
@@ -103,7 +104,7 @@ namespace Entity
             IsDead = true;
             MyConsole.Print($"[角色死亡] {CharacterName}", MessageColor.Red);
             OnDeathEvent?.Invoke(this);
-            gameObject.SetActive(false);
+            // gameObject.SetActive(false);
         }
         
         /// <summary>

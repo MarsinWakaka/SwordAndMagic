@@ -3,14 +3,14 @@ using Entity;
 using MyEventSystem;
 using UnityEngine;
 
-namespace BattleSystem.BattleFXSystem.Helper
+namespace GamePlaySystem.BattleFXSystem.Helper
 {
     public class HoverStyleHelper : MonoBehaviour
     {
         [Header("Style Settings")]
         public Transform hoverStyle;
         public float hoverDuration;
-        public float hoverFadeDuration;
+        private const float HoverFadeDuration = 0.25f;
 
         #region Cache Variable
         private SpriteRenderer _hoverSpriteRenderer;
@@ -26,15 +26,21 @@ namespace BattleSystem.BattleFXSystem.Helper
         
         private void SetHoverFX(BaseEntity baseEntity)
         {
-            SetHoverFX(baseEntity.transform.position);
+            if (baseEntity == null) {
+                CancelHoverFX();
+            }
+            else
+            {
+                SetHoverFX(baseEntity.transform.position);
+            }
         }
         
-        public void SetHoverFX(Vector2 position)
+        public void SetHoverFX(Vector3 position)
         {
             if (_isCancelingHover)
             {
-                hoverStyle.DOKill(_hoverSpriteRenderer);
-                _hoverSpriteRenderer.DOFade(1, hoverFadeDuration);
+                hoverStyle.DOKill();
+                _hoverSpriteRenderer.DOFade(1, HoverFadeDuration);
             }
 
             hoverStyle.DOMove(position, hoverDuration);
@@ -42,7 +48,7 @@ namespace BattleSystem.BattleFXSystem.Helper
         }
         public void CancelHoverFX()
         {
-            _hoverSpriteRenderer.DOFade(0, hoverFadeDuration);
+            _hoverSpriteRenderer.DOFade(0, HoverFadeDuration);
             _isCancelingHover = true;
         }
     }

@@ -1,24 +1,28 @@
 using System.Collections.Generic;
 using Entity;
+using ResourcesSystem;
 using UnityEngine;
 
 namespace GamePlaySystem.TileSystem
 {
-    public class TileManager : MonoBehaviour
+    public class TileManager // : MonoBehaviour
     {
         private const int MapWidth = 30;
         private const int MapHeight = 30;
         private readonly Dictionary<TileType, TileData> _tileDict = new();
         private readonly Tile[,] _tiles = new Tile[MapWidth, MapHeight]; // 后续从关卡数据中读取
-        // TODO 从关卡数据中读取，从而去掉Mono
-        [SerializeField] private List<TileData> tileData = new();
-        [SerializeField] private Transform tileParent;
-        private void Awake()
+        // [SerializeField] private List<TileData> tileData = new();
+        // [SerializeField] private Transform tileParent;
+        public void Initialize(string tileDataTag)
         {
-            foreach (var data in tileData)
+            IResourceManager resourceManager = ServiceLocator.Get<IResourceManager>();
+            resourceManager.LoadAllResourcesAsyncByTag<TileData>(tileDataTag, (tileData) =>
             {
-                _tileDict.Add(data.tileType, data);
-            }
+                foreach (var data in tileData) {
+                    _tileDict.Add(data.tileType, data);
+                }
+                Debug.Log($"Tile data loaded : {tileData.Count}");
+            });
         }
         
         public Tile[,] GetTiles() => _tiles;
@@ -31,7 +35,7 @@ namespace GamePlaySystem.TileSystem
         public void RegisterTile(Tile tile)
         {
             // TODO 注册瓦片
-            tile.transform.SetParent(tileParent);
+            // tile.transform.SetParent(tileParent);
             var pos = tile.transform.position;
             _tiles[(int) pos.x, (int) pos.y] = tile;
             // TODO 根据其类型，更新瓦片数据
@@ -44,7 +48,7 @@ namespace GamePlaySystem.TileSystem
             // TODO 注销瓦片
         }
 
-        private void UpdateTileType(Tile tile, TileType newType)
+        public void UpdateTileType(Tile tile, TileType newType)
         {
             // TODO 更新瓦片类型
             tile.TileType = newType;
@@ -57,6 +61,7 @@ namespace GamePlaySystem.TileSystem
         {
             var position = character.transform.position;
             var x = (int) position.x; var y = (int) position.y;
+            position.z = -1;  // 确保角色在地块上方
             if (!InBorder(x, y) || !HasTile(x, y)) return;
             var tile = _tiles[x, y];
             if (tile.IsBlocked) {
@@ -80,6 +85,7 @@ namespace GamePlaySystem.TileSystem
         {
             var fromX = (int) from.x; var fromY = (int) from.y;
             var toX = (int) to.x; var toY = (int) to.y;
+            to.z = -1;  // 确保角色在地块上方
             if (!InBorder(toX, toY) || !HasTile(toX, toY)) return false;
             var fromTile = _tiles[fromX, fromY];
             var toTile = _tiles[toX, toY];

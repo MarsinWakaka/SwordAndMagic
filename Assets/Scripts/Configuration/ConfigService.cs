@@ -16,6 +16,7 @@ namespace Configuration
         public string uiPanelPath;
         public string characterPrefabPath;
         public string tilePrefabPath;
+        public string tileDataPath;
     }
 
     public interface IConfigService

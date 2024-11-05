@@ -42,8 +42,7 @@ namespace Entity
         public BaseEntity StandOnObj
         {
             get => standOnObj;
-            set
-            {
+            set {
                 if (standOnObj == value) return;
                 if (value is Character character)
                 {
@@ -67,6 +66,8 @@ namespace Entity
         
         public void OnCharacterExit(Character character)
         {
+            if (standOnObj != character) Debug.LogError(
+                $"角色{character.CharacterName}离开瓦片时，但瓦片上的实体不是该角色{standOnObj.name}");
             // TODO 不同砖块对于角色的进入与离开进行不同的处理。例如燃烧砖块对于角色的进入会造成伤害，进入冰面有概率会使角色滑倒等
             standOnObj = null;
             _isBlocked = false;

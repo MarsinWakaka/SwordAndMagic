@@ -1,5 +1,4 @@
-﻿using GamePlaySystem.DeploySystem;
-using MyEventSystem;
+﻿using MyEventSystem;
 using UISystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;

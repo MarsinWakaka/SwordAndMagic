@@ -15,7 +15,7 @@ MonoBehaviour:
   characterName: "\u519C\u6C11"
   sellPrice: 10
   LV: 2
-  BaseHp: 10
+  Skills: []
   Defence_Max: 5
   MagicDefence_Max: 8
   Constitution: 10
@@ -23,7 +23,9 @@ MonoBehaviour:
   Intelligence: 10
   Perception: 10
   Dexterity: 10
-  skills: []
+  BaseHp: 10
+  BaseWalkRange: 0
+  classTable: []
   HostileScoreFactor: 20
   HostileImpactRange: 5
   FriendlyScoreFactor: -50

@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Data;
 using Entity;
 using UnityEngine;
 

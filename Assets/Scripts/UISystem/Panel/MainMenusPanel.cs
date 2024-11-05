@@ -11,6 +11,7 @@ namespace UISystem
         public Button newGameButton;
         public Button settingButton;
         public Button exitButton;
+        public Button editorButton;
         [Header("关卡选择器")]
         // [SerializeField] private GameObject mainPart;
         [SerializeField] private LevelChooseUI levelChooseUI;
@@ -36,6 +37,10 @@ namespace UISystem
                 Application.Quit();
 #endif
             });
+            editorButton.onClick.AddListener(() =>
+            {
+                SceneSystem.GameSceneManager.LoadScene(new SceneSystem.EditorScene());
+            });
             
             levelChooseUI.OnCancelButtonClick += CloseLevelChooseUI;
         }
@@ -49,7 +54,6 @@ namespace UISystem
         private void CloseLevelChooseUI()
         {
             levelChooseUI.gameObject.SetActive(false);
-            
         }
         
         private void OpenLevelChooseUI()

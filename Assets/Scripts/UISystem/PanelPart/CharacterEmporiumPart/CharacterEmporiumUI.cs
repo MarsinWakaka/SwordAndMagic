@@ -11,26 +11,30 @@ namespace UISystem.PanelPart.CharacterEmporiumPart
     {
         [SerializeField] private CharacterSlotUI characterSlotUIPrefab;
         private readonly List<CharacterSlotUI> activeSlotUIs = new ();
-        public readonly BindableProperty<int> SelectedSlotIndex = new ();
+        public readonly BindableProperty<int> SelectedSlotIndex = new();
 
-        private void Awake() {
+        public void Initialize() {
+            SelectedSlotIndex.Value = -1;
+        }
+
+        public void Uninitialize()
+        {
             SelectedSlotIndex.Value = -1;
         }
 
         public void SetCharacterToBuyList(List<Character> characterList)
         {
-            int characterListCount = characterList.Count;
-            int activeCharacterSlotsCount = activeSlotUIs.Count;
+            var characterListCount = characterList.Count;
+            var activeCharacterSlotsCount = activeSlotUIs.Count;
             // 先回收多余的角色槽
-            for (int i = characterListCount; i < activeCharacterSlotsCount; i++)
+            for (var i = characterListCount; i < activeCharacterSlotsCount; i++)
                 RecycleSlot(activeSlotUIs[i]);
             // 利用已有的槽位
-            for (int i = 0; i < activeCharacterSlotsCount; i++)
+            for (var i = 0; i < activeCharacterSlotsCount; i++)
                 activeSlotUIs[i].SetSlot(characterList[i]);
             // 槽位不足则取池子里获取
-            for (int i = activeCharacterSlotsCount; i < characterListCount; i++)
-            {
-                CharacterSlotUI slotUI = GetSlot();
+            for (var i = activeCharacterSlotsCount; i < characterListCount; i++) {
+                var slotUI = GetSlot();
                 slotUI.Init(activeSlotUIs.Count);
                 slotUI.onSlotClicked += ChangeSlotSelect;
                 slotUI.SetSlot(characterList[i]);
@@ -41,7 +45,7 @@ namespace UISystem.PanelPart.CharacterEmporiumPart
         private readonly Stack<CharacterSlotUI> characterSlotPool = new();
         private CharacterSlotUI GetSlot()
         {
-            CharacterSlotUI slotUI = null;
+            CharacterSlotUI slotUI;
             if (characterSlotPool.Count == 0)
             {
                 slotUI = Instantiate(characterSlotUIPrefab, transform);

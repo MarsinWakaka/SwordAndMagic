@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Entity;
 using GamePlaySystem.FactionSystem;
+using GamePlaySystem.LevelDataSystem;
 using GamePlaySystem.TileSystem;
 using MyEventSystem;
 using UISystem;
@@ -24,7 +25,7 @@ namespace GamePlaySystem.DeploySystem
         
         public void OnDeployStart()
         {
-            // PlayerData.Gold.Value = 50;
+            // UserSave.Gold.Value = 50;
             // 面板结束按钮 --点击-> 玩家部署结束阶段
             EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.OnEntityLeftClicked, TryDeploy);
             UIManager.Instance.PushPanel(PanelType.CharacterEmporiumPanel, OnPushPanelComplete);
@@ -65,16 +66,15 @@ namespace GamePlaySystem.DeploySystem
             // TODO 检查玩家是否可以部署在这个位置
             
             // 检查玩家金币是否充足
-            if (selectedCharacter.SellPrice > PlayerData.Gold.Value) {
+            if (selectedCharacter.SellPrice > LevelData.Gold.Value){
                 print("金币不足");
                 return;
             }
             
             print($"部署成功:{selectedCharacter.CharacterName}");
             // 6、生成角色
-            PlayerData.Gold.Value -= selectedCharacter.SellPrice;
+            LevelData.Gold.Value -= selectedCharacter.SellPrice;
             ServiceLocator.Get<IEntityFactory>().CreateCharacter(selectedCharacter.entityID, position, FactionType.Player);
-            // EntityFactory.Instance.CreateCharacter(FactionType.Player, selectedCharacter.entityID, position);
             EventCenter<GameEvent>.Instance.Invoke(GameEvent.DeployCharacterSuccess);   // 激活部署面板的结束按钮
         }
 

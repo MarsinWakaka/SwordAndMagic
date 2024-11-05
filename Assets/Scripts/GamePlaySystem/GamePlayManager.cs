@@ -4,7 +4,7 @@ using ConsoleSystem;
 using Entity;
 using GamePlaySystem.ControlCommand;
 using GamePlaySystem.DeploySystem;
-using GamePlaySystem.LevelData;
+using GamePlaySystem.LevelDataSystem;
 using GamePlaySystem.RangeDisplay;
 using GamePlaySystem.TileSystem;
 using GamePlaySystem.TileSystem.Navigation;
@@ -18,7 +18,7 @@ namespace GamePlaySystem
     public class GamePlayManager : MonoBehaviour
     {
         [Header("游戏玩法需要注册的Mono服务")]
-        [SerializeField] private TileManager tileManager;
+        private TileManager tileManager;
         [SerializeField] private RangeDisplayService rangeDisplayService;
         
         private EntityFactoryImpl entityFactory;
@@ -33,12 +33,13 @@ namespace GamePlaySystem
         {
             var config = ServiceLocator.Get<IConfigService>().ConfigData;
             // TODO 解决部署资源获取问题，从而将服务的注册与卸载代码移到场景切换类中
+            (tileManager = new TileManager()).Initialize(config.tileDataPath);
             entityFactory = new EntityFactoryImpl(config.characterPrefabPath, config.tilePrefabPath);
             var navigationService = new NavigationService(tileManager);
             var commandManager = new GameObject("CommandManager").AddComponent<CommandManager>();
             commandManager.transform.SetParent(transform);
             
-            ServiceLocator.Register<TileManager>(tileManager);
+            ServiceLocator.Register(tileManager);
             ServiceLocator.Register<IEntityFactory>(entityFactory);
             ServiceLocator.Register<IRangeDisplayService>(rangeDisplayService);
             ServiceLocator.Register<INavigationService>(navigationService);
@@ -67,7 +68,7 @@ namespace GamePlaySystem
         {
             MyConsole.Print("【游戏资源加载开始】", FontColor);
             EventCenter<GameEvent>.Instance.AddListener(GameEvent.GameResourceLoadEnd, OnGameResourceLoadEnd);
-            entityFactory.LoadEntityData(() => {
+            entityFactory.LoadEntityPrefab(() => {
                 // 测试加载关卡1
                 levelDataManager.OnLoadLevelResourceStart(sceneIndex);// 游戏资源加载开始 --执行完毕-> 游戏资源加载结束
             });

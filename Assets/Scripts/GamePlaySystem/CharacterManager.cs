@@ -65,7 +65,7 @@ namespace GamePlaySystem
             unitIndexLc = unitIndexRo;
             var curUnit = units[unitIndexLc];
             var curFaction = curUnit.Faction.Value;
-            activeCharacters.Add(curUnit);
+            if (!curUnit.IsDead) activeCharacters.Add(curUnit);
             
             // 相同阵营的单位且行动顺序连续的可以一起行动
             while (activeCharacters.Count <= OrderSlotCount) // 这边最高同时行动行动指示条槽位个数的单位
