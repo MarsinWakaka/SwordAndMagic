@@ -26,7 +26,7 @@ namespace SceneSystem
                 };
             else
             {
-                Debug.LogError($"Load Scene Failed，请检查场景名字是否正确 {sceneName}");
+                Debug.LogError($"LoadSaveByName Scene Failed，请检查场景名字是否正确 {sceneName}");
             }
         }
         

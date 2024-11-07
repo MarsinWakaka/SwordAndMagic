@@ -6,7 +6,6 @@ namespace UISystem.Panel
 {
     public class BattleEndPanel : BasePanel
     {
-        // [SerializeField] private Button restartButton;
         [SerializeField] private Button exitButton;
         
         protected override void Awake()

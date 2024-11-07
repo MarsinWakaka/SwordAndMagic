@@ -18,22 +18,27 @@ MonoBehaviour:
   m_GUID: 47c46e9b594c2f74381f9cb1ea224fa7
   m_SerializeEntries:
   - m_GUID: 10f56e494078a3246b98e3425e439885
-    m_Address: Assets/Prefabs/UI/UIPanel/BattlePanel.prefab
+    m_Address: Assets/Prefabs/UI/Panel/BattlePanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32cf8c40d438eac40bd7a7e2ff0426d5
+    m_Address: Assets/Prefabs/UI/Panel/SavePanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a26b9dead9f73474c9be472b996ca6da
-    m_Address: Assets/Prefabs/UI/UIPanel/CharacterEmporiumPanel.prefab
+    m_Address: Assets/Prefabs/UI/Panel/CharacterEmporiumPanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ad21c23b44881804a8026b4dc2a96921
-    m_Address: Assets/Prefabs/UI/UIPanel/BattleEndPanel.prefab
+    m_Address: Assets/Prefabs/UI/Panel/BattleEndPanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e63e71043d013ff43bb2579db48783ef
-    m_Address: Assets/Prefabs/UI/UIPanel/MainMenusPanel.prefab
+    m_Address: Assets/Prefabs/UI/Panel/MainMenusPanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

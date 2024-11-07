@@ -2,7 +2,7 @@ using UISystem.PanelPart.MainPanelPart;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UISystem
+namespace UISystem.Panel
 {
     public class MainMenusPanel : BasePanel
     {
@@ -13,21 +13,19 @@ namespace UISystem
         public Button exitButton;
         public Button editorButton;
         [Header("关卡选择器")]
-        // [SerializeField] private GameObject mainPart;
         [SerializeField] private LevelChooseUI levelChooseUI;
         
         protected override void Awake()
         {
             base.Awake();
-            
             loadGameButton.onClick.AddListener(() =>
             {
-                print("TODO Load 用户数据");
+                UIManager.Instance.PushPanel(PanelType.SavePanel, null);
             });
             newGameButton.onClick.AddListener(OpenLevelChooseUI);
             settingButton.onClick.AddListener(() =>
             {
-                print("TODO Load 设置面板");
+                print("TODO LoadSaveByName 设置面板");
             });
             exitButton.onClick.AddListener(() =>
             {

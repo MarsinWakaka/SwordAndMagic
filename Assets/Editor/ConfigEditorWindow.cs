@@ -40,11 +40,11 @@ namespace Editor
             configData.tileDataPath = EditorGUILayout.TextField("Tile Data Path", configData.tileDataPath);
 
             // 保存按钮
-            if (GUILayout.Button("Save Config"))
+            if (GUILayout.Button("QuickSave Config"))
             {
                 SaveConfigData();
             }
-            if (GUILayout.Button("Load Config"))
+            if (GUILayout.Button("LoadSaveByName Config"))
             {
                 LoadConfigData();
             }

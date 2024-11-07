@@ -5,8 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e439f93-90a8-434c-b04a-f93590aedceb" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/Panel/SavePanel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/Panel/SavePanel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/SavePanelPart.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/SavePanelPart/RenameSavePanel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/SavePanelPart/RenameSavePanel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/SavePanelPart/SaveDetailPanel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/SavePanelPart/SaveDetailPanel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/SavePanelPart/SaveSlot.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/SavePanelPart/SaveSlot.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.战旗小游戏/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.战旗小游戏/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/UIPanel.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/UIPanel.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ConfigData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ConfigData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/ConfigEditorWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/ConfigEditorWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/CustomTool/BattleTool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/CustomTool/BattleTool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameRes/Slot_100px.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameRes/Slot_100px.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/BattleEndPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/BattleEndPanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/MainMenusPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Panel/MainMenusPanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ApplicationRoot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ApplicationRoot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Configuration/ConfigService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Configuration/ConfigService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity/EntityFactoryImpl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entity/EntityFactoryImpl.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/BUFFSystem/Buff.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/BUFFSystem/Buff.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Character.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/Character.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/Tile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/TileSystem/Tile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveSystem/UserSave.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem/UserSave.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveSystem/UserSaveService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem/UserSaveService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SceneSystem/BattleScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SceneSystem/BattleScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SceneSystem/MainScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SceneSystem/MainScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/Panel/BattleEndPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/Panel/BattleEndPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/Panel/CharacterEmporiumPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/Panel/CharacterEmporiumPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/Panel/MainMenusPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/Panel/MainMenusPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterOrderIndicatorUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterOrderIndicatorUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterOrderSlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterOrderSlotUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterSkillUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterSkillUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterStatusUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/CharacterStatusUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/InvestigationUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/InvestigationUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/PlayerPartySlotUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/PlayerPartySlotUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/PlayerPartyUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/PlayerPartyUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/SelectedCharacterUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/BattlePanelPart/SelectedCharacterUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/CharacterEmporiumPart/CharacterEmporiumUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/CharacterEmporiumPart/CharacterEmporiumUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UISystem/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UISystem/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utility/Behaviour/CharacterBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utility/Behaviour/CharacterBehaviour.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,19 +58,24 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3cfb7bec956444d39e71e0c824e11604ba600/36/8ca0759a/CharacterData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8ce0bd04a7a04b4b9395538239d3fdd846ac00/3c/28323d23/List`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8ce0bd04a7a04b4b9395538239d3fdd846ac00/9a/23238115/Queue`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8ce0bd04a7a04b4b9395538239d3fdd846ac00/e4/3d092156/DateTime.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8ce0bd04a7a04b4b9395538239d3fdd846ac00/fa/922d7fd6/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b056556e1e3e470986e31b3a4edf4754176000/12/ea977354/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b056556e1e3e470986e31b3a4edf4754176000/59/81ddc308/Transform.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b056556e1e3e470986e31b3a4edf4754176000/b6/ee19edb1/Vector2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Data/CharacterProperty.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GamePlaySystem/DeploySystem/CharacterSlotUI.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UISystem/PanelPart/SavePanelPart/RenameSavePanel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.22.2/Editor/Settings/GroupSchemas/PlayerDataGroupSchema.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.22.2/Runtime/AddressablesImpl.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.22.2/Tests/Editor/DocExampleCode/ScriptReference/UsingPlayerBuildDataPath.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/ExecuteEvents.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/GraphicRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Image.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/MaskableGraphic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Text.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -79,10 +124,10 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="附加到 Unity 编辑器" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="33064">
+    <configuration name="附加到 Unity 编辑器" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="22628">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="33064" />
+      <option name="pid" value="22628" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -118,6 +163,9 @@
       <workItem from="1730703877240" duration="416000" />
       <workItem from="1730704342589" duration="17853000" />
       <workItem from="1730784460805" duration="34127000" />
+      <workItem from="1730967939421" duration="8008000" />
+      <workItem from="1730980452761" duration="7290000" />
+      <workItem from="1730990347036" duration="5079000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Entity;
+using GamePlaySystem;
 using GamePlaySystem.LevelDataSystem;
 using MyEventSystem;
 using UISystem.PanelPart.CharacterEmporiumPart;

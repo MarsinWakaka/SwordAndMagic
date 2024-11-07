@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ConsoleSystem;
 using Data;
+using Entity;
 using GamePlaySystem.FactionSystem;
 using GamePlaySystem.SkillSystem;
 using MyEventSystem;
@@ -9,7 +10,7 @@ using UnityEngine;
 using Utility;
 using Random = UnityEngine.Random;
 
-namespace Entity
+namespace GamePlaySystem
 {
     public class Character : BaseEntity, IComparable<Character>
     {

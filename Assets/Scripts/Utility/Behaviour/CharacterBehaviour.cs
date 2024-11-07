@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using DG.Tweening;
 using Entity;
+using GamePlaySystem;
 using GamePlaySystem.SkillSystem;
 using UnityEngine;
 using UnityEngine.Serialization;

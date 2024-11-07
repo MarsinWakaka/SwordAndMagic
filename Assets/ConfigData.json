@@ -5,8 +5,9 @@
     "levelDataPath": "Assets/StreamingAssets/Levels",
     "levelDataPrefix": "level_",
     "levelDataSuffix": ".level",
-    "uiPanelPath": "Assets/Prefabs/UI/UIPanel",
+    "uiPanelPath": "Assets/Prefabs/UI/Panel",
     "characterPrefabPath": "Character",
     "tilePrefabPath": "Assets/Prefabs/Entities/Tiles/Tile.prefab",
-    "tileDataPath": "TileData"
+    "tileDataPath": "TileData",
+    "saveDataPath": "Saves"
 }

@@ -1,3 +1,4 @@
+using System.IO;
 using Configuration;
 using ResourcesSystem;
 using SaveSystem;
@@ -20,7 +21,8 @@ public sealed class ApplicationRoot : SingletonMono<ApplicationRoot>
         var serializeTool = new JsonSerializeTool();
         var configService = new ConfigService(configPath, serializeTool);
         var resourceManager = new AddressableManager();
-        var userSaveService = new UserSaveService(Application.persistentDataPath, serializeTool);
+        var rootPath = Path.Combine(Application.persistentDataPath, configService.ConfigData.saveDataPath);
+        var userSaveService = new UserSaveService(rootPath, serializeTool);
         ServiceLocator.Register<ISerializeTool>(serializeTool);
         ServiceLocator.Register<IConfigService>(configService);
         ServiceLocator.Register<IResourceManager>(resourceManager);
@@ -32,8 +34,10 @@ public sealed class ApplicationRoot : SingletonMono<ApplicationRoot>
         GameSceneManager.LoadScene(new MainScene());
     }
 
-    private void OnApplicationQuit()
-    {
-        // TODO 保存用户存档
-    }
+    // private void OnApplicationQuit()
+    // {
+    //     // TODO 保存用户存档
+    //     var userSaveService = ServiceLocator.Get<IUserSaveService>();
+    //     userSaveService.QuickSave();
+    // }
 }

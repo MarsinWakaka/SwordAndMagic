@@ -18,6 +18,7 @@ namespace UISystem
         CharacterEmporiumPanel,
         BattlePanel,
         BattleEndPanel,
+        SavePanel,
     }
 
     public sealed class UIManager : SingletonMono<UIManager>
