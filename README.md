@@ -24,24 +24,24 @@
 
 - 部署演示图
 
-<img src="F:\UnityProject\2024\战旗小游戏\Intro_01_玩家部署.gif" alt="部署演示" style="zoom:50%;" />
+<img src="Intro_01_玩家部署.gif" alt="部署演示" style="zoom:50%;" />
 
 - AI站位决策
 
-<img src="F:\UnityProject\2024\战旗小游戏\Intro_02_AI决策.gif" alt="AI站位决策" style="zoom:50%;" />
+<img src="Intro_02_AI决策.gif" alt="AI站位决策" style="zoom:50%;" />
 
 - 玩家攻击
 
-<img src="F:\UnityProject\2024\战旗小游戏\Intro_03_玩家决策.gif" alt="玩家攻击" style="zoom:50%;" />
+<img src="Intro_03_玩家决策.gif" alt="玩家攻击" style="zoom:50%;" />
 
 - 战斗画面-1
 
-<img src="F:\UnityProject\2024\战旗小游戏\Intro_04_战斗01.gif" alt="战斗画面-1" style="zoom:50%;" />
+<img src="Intro_04_战斗01.gif" alt="战斗画面-1" style="zoom:50%;" />
 
 - 战斗画面-2
 
-<img src="F:\UnityProject\2024\战旗小游戏\Intro_05_多选技能.gif" alt="战斗画面-2" style="zoom:50%;" />
+<img src="Intro_05_多选技能.gif" alt="战斗画面-2" style="zoom:50%;" />
 
 - 战斗画面-3
 
-<img src="F:\UnityProject\2024\战旗小游戏\Intro_06_战斗03.gif" alt="战斗画面-3" style="zoom:50%;" />
+<img src="Intro_06_战斗03.gif" alt="战斗画面-3" style="zoom:50%;" />
