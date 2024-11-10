@@ -27,6 +27,7 @@
 <img src="Github_ReadmeAsset/存档管理器.jpg" alt="存档管理器"  />
 <img src="Github_ReadmeAsset/角色创建面板.jpg" alt="角色创建面板"  />
 <img src="Github_ReadmeAsset/战役选择面板.jpg" alt="战役面板"  />
+<img src="Github_ReadmeAsset/战斗界面.jpg" alt="战斗界面"  />
 
 - 部署演示图
 
