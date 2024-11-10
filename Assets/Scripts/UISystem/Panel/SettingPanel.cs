@@ -23,7 +23,6 @@ namespace UISystem.Panel
             });
             backToStartMenu.onClick.AddListener(() =>
             {
-                UIManager.Instance.ClearPanel();
                 GameSceneManager.LoadScene(new StartScene());
             });
         }

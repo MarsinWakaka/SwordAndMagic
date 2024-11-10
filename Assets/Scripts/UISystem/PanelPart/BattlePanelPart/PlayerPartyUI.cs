@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Entity;
 using GamePlaySystem;
 using MyEventSystem;
 using UnityEngine;
@@ -19,12 +18,13 @@ namespace UISystem.PanelPart.BattlePanelPart
         
         public void Initialize()
         {
+            MakeSureSlots(0);
             EventCenter<GameEvent>.Instance.AddListener<List<Character>>(GameEvent.UpdateUIOfPlayerParty, RefreshPlayerCharacterUI);
         }
 
         public void Uninitialize()
         {
-            viewSlots.Clear();
+            MakeSureSlots(0);
             EventCenter<GameEvent>.Instance.RemoveListener<List<Character>>(GameEvent.UpdateUIOfPlayerParty, RefreshPlayerCharacterUI);
         }
 

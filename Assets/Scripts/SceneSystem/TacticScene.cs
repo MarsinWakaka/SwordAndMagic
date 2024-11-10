@@ -23,7 +23,7 @@ namespace SceneSystem
 
         public void Release()
         {
-            
+            UIManager.Instance.ClearPanel();
         }
     }
 }

@@ -38,7 +38,6 @@ namespace UISystem.Panel
                 classIndex = (classIndex - 1 + classes.Count) % classes.Count;
                 SetClassInfo(classIndex);
             });
-            
             exitButton.onClick.AddListener(() =>
             {
                 UIManager.Instance.PopPanel(PanelType.StartNewJourneyPanel);

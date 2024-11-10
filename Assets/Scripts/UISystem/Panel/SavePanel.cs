@@ -40,7 +40,6 @@ namespace UISystem.Panel
                 // TODO 已知问题，存档排列顺序应当反过来
                 var save = userSaveService.CreateNewSave("New Save");
                 saveSlotPool.Get().SetSaveSlot(save);
-                Debug.Log("Create New Save");
             });
         }
 

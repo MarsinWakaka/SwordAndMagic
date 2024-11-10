@@ -1,4 +1,5 @@
-﻿using UnityEngine.SceneManagement;
+﻿using UISystem;
+using UnityEngine.SceneManagement;
 
 namespace SceneSystem
 {
@@ -12,7 +13,7 @@ namespace SceneSystem
 
         public void Release()
         {
-            
+            UIManager.Instance.ClearPanel();
         }
     }
 }

@@ -13,35 +13,37 @@
 ### 项目实践介绍。
 
 - 基于战场感知信息决策的AI，实现了战旗的人机战斗
-- 使用事件中心负责不同模块间的通信，服务定位器的负责提供必要的功能支持，实现不同模块间的解耦。
+- 使用事件中心负责不同模块间的通信，服务定位器管理游戏模块功能。
 - 使用自定义关卡文件格式，关卡管理器通过编写的解析器从中磁盘中读取关卡数据并交由实体工厂生成。
 - 使用状态模式来制作角色控制器，控制选中角色的行为逻辑切换（闲置，移动，技能选择，技能释放等)
 - 基于避障BFS的移动范围显示。
 
 ***
 
-**效果演示**：
+**[游戏展示]**
+
+- 游戏界面
+<img src="Github_ReadmeAsset/主界面.jpg" alt="主界面"  />
+<img src="Github_ReadmeAsset/存档管理器.jpg" alt="存档管理器"  />
+<img src="Github_ReadmeAsset/角色创建面板.jpg" alt="角色创建面板"  />
+<img src="Github_ReadmeAsset/战役选择面板.jpg" alt="战役面板"  />
 
 - 部署演示图
 
-<img src="Intro_01_玩家部署.gif" alt="部署演示" style="zoom:50%;" />
+<img src="Github_ReadmeAsset/Intro_01_玩家部署.gif" alt="部署演示" style="zoom:50%;" />
 
 - AI站位决策
 
-<img src="Intro_02_AI决策.gif" alt="AI站位决策" style="zoom:50%;" />
+<img src="Github_ReadmeAsset/Intro_02_AI决策.gif" alt="AI站位决策" style="zoom:50%;" />
 
 - 玩家攻击
 
-<img src="Intro_03_玩家决策.gif" alt="玩家攻击" style="zoom:50%;" />
+<img src="Github_ReadmeAsset/Intro_03_玩家决策.gif" alt="玩家攻击" style="zoom:50%;" />
 
-- 战斗画面-1
+- 战斗画面
 
-<img src="Intro_04_战斗01.gif" alt="战斗画面-1" style="zoom:50%;" />
+<img src="Github_ReadmeAsset/Intro_04_战斗01.gif" alt="战斗画面-1" style="zoom:50%;" />
 
-- 战斗画面-2
+<img src="Github_ReadmeAsset/Intro_05_多选技能.gif" alt="战斗画面-2" style="zoom:50%;" />
 
-<img src="Intro_05_多选技能.gif" alt="战斗画面-2" style="zoom:50%;" />
-
-- 战斗画面-3
-
-<img src="Intro_06_战斗03.gif" alt="战斗画面-3" style="zoom:50%;" />
+<img src="Github_ReadmeAsset/Intro_06_战斗03.gif" alt="战斗画面-3" style="zoom:50%;" />

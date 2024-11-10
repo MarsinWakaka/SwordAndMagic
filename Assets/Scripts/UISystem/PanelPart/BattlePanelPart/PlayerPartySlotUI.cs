@@ -32,20 +32,18 @@ namespace UISystem.PanelPart.BattlePanelPart
         {
             slotIndex = index;
             onSlotClick = onClick;
-            icon.DOFade(1, 0.25f);
-            slotBackground.color = stateNormalColor;
         }
 
         public void SetCharacter(Character character)
         {
-            // TODO 显示角色ICON
+            icon.DOFade(1, 0.25f);
+            slotBackground.color = stateNormalColor;
             icon.sprite = character.sprite;
             character.OnDeathEvent += OnCharacterDie;
         }
         
         private void OnCharacterDie(Character character)
         {
-            // TODO 死亡时的UI处理
             icon.DOFade(0, 0.25f);
             slotBackground.color = deadColor;
         }
