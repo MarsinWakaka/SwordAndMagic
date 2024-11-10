@@ -5,7 +5,8 @@ using Utility;
 
 namespace GamePlaySystem.SkillSystem
 {
-    [Serializable] public class SkillSlot
+    [Serializable] 
+    public class SkillSlot
     {
         [FormerlySerializedAs("Skill")] 
         public BaseSkill skill;

@@ -85,8 +85,8 @@ namespace Data
         public BindableProperty<int> RWR;     // 剩余移动范围
         public BindableProperty<int> AP;      // Action Points，行动点
         public BindableProperty<int> SP;      // Skill Points，技能点
-
-        public void LoadPlayerData(PlayerData data)
+        
+        public void LoadPlayerData(CharacterData data)
         {
             // 这里直接进行BindableProperty的赋值，就行
             // 如果是保存数据，也是直接将BindableProperty的Value保存

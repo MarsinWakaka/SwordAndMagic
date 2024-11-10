@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 6190490849513154102}
   - component: {fileID: 1528011236415836751}
   m_Layer: 5
-  m_Name: "Button-\u56DE\u5230\u4E3B\u83DC\u5355"
+  m_Name: "Button-\u8BBE\u7F6E\u9762\u677F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +113,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 128.8, y: 80}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &9141654575368658849
 CanvasRenderer:
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.40784317, g: 0.28627452, b: 0.29411766, a: 1}
+  m_Color: {r: 0.6862745, g: 0.654902, b: 0.5882353, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2073,14 +2073,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7960785, g: 0.72156864, b: 0.5882353, a: 1}
+  m_Color: {r: 0.3019608, g: 0.23137257, b: 0.04705883, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1244518539, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
+  m_Sprite: {fileID: 1005059387, guid: 4e6560b4c236eb848aaeab636bc90976, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

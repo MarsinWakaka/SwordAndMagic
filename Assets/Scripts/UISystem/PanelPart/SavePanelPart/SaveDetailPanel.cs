@@ -1,4 +1,6 @@
-﻿using SaveSystem;
+﻿using GamePlaySystem;
+using SaveSystem;
+using SceneSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,13 +14,15 @@ namespace UISystem.PanelPart.SavePanelPart
         [SerializeField] private Button saveButton;
         [SerializeField] private Button renameButton;
         [SerializeField] private Button loadButton;
-        [Header("存档信息")]
+        [Header("存档详细信息")]
         [SerializeField] private Text saveNameText;
         [SerializeField] private Text saveTimeText;
+        [SerializeField] private Text teamNameText;
+        [SerializeField] private Text goldCountText;
         [Header("子面板")]
         [SerializeField] private RenameSavePanel renameSavePanel;
 
-        private UserSave _save;
+        private UserData _data;
         private SaveSlot _slot;
         
         private void Awake()
@@ -28,37 +32,40 @@ namespace UISystem.PanelPart.SavePanelPart
             renameSavePanel.gameObject.SetActive(false);
             saveButton.onClick.AddListener(() =>
             {
-                userSaveService.Save(_save);
+                userSaveService.Save(_data);
                 Debug.Log("Save");
             });
             renameButton.onClick.AddListener(() =>
             {
                 renameSavePanel.gameObject.SetActive(true);
-                renameSavePanel.SetDefaultName(_save.saveName);
+                renameSavePanel.SetDefaultName(_data.saveName);
             });
             loadButton.onClick.AddListener(() =>
             {
-                userSaveService.Load(_save);
-                Debug.Log("Load");
+                userSaveService.Load(_data);
+                GameSceneManager.LoadScene(new TacticScene());
             });
         }
         
-        public void DisplaySaveDetail(SaveSlot slot, UserSave save)
+        public void DisplaySaveDetail(SaveSlot slot, UserData data)
         {
-            _save = save;
+            _data = data;
             _slot = slot;
-            saveNameText.text = save.saveName;
-            saveTimeText.text = save.saveTime;
+            saveNameText.text = data.saveName;
+            saveTimeText.text = data.saveTime;
+            var playerData = data.playerData;
+            teamNameText.text = $"teamName:\t{playerData.teamName}";
+            goldCountText.text = $"Gold:\t{playerData.teamGold}";
         }
 
         private void UpdateSaveName(string newSaveName)
         {
             // TODO 更新列表中的存档名
-            userSaveService.DeleteSave(_save.saveName); // 删除旧存档
-            _save.saveName = newSaveName;
-            _slot.SetSaveSlot(_save);
+            userSaveService.DeleteSave(_data); // 删除旧存档
+            _data.saveName = newSaveName;
+            _slot.SetSaveSlot(_data);
             saveNameText.text = newSaveName;
-            userSaveService.Save(_save);
+            userSaveService.Save(_data);
         }
     }
 }

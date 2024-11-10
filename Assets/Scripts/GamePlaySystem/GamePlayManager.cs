@@ -33,8 +33,8 @@ namespace GamePlaySystem
         {
             var config = ServiceLocator.Get<IConfigService>().ConfigData;
             // TODO 解决部署资源获取问题，从而将服务的注册与卸载代码移到场景切换类中
-            (tileManager = new TileManager()).Initialize(config.tileDataPath);
-            entityFactory = new EntityFactoryImpl(config.characterPrefabPath, config.tilePrefabPath);
+            (tileManager = new TileManager()).Initialize(config.tileDataTag);
+            entityFactory = new EntityFactoryImpl(config.characterTag, config.tilePrefabPath);
             var navigationService = new NavigationService(tileManager);
             var commandManager = new GameObject("CommandManager").AddComponent<CommandManager>();
             commandManager.transform.SetParent(transform);

@@ -16,7 +16,7 @@ namespace UISystem.Panel
 
         private void OnClickExitButton()
         {
-            GameSceneManager.LoadScene(new MainScene());
+            GameSceneManager.LoadScene(new TacticScene());
         }
     }
 }

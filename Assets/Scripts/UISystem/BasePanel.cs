@@ -1,5 +1,3 @@
-using System;
-using Configuration;
 using DG.Tweening;
 using UnityEngine;
 

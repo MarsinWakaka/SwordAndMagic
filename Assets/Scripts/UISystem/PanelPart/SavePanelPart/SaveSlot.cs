@@ -8,8 +8,10 @@ namespace UISystem.PanelPart.SavePanelPart
     public class SaveSlot : MonoBehaviour
     {
         private Button slotButton;
-        public Action<SaveSlot, UserSave> OnSaveSlotSelected;
-        private UserSave _save;
+        public Action<SaveSlot, UserData> OnSaveSlotSelected;
+        public Action<SaveSlot, UserData> OnDeleteClicked;
+        private UserData _data;
+        [SerializeField] private Button deleteButton;
         [SerializeField] private Text saveNameText;
         [SerializeField] private Text saveTimeText;
 
@@ -18,15 +20,19 @@ namespace UISystem.PanelPart.SavePanelPart
             slotButton = GetComponent<Button>();
             slotButton.onClick.AddListener(() =>
             {
-                OnSaveSlotSelected?.Invoke(this, _save);
+                OnSaveSlotSelected?.Invoke(this, _data);
+            });
+            deleteButton.onClick.AddListener(() =>
+            {
+                OnDeleteClicked?.Invoke(this, _data);
             });
         }
 
-        public void SetSaveSlot(UserSave save)
+        public void SetSaveSlot(UserData data)
         {
-            _save = save;
-            saveNameText.text = save.saveName;
-            saveTimeText.text = save.saveTime;
+            _data = data;
+            saveNameText.text = data.saveName;
+            saveTimeText.text = data.saveTime;
         }
     }
 }

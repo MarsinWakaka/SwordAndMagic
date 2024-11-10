@@ -14,10 +14,11 @@ namespace Configuration
         public string levelDataPrefix;
         public string levelDataSuffix;
         public string uiPanelPath;
-        public string characterPrefabPath;
+        public string characterTag;
         public string tilePrefabPath;
-        public string tileDataPath;
+        public string tileDataTag;
         public string saveDataPath;
+        public string characterClassDataTag;
     }
 
     public interface IConfigService

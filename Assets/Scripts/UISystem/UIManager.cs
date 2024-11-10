@@ -14,11 +14,13 @@ namespace UISystem
     public enum PanelType
     {
         StartPanel,
-        MainMenusPanel,
+        TacticPanel,
         CharacterEmporiumPanel,
         BattlePanel,
         BattleEndPanel,
         SavePanel,
+        StartNewJourneyPanel,
+        SettingPanel
     }
 
     public sealed class UIManager : SingletonMono<UIManager>
@@ -39,7 +41,7 @@ namespace UISystem
         /// <summary>
         /// 异步方法加载Panel
         /// </summary>
-        private void LoadPanelAsync(PanelType panelType, Action<BasePanel> onComplete)
+        private void LoadPanelAsync(PanelType panelType, Action<BasePanel> onLoadComplete)
         {
             var resURL = $"{UIPanelPath}/{panelType}.prefab";
             ServiceLocator.Get<IResourceManager>().LoadResourceAsync<GameObject>(resURL, (go) =>
@@ -50,7 +52,7 @@ namespace UISystem
                 {
                     var panel = Instantiate(panelComponent, panelRoot);
                     _panelDict.Add(panelType, panel);
-                    onComplete?.Invoke(panel);
+                    onLoadComplete?.Invoke(panel);
                 }
                 else
                 {
@@ -59,13 +61,13 @@ namespace UISystem
             });
         }
         
-        private void GetPanel(PanelType panelType, Action<BasePanel> onComplete)
+        private void GetPanel(PanelType panelType, Action<BasePanel> onGetComplete)
         {
             if (_panelDict.TryGetValue(panelType, out var panel)) {
-                onComplete?.Invoke(panel);
+                onGetComplete?.Invoke(panel);
                 return;
             }
-            LoadPanelAsync(panelType, onComplete);
+            LoadPanelAsync(panelType, onGetComplete);
         }
         
         
@@ -73,15 +75,17 @@ namespace UISystem
         
         public BasePanel GetCurrentPanel() => _panelStack.Peek();
         
-        public void PushPanel(PanelType panelType, Action onComplete)
+        public void PushPanel(PanelType panelType, Action onPushComplete)
         {
             MyConsole.Print($"PushPanel {panelType}");
             if (_panelStack.Count > 0) _panelStack.Peek().OnPause();
             GetPanel(panelType, (panel) =>
             {
                 _panelStack.Push(panel);
+                // 将其放在最上层
+                panel.transform.SetAsLastSibling();
                 panel.OnEnter();
-                onComplete?.Invoke();
+                onPushComplete?.Invoke();
             });
         }
         

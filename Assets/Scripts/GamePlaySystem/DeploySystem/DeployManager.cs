@@ -25,7 +25,7 @@ namespace GamePlaySystem.DeploySystem
         
         public void OnDeployStart()
         {
-            // UserSave.Gold.Value = 50;
+            // UserData.Gold.Value = 50;
             // 面板结束按钮 --点击-> 玩家部署结束阶段
             EventCenter<GameEvent>.Instance.AddListener<BaseEntity>(GameEvent.OnEntityLeftClicked, TryDeploy);
             UIManager.Instance.PushPanel(PanelType.CharacterEmporiumPanel, OnPushPanelComplete);

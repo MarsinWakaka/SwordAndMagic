@@ -79,18 +79,26 @@ namespace GamePlaySystem
             // ## new
             // OnCharactersAction?.Invoke(curFaction, activeCharacters);
             // ##
-            foreach (var activeUnit in activeCharacters)
+            if (activeCharacters.Count == 0)
             {
-                UnitStartTurn(activeUnit);
+                // 单独角色作为一批行动，却已死亡就灰导致activeCharacters.Count == 0
+                NextBatchUnit();
             }
-            // 如果可以行动的友方角色，切换SelectCharacterUI到第一个行动的角色
-            if (activeCharacters[0].Faction.Value == FactionType.Player) {
-                CharacterSelectedHandle(activeCharacters[0]);
-            } else {
-                _playerController.SetCharacter(null);
-                _autoController.AddControlQueue(activeCharacters);
+            else
+            {
+                foreach (var activeUnit in activeCharacters)
+                {
+                    UnitStartTurn(activeUnit);
+                }
+                // 如果可以行动的友方角色，切换SelectCharacterUI到第一个行动的角色
+                if (activeCharacters[0].Faction.Value == FactionType.Player) {
+                    CharacterSelectedHandle(activeCharacters[0]);
+                } else {
+                    _playerController.SetCharacter(null);
+                    _autoController.AddControlQueue(activeCharacters);
+                }
+                EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfActionUnitOrder, GetCharacterOrder());
             }
-            EventCenter<GameEvent>.Instance.Invoke(GameEvent.UpdateUIOfActionUnitOrder, GetCharacterOrder());
         }
 
         /// <summary>

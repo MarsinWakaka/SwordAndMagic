@@ -1,5 +1,7 @@
 using System.IO;
 using Configuration;
+using GamePlaySystem;
+using GamePlaySystem.CharacterClassSystem;
 using ResourcesSystem;
 using SaveSystem;
 using SceneSystem;
@@ -23,15 +25,18 @@ public sealed class ApplicationRoot : SingletonMono<ApplicationRoot>
         var resourceManager = new AddressableManager();
         var rootPath = Path.Combine(Application.persistentDataPath, configService.ConfigData.saveDataPath);
         var userSaveService = new UserSaveService(rootPath, serializeTool);
+        var characterClassManager = new CharacterClassManager(configService.ConfigData.characterClassDataTag, resourceManager);
         ServiceLocator.Register<ISerializeTool>(serializeTool);
         ServiceLocator.Register<IConfigService>(configService);
         ServiceLocator.Register<IResourceManager>(resourceManager);
         ServiceLocator.Register<IUserSaveService>(userSaveService);
+        ServiceLocator.Register<CharacterClassManager>(characterClassManager);
     }
 
     private void Start()
     {
-        GameSceneManager.LoadScene(new MainScene());
+        PlayerManager.Instance.Initialize();
+        GameSceneManager.LoadScene(new StartScene());
     }
 
     // private void OnApplicationQuit()

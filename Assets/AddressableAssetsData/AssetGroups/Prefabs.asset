@@ -17,11 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 8444b969b55d7c94098f126ad061df56
   m_SerializeEntries:
-  - m_GUID: 06291776bcc26b8459af6e73d3e3d24b
-    m_Address: SelectStyle.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 24c7d692acd25764b8732514cd6cf577
     m_Address: Assets/Prefabs/Entities/Characters/Orcs.prefab
     m_ReadOnly: 0
@@ -38,11 +33,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Character
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3c8e77e628c6698459a6aaece23ac154
-    m_Address: HoverStyle.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3fa4193094564614d8100fd5ea549b11
     m_Address: "Assets/Prefabs/Entities/Characters/\u89D2\u8272\u9884\u5236\u4F53.prefab"

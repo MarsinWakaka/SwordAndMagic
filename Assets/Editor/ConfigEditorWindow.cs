@@ -35,9 +35,11 @@ namespace Editor
             configData.levelDataPrefix = EditorGUILayout.TextField("Level Property Prefix", configData.levelDataPrefix);
             configData.levelDataSuffix = EditorGUILayout.TextField("Level Property Suffix", configData.levelDataSuffix);
             configData.uiPanelPath = EditorGUILayout.TextField("UI Panel Path", configData.uiPanelPath);
-            configData.characterPrefabPath = EditorGUILayout.TextField("Character Prefab Path", configData.characterPrefabPath);
+            configData.characterTag = EditorGUILayout.TextField("Character Prefab Path", configData.characterTag);
             configData.tilePrefabPath = EditorGUILayout.TextField("Tile Prefab Path", configData.tilePrefabPath);
-            configData.tileDataPath = EditorGUILayout.TextField("Tile Data Path", configData.tileDataPath);
+            configData.tileDataTag = EditorGUILayout.TextField("Tile Data Path", configData.tileDataTag);
+            configData.saveDataPath = EditorGUILayout.TextField("Save Data Path", configData.saveDataPath);
+            configData.characterClassDataTag = EditorGUILayout.TextField("Character Class Data Tag", configData.characterClassDataTag);
 
             // 保存按钮
             if (GUILayout.Button("QuickSave Config"))

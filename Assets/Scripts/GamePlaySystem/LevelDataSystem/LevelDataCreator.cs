@@ -5,6 +5,7 @@ using Entity;
 using GamePlaySystem.FactionSystem;
 using GamePlaySystem.TileSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utility.SerializeTool;
 
 namespace GamePlaySystem.LevelDataSystem
@@ -24,7 +25,7 @@ namespace GamePlaySystem.LevelDataSystem
         [Header("编辑模式")]
         public EditorMode editorMode = EditorMode.Tile;
         
-        [Header("基本数据编辑")]
+        [FormerlySerializedAs("gridData")] [Header("基本数据编辑")]
         public LevelData levelData;
         
         [Header("地图数据编辑")]
@@ -50,11 +51,11 @@ namespace GamePlaySystem.LevelDataSystem
             var config = ServiceLocator.Get<IConfigService>().ConfigData;
             _serializeTool = ServiceLocator.Get<ISerializeTool>();
             // TODO 解决部署资源获取问题，从而将服务的注册与卸载代码移到场景切换类中
-            _entityFactory = new EntityFactoryImpl(config.characterPrefabPath, config.tilePrefabPath);
+            _entityFactory = new EntityFactoryImpl(config.characterTag, config.tilePrefabPath);
             _entityFactory.LoadEntityPrefab(() => {
                 Debug.Log("Entity Prefab loaded");
                 _tileManager = new TileManager();
-                _tileManager.Initialize(config.tileDataPath);
+                _tileManager.Initialize(config.tileDataTag);
             });
         }
 

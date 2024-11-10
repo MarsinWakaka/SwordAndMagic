@@ -6,8 +6,9 @@
     "levelDataPrefix": "level_",
     "levelDataSuffix": ".level",
     "uiPanelPath": "Assets/Prefabs/UI/Panel",
-    "characterPrefabPath": "Character",
+    "characterTag": "Character",
     "tilePrefabPath": "Assets/Prefabs/Entities/Tiles/Tile.prefab",
-    "tileDataPath": "TileData",
-    "saveDataPath": "Saves"
+    "tileDataTag": "TileData",
+    "saveDataPath": "Saves",
+    "characterClassDataTag": "CharacterClassData"
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
-using Entity;
 using GamePlaySystem.SkillSystem;
+using ResourcesSystem;
 using UnityEngine;
 
 namespace GamePlaySystem.CharacterClassSystem
@@ -46,6 +46,9 @@ namespace GamePlaySystem.CharacterClassSystem
     [CreateAssetMenu(menuName = "新建角色职业", fileName = "New Character Class")]
     public class CharacterClass : ScriptableObject
     {
+        public string className;
+        public Sprite classIcon;
+        public string classDescription;
         public ClassType classType;
         public List<LevelUpEffect> levelUpEffects;
     }
@@ -53,11 +56,28 @@ namespace GamePlaySystem.CharacterClassSystem
     public class CharacterClassManager
     {
         private readonly Dictionary<ClassType, CharacterClass> classTable = new();
-        public void Initialize(List<CharacterClass> classes) {
-            foreach (var characterClass in classes) {
-                classTable.Add(characterClass.classType, characterClass);
-            }
+        
+        public CharacterClassManager(string tag, IResourceManager resourceManager) {
+            resourceManager.LoadAllResourcesAsyncByTag<CharacterClass>(tag, (classes) => {
+                foreach (var classData in classes) {
+                    classTable.Add(classData.classType, classData);
+                }
+            });
         }
+        
+        public CharacterClassManager(string tag) {
+            var resourceManager = ServiceLocator.Get<IResourceManager>();
+            resourceManager.LoadAllResourcesAsyncByTag<CharacterClass>(tag, (classes) => {
+                foreach (var classData in classes) {
+                    classTable.Add(classData.classType, classData);
+                }
+            });
+        }
+        
+        public List<CharacterClass> GetClasses() {
+            return new List<CharacterClass>(classTable.Values);
+        }
+        
         public LevelUpEffect GetLevelUpEffect(ClassType type, int level) {
             return classTable[type].levelUpEffects[level];
         }

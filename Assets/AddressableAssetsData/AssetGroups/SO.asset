@@ -17,6 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: fbc5c397f566b5349904e070861c3a90
   m_SerializeEntries:
+  - m_GUID: 1438d84e829cd5b4588cf0fae112ff04
+    m_Address: "Assets/ScriptableObejct/CharacterClassData/\u6E38\u4FA0.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterClassData
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4702397a49d6c124e923d47bdd422d23
     m_Address: "Assets/ScriptableObejct/TileData/\u672A\u77E5\u5730\u5F62.asset"
     m_ReadOnly: 0
@@ -34,6 +40,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - TileData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5a4cfbc509859248b0dadaf9ff6e271
+    m_Address: "Assets/ScriptableObejct/CharacterClassData/\u6CD5\u5E08.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterClassData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b6a8aa56499bac24497bf1317651f5ba
+    m_Address: "Assets/ScriptableObejct/CharacterClassData/\u6218\u58EB.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterClassData
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7370781eafe023a4eb4d4c0a94ead7a7, type: 2}

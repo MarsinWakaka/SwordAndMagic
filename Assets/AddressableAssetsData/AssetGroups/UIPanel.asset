@@ -27,8 +27,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49721e6245425764eacee568494cd28e
+    m_Address: Assets/Prefabs/UI/Panel/TacticPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7505aa0e66e751d43b2cb58457316e30
+    m_Address: Assets/Prefabs/UI/Panel/SettingPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a26b9dead9f73474c9be472b996ca6da
     m_Address: Assets/Prefabs/UI/Panel/CharacterEmporiumPanel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a96f66914e8b8cd4cb84a0c0f19efda0
+    m_Address: Assets/Prefabs/UI/Panel/StartNewJourneyPanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -38,7 +53,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e63e71043d013ff43bb2579db48783ef
-    m_Address: Assets/Prefabs/UI/Panel/MainMenusPanel.prefab
+    m_Address: Assets/Prefabs/UI/Panel/StartPanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

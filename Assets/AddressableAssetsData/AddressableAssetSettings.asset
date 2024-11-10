@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 689fb5e4ff3340b4b9d435a8f8811fd0
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 330efa14fb62976508f020b633574e14
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -44,8 +44,6 @@ MonoBehaviour:
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
-  - {fileID: 11400000, guid: b70a70799ff8799468cc6b9e9eb8498d, type: 2}
-  - {fileID: 11400000, guid: 305f632e2c5f1ec4ea67f501b94edf30, type: 2}
   - {fileID: 11400000, guid: fa859e80c3d982e478ca1c23fce01976, type: 2}
   - {fileID: 11400000, guid: 87e4f3d7def34ea438e2d8cb0b9b25be, type: 2}
   - {fileID: 11400000, guid: bb462fcd910c5cc43be09b49fc3ecf5f, type: 2}
@@ -96,6 +94,7 @@ MonoBehaviour:
     - default
     - TileData
     - Character
+    - CharacterClassData
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 4f495efdec1d1154dadb2b6087c1796f, type: 2}

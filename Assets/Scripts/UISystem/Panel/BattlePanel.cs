@@ -1,4 +1,3 @@
-using SceneSystem;
 using UISystem.PanelPart.BattlePanelPart;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +15,7 @@ namespace UISystem.Panel
         protected override void Awake()
         {
             base.Awake();
-            exitButton.onClick.AddListener(() => { GameSceneManager.LoadScene(new MainScene()); });
+            exitButton.onClick.AddListener(() => { UIManager.Instance.PushPanel(PanelType.SettingPanel, null); });
         }
 
         public override void OnEnter()
