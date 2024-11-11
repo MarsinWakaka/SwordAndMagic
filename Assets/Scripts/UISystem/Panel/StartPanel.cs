@@ -25,7 +25,7 @@ namespace UISystem.Panel
             });
             settingButton.onClick.AddListener(() =>
             {
-                print("TODO LoadSaveByName 设置面板");
+                UIManager.Instance.PushPanel(PanelType.SettingPanel, null);
             });
             exitButton.onClick.AddListener(() =>
             {

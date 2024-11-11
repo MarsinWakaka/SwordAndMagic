@@ -10,6 +10,7 @@ namespace SceneSystem
     public class GameSceneManager
     {
         private static IScene _currentScene;
+        public static IScene GetCurrentScene() => _currentScene;
 
         public static void LoadScene(IScene scene)
         {

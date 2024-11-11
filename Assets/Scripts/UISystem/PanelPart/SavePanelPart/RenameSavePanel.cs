@@ -15,7 +15,11 @@ namespace UISystem.PanelPart.SavePanelPart
         {
             confirmButton.onClick.AddListener(() =>
             {
-                OnSaveNameChanged?.Invoke(saveNameInputField.text);
+                var saveNameInput = saveNameInputField.text;
+                if (string.IsNullOrEmpty(saveNameInput)) {
+                    return;
+                }
+                OnSaveNameChanged?.Invoke(saveNameInput);
                 gameObject.SetActive(false);
             });
             cancelButton.onClick.AddListener(() =>

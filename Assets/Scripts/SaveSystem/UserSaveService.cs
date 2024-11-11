@@ -111,7 +111,7 @@ namespace SaveSystem
             // 创建新存档
             var userSave = new UserData
             {
-                saveFileName = $"{saveName}_{DateTime.Now:yyyyMMddHHmmss}.json",
+                saveFileName = Guid.NewGuid().ToString(),
                 saveName = saveName,
                 saveTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                 playerData = PlayerManager.Instance.playerData

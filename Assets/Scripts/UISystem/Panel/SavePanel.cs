@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SaveSystem;
+using SceneSystem;
 using UISystem.PanelPart.SavePanelPart;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -85,6 +86,7 @@ namespace UISystem.Panel
             foreach (var save in saves) {
                 saveSlotPool.Get().SetSaveSlot(save);
             }
+            createButton.interactable = GameSceneManager.GetCurrentScene() is not StartScene;
         }
         
         public override void OnExit()
