@@ -1,8 +1,5 @@
 using Data;
-using Entity;
 using GamePlaySystem;
-using GamePlaySystem.SkillSystem;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +8,11 @@ namespace UISystem.PanelPart.BattlePanelPart
     public class CharacterStatusUI : MonoBehaviour
     {
         #region UI组件
+        [Header("ICON FromAtlas")]
+        [SerializeField] private Image iconAP;
+        [SerializeField] private Image iconSP;
+        [SerializeField] private Image iconAP_Max;
+        [SerializeField] private Image iconSP_Max;
         [Header("UI组件")]
         [Header("角色头像")]
         [SerializeField] private Image charAvatar;
@@ -43,6 +45,14 @@ namespace UISystem.PanelPart.BattlePanelPart
         private Character lastCharacter;
         private CharacterProperty property;
         
+        internal void SetSpriteResources(Sprite iconAP, Sprite iconSP)
+        {
+            this.iconAP.sprite = iconAP;
+            this.iconSP.sprite = iconSP;
+            this.iconAP_Max.sprite = iconAP;
+            this.iconSP_Max.sprite = iconSP;
+        }
+
         public void Initialize()
         {
             lastCharacter = null;

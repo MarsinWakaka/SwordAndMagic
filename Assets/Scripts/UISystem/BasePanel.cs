@@ -16,7 +16,9 @@ namespace UISystem
 
         public virtual void OnEnter()
         {
-            _canvasGroup.DOFade(1, 0.5f);
+            // transform.SetAsLastSibling(); // 位置管理交由UIManager去做。
+            _canvasGroup.DOFade(1, 0.25f);
+            transform.DOScale(1, 0.25f).SetEase(Ease.InCubic);
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
         }
@@ -35,7 +37,8 @@ namespace UISystem
 
         public virtual void OnExit()
         {
-            _canvasGroup.DOFade(0, 0.5f);
+            _canvasGroup.DOFade(0, 0.25f);
+            transform.DOScale(0, 0.25f).SetEase(Ease.InCubic);
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
         }

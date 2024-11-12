@@ -30,6 +30,12 @@ namespace UISystem.PanelPart.BattlePanelPart
             endTurnButton.onClick.AddListener(OnEndTurnButtonClick);
         }
 
+        public void SetSpriteResources(Sprite iconAP, Sprite iconSP, Sprite iconCoolDownTime, Sprite iconRange, Sprite roundOverButton, Sprite skillChosenUI, Sprite skillUI)
+        {
+            statusUI.SetSpriteResources(iconAP, iconSP);
+            skillsUI.SetSpriteResources(iconAP, iconSP, iconCoolDownTime, iconRange, roundOverButton, skillChosenUI, skillUI);
+        }
+
         public void Initialize()
         {
             rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, hidePositionY);

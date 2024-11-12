@@ -7,6 +7,12 @@ namespace UISystem.PanelPart.BattlePanelPart
 {
     public class SkillChosenUI : MonoBehaviour
     {
+        [Header("ICON FromAtlas")]
+        [SerializeField] private Image iconAP;
+        [SerializeField] private Image iconSP;
+        [SerializeField] private Image iconCoolDownTime;
+        [SerializeField] private Image iconRange;
+        [SerializeField] private Image skillChosenUI;
         [Header("技能信息")]
         [SerializeField] private Image skillIcon;
         [SerializeField] private Text skillName;
@@ -24,6 +30,13 @@ namespace UISystem.PanelPart.BattlePanelPart
         private void Awake()
         {
             skillReleaseButton.onClick.AddListener(ReleaseSkillButtonClicked);
+        }
+        public void SetSpriteResources(Sprite iconAP, Sprite iconSP, Sprite iconCoolDownTime, Sprite iconRange, Sprite skillChosenSprite)
+        {
+            this.iconAP.sprite = iconAP;
+            this.iconSP.sprite = iconSP;
+            this.iconCoolDownTime.sprite = iconCoolDownTime;
+            this.iconRange.sprite = iconRange;
         }
 
         public void SetSkillChosenUI(BaseSkill skill)

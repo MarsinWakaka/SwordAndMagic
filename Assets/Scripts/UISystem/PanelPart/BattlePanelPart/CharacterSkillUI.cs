@@ -1,35 +1,20 @@
 using System.Collections.Generic;
 using DG.Tweening;
-using Entity;
 using GamePlaySystem;
 using GamePlaySystem.SkillSystem;
 using MyEventSystem;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UISystem.PanelPart.BattlePanelPart
 {
     public class CharacterSkillUI : MonoBehaviour
     {
+        [Header("ICON FromAtlas")]
+        [SerializeField] private Image roundOverImage;
+        [SerializeField] private Image skillUI;
         private CanvasGroup canvasGroup;
 
-        private float skillChosenUiy;
-        private float skillListUIY;
-        private void Awake()
-        {
-            canvasGroup = GetComponent<CanvasGroup>();
-            skillChosenUiy = skillChosenUI.transform.position.y;
-            skillListUIY = transform.position.y;
-        }
-        
-        public void Initialize()
-        {
-            EventCenter<GameEvent>.Instance.AddListener<BaseSkill>(GameEvent.OnSKillChosenStateEnter, OpenSkillChosenUI);
-        }
-        
-        public void Uninitialize()
-        {
-            EventCenter<GameEvent>.Instance.RemoveListener<BaseSkill>(GameEvent.OnSKillChosenStateEnter, OpenSkillChosenUI);
-        }
 
         [Header("技能格子UI预制体 & 技能格子UI列表")]
         [SerializeField] private CharacterSkillSlotUI skillSlotUIPrefab;
@@ -42,6 +27,31 @@ namespace UISystem.PanelPart.BattlePanelPart
         private List<SkillSlot> skillSlots;
         private Character curCharacter;
 
+        private float skillChosenUiy;
+        private float skillListUIY;
+        private void Awake()
+        {
+            canvasGroup = GetComponent<CanvasGroup>();
+            skillChosenUiy = skillChosenUI.transform.position.y;
+            skillListUIY = transform.position.y;
+        }
+
+        internal void SetSpriteResources(Sprite iconAP, Sprite iconSP, Sprite iconCoolDownTime, Sprite iconRange, Sprite roundOverButtonSprite, Sprite skillChosenSprite, Sprite skillUISprite)
+        {
+            // skillUI.sprite = skillUISprite;
+            roundOverImage.sprite = roundOverButtonSprite;
+            skillChosenUI.SetSpriteResources(iconAP, iconSP, iconCoolDownTime, iconRange, skillChosenSprite);
+        }
+        
+        public void Initialize()
+        {
+            EventCenter<GameEvent>.Instance.AddListener<BaseSkill>(GameEvent.OnSKillChosenStateEnter, OpenSkillChosenUI);
+        }
+        
+        public void Uninitialize()
+        {
+            EventCenter<GameEvent>.Instance.RemoveListener<BaseSkill>(GameEvent.OnSKillChosenStateEnter, OpenSkillChosenUI);
+        }
         public void InitializeSkillUI(Character character)
         {
             if (curCharacter != null) {
