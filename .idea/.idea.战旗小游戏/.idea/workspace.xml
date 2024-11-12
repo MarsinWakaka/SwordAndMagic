@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e439f93-90a8-434c-b04a-f93590aedceb" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.战旗小游戏/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.战旗小游戏/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/测试.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/测试.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,6 +159,7 @@
       <workItem from="1731415382549" duration="624000" />
       <workItem from="1731417463867" duration="423000" />
       <workItem from="1731417918607" duration="812000" />
+      <workItem from="1731423231846" duration="98000" />
     </task>
     <servers />
   </component>
