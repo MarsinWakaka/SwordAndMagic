@@ -16,7 +16,7 @@ using AddressableManager = ResourcesSystem.AddressableManager;
 /// </summary>
 public sealed class ApplicationRoot : SingletonMono<ApplicationRoot>
 {
-    protected override void OnInitialize()
+    protected override void OnAwake()
     {
         // 初始化全局服务【】
         var configPath = "Assets/ConfigData.json";//Path.Combine(Application.streamingAssetsPath, "ConfigData.json");

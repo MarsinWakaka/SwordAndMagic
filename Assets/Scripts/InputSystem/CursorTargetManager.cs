@@ -23,9 +23,8 @@ namespace InputSystem
         private readonly Dictionary<BaseEntity, int> _selectDict = new();
         public Action<BaseEntity,int, bool> OnEntitySelected;
         public Action<BaseEntity> OnEntityCancelSelected;
-
-
-        protected override void Awake()
+        
+        protected override void OnAwake()
         {
             targetPlayerInputProvider = GetComponent<PlayerInputProvider>();
             // 通过GameEntityChooser获取选择的实体

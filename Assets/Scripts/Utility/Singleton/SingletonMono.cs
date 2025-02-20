@@ -4,9 +4,9 @@ namespace Utility.Singleton
 {
     public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static bool _isInitialized;
         private static T _instance;
-        private static readonly object Lock = new object();
+        // ReSharper disable once StaticMemberInGenericType
+        private static readonly object InstanceLock = new();
 
         public static T Instance
         {
@@ -14,7 +14,7 @@ namespace Utility.Singleton
             {
                 if (_instance == null)
                 {
-                    lock (Lock)
+                    lock (InstanceLock)
                     {
                         if (_instance == null)
                         {
@@ -30,7 +30,9 @@ namespace Utility.Singleton
             }
         }
 
-        protected virtual void Awake()
+        // ReSharper disable once StaticMemberInGenericType
+        private static bool _isInitialized;
+        private void Awake()
         {
             if (_instance == null)
             {
@@ -41,14 +43,15 @@ namespace Utility.Singleton
             {
                 Destroy(gameObject);
             }
-            if (_isInitialized) return; // 不要删哦，这个是为了继承者只被初始化一次
+            
+            if (_isInitialized) return;
             _isInitialized = true;
-            OnInitialize();
+            OnAwake();
         }
 
-        protected virtual void OnInitialize()
-        {
-            
-        }
+        /// <summary>
+        /// 多个实例时，只有第一个实例会调用OnAwake方法
+        /// </summary>
+        protected virtual void OnAwake() { }
     }
 }
